@@ -1,9 +1,13 @@
-import {Typography} from "@mui/material";
+import PrimarySearchAppBar from "./components/AppBar";
+import {Container} from "@mui/material";
 
 export default function App() {
     return (
         <>
-            <Typography variant="h1" component="h2">h1. Heading</Typography>
+            <PrimarySearchAppBar/>
+            <Container maxWidth="xl">
+                //TODO Site body
+            </Container>
         </>
     )
 }
