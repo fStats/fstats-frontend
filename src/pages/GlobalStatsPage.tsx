@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
 
-export function GlobalStats() {
+export function GlobalStatsPage() {
     return(<Typography>GlobalStats</Typography>)
 }

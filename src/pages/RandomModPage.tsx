@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
 
-export function RandomMod() {
+export function RandomModPage() {
     return(<Typography>RandomMod</Typography>)
 }

@@ -78,7 +78,7 @@ export default function PrimarySearchAppBar() {
                         <Link to={"/random"} style={linkStyle}>
                             <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Random mod</Button>
                         </Link>
-                        <Link to={"/list"} style={linkStyle}>
+                        <Link to={"/mods"} style={linkStyle}>
                             <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Mods list</Button>
                         </Link>
                         <Link to={"/global"} style={linkStyle}>

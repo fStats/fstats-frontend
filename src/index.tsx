@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
-import {Profile} from "./pages/Profile";
-import {RandomMod} from "./pages/RandomMod";
-import {GlobalStats} from "./pages/GlobalStats";
-import {ModsList} from "./pages/ModsList";
+import {ProfilePage} from "./pages/ProfilePage";
+import {RandomModPage} from "./pages/RandomModPage";
+import {GlobalStatsPage} from "./pages/GlobalStatsPage";
+import {ModsListPage} from "./pages/ModsListPage";
 import Root from "./Root";
-import {Home} from "./pages/Home";
+import {HomePage} from "./pages/HomePage";
+import {getAllProjects, getMetricForProject} from "./service/FStatsApi";
+import {ModPage} from "./pages/ModPage";
+import {NotFoundPage} from "./pages/NotFoundPage";
 
 ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -15,11 +18,19 @@ ReactDOM.createRoot(
         createBrowserRouter(
             createRoutesFromElements(
                 <Route path="/" element={<Root/>}>
-                    <Route index element={<Home/>}/>
-                    <Route path="/profile" element={<Profile/>}/>
-                    <Route path="/random" element={<RandomMod/>}/>
-                    <Route path="/global" element={<GlobalStats/>}/>
-                    <Route path="/list" element={<ModsList/>}/>
+                    <Route index element={<HomePage/>}/>
+
+                    <Route path="random" element={<RandomModPage/>}/>
+
+                    <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
+                    <Route path="mods/:id" loader={getMetricForProject} element={<ModPage/>}/>
+
+                    <Route path="global" element={<GlobalStatsPage/>}/>
+
+                    <Route path="profile" element={<ProfilePage/>}/>
+                    <Route path="profile/:username" element={<ProfilePage/>}/>
+
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
             )
         )

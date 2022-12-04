@@ -1,5 +1,5 @@
 import Typography from "@mui/material/Typography";
 
-export function Profile() {
+export function ProfilePage() {
     return(<Typography>Profile</Typography>)
 }

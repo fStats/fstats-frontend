@@ -1,6 +1,6 @@
 import {Divider, Typography} from "@mui/material";
 
-export function Home() {
+export function HomePage() {
     return (
         <div style={
             {
