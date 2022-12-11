@@ -7,7 +7,7 @@ import {GlobalStatsPage} from "./pages/GlobalStatsPage";
 import {ModsListPage} from "./pages/ModsListPage";
 import Root from "./Root";
 import {HomePage} from "./pages/HomePage";
-import {getAllProjects, getMetricForProject} from "./service/FStatsApi";
+import {getAllProjects, getMetricById} from "./service/FStatsApi";
 import {ModPage} from "./pages/ModPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 
@@ -23,7 +23,7 @@ ReactDOM.createRoot(
                     <Route path="random" element={<RandomModPage/>}/>
 
                     <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
-                    <Route path="mods/:id" loader={getMetricForProject} element={<ModPage/>}/>
+                    <Route path="mods/:id" loader={getMetricById} element={<ModPage/>}/>
 
                     <Route path="global" element={<GlobalStatsPage/>}/>
 
