@@ -1,179 +1,92 @@
-import {useLoaderData} from "react-router-dom";
-import {Card, CardContent} from "@mui/material";
-import HighchartsReact from 'highcharts-react-official';
-import Highcharts from 'highcharts'
-import {Metrics} from "../dto/local/Metrics";
-import Grid from "@mui/material/Unstable_Grid2";
+import {Card, CardContent, Typography} from "@mui/material";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import {
+    getLocationMetricById,
+    getMinecraftVersionMetricById, getModVersionMetricById,
+    getOnlineModeMetricById, getOperationSystemMetricById,
+    getSideMetricById
+} from "../service/FStatsApi";
+import {ComponentProps, useEffect, useState} from "react";
+import {MetricPie} from "../components/MetricPie";
+import {Params, useParams} from "react-router-dom";
 
 export function ModPage() {
+    const [sides, setSides] = useState([]);
+    const [mcVersions, setMcVersions] = useState([]);
+    const [onlineModes, setOnlineModes] = useState([]);
+    const [modVersions, setModVersions] = useState([]);
+    const [oss, setOss] = useState([]);
+    const [locations, setLocations] = useState([]);
 
-    const data = useLoaderData() as Metrics
+    const {modId} = useParams();
+    const id = Number.parseInt(modId!!)
+
+    useEffect(() => {
+        getSideMetricById(id).then(data => setSides(data));
+        getMinecraftVersionMetricById(id).then(data => setMcVersions(data));
+        getOnlineModeMetricById(id).then(data => setOnlineModes(data));
+        getModVersionMetricById(id).then(data => setModVersions(data));
+        getOperationSystemMetricById(id).then(data => setOss(data));
+        getLocationMetricById(id).then(data => setLocations(data));
+    }, []);
 
     return (
-        <Grid container spacing={2} padding={4}>
+        <Grid2 container spacing={2} padding={4}>
 
-            <Grid xs={2} sm={4} md={4}>
+            <Grid2 xs={1} sm={4} md={4}>
                 <Card>
                     <CardContent>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={{
-                                chart: {
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Side'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                series: [{
-                                    data: data.side
-                                }]
-                            }}
-                        />
+                        <Typography variant="h6" textAlign="center">Side</Typography>
+                        <MetricPie data={sides}/>
                     </CardContent>
                 </Card>
-            </Grid>
+            </Grid2>
 
-            <Grid xs={2} sm={4} md={4}>
+            <Grid2 xs={1} sm={4} md={4}>
                 <Card>
                     <CardContent>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={{
-                                chart: {
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Minecraft Version'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                series: [{
-                                    data: data.mcversion
-                                }]
-                            }}
-                        />
+                        <Typography variant="h6" textAlign="center">Minecraft Version</Typography>
+                        <MetricPie data={mcVersions}/>
                     </CardContent>
                 </Card>
-            </Grid>
+            </Grid2>
 
-            <Grid xs={2} sm={4} md={4}>
+            <Grid2 xs={1} sm={4} md={4}>
                 <Card>
                     <CardContent>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={{
-                                chart: {
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Online Mode'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                series: [{
-                                    data: data.onlinemode
-                                }]
-                            }}
-                        />
+                        <Typography variant="h6" textAlign="center">Online Mode</Typography>
+                        <MetricPie data={onlineModes}/>
                     </CardContent>
                 </Card>
-            </Grid>
+            </Grid2>
 
-            <Grid xs={2} sm={4} md={4}>
+            <Grid2 xs={1} sm={4} md={4}>
                 <Card>
                     <CardContent>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={{
-                                chart: {
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Mod Version'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                series: [{
-                                    data: data.modversion
-                                }]
-                            }}
-                        />
+                        <Typography variant="h6" textAlign="center">Mod Version</Typography>
+                        <MetricPie data={modVersions}/>
                     </CardContent>
                 </Card>
-            </Grid>
+            </Grid2>
 
-            <Grid xs={2} sm={4} md={4}>
+            <Grid2 xs={1} sm={4} md={4}>
                 <Card>
                     <CardContent>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={{
-                                chart: {
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Operation System'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                series: [{
-                                    data: data.os
-                                }]
-                            }}
-                        />
+                        <Typography variant="h6" textAlign="center">Operation System</Typography>
+                        <MetricPie data={oss}/>
                     </CardContent>
                 </Card>
-            </Grid>
+            </Grid2>
 
-            <Grid xs={2} sm={4} md={4}>
+            <Grid2 xs={1} sm={4} md={4}>
                 <Card>
                     <CardContent>
-                        <HighchartsReact
-                            highcharts={Highcharts}
-                            options={{
-                                chart: {
-                                    plotShadow: false,
-                                    type: 'pie'
-                                },
-                                title: {
-                                    text: 'Location'
-                                },
-                                accessibility: {
-                                    point: {
-                                        valueSuffix: '%'
-                                    }
-                                },
-                                series: [{
-                                    data: data.location
-                                }]
-                            }}
-                        />
+                        <Typography variant="h6" textAlign="center">Location</Typography>
+                        <MetricPie data={locations}/>
                     </CardContent>
                 </Card>
-            </Grid>
+            </Grid2>
 
-        </Grid>
+        </Grid2>
     )
 }
