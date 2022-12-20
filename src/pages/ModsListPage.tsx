@@ -13,7 +13,11 @@ export function ModsListPage() {
                 mods.map((data) => (
                     <Grid xs={8} sm={6} md={4} xl={2}>
                         <Card>
-                            <CardActionArea onClick = {() => navigate(`${data.id}`)}>
+                            <CardActionArea onClick={() => navigate(`${data.id}`, {
+                                state: {
+                                    title: data.name
+                                }
+                            })}>
                                 <CardContent>
                                     <Typography>{data.name}</Typography>
                                 </CardContent>

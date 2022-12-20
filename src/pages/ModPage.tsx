@@ -2,13 +2,15 @@ import {Card, CardContent, Typography} from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {
     getLocationMetricById,
-    getMinecraftVersionMetricById, getModVersionMetricById,
-    getOnlineModeMetricById, getOperationSystemMetricById,
+    getMinecraftVersionMetricById,
+    getModVersionMetricById,
+    getOnlineModeMetricById,
+    getOperationSystemMetricById,
     getSideMetricById
 } from "../service/FStatsApi";
-import {ComponentProps, useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {MetricPie} from "../components/MetricPie";
-import {Params, useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 
 export function ModPage() {
     const [sides, setSides] = useState([]);
@@ -19,6 +21,7 @@ export function ModPage() {
     const [locations, setLocations] = useState([]);
 
     const {modId} = useParams();
+    const { title } = useLocation().state
     const id = Number.parseInt(modId!!)
 
     useEffect(() => {
@@ -31,62 +34,65 @@ export function ModPage() {
     }, []);
 
     return (
-        <Grid2 container spacing={2} padding={4}>
+        <>
+            <Typography variant="h2" textAlign="center" paddingTop={2}>{title}</Typography>
+            <Grid2 container spacing={2} padding={4}>
 
-            <Grid2 xs={1} sm={4} md={4}>
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6" textAlign="center">Side</Typography>
-                        <MetricPie data={sides}/>
-                    </CardContent>
-                </Card>
+                <Grid2 xs={1} sm={4} md={4}>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h6" textAlign="center">Side</Typography>
+                            <MetricPie data={sides}/>
+                        </CardContent>
+                    </Card>
+                </Grid2>
+
+                <Grid2 xs={1} sm={4} md={4}>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h6" textAlign="center">Minecraft Version</Typography>
+                            <MetricPie data={mcVersions}/>
+                        </CardContent>
+                    </Card>
+                </Grid2>
+
+                <Grid2 xs={1} sm={4} md={4}>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h6" textAlign="center">Online Mode</Typography>
+                            <MetricPie data={onlineModes}/>
+                        </CardContent>
+                    </Card>
+                </Grid2>
+
+                <Grid2 xs={1} sm={4} md={4}>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h6" textAlign="center">Mod Version</Typography>
+                            <MetricPie data={modVersions}/>
+                        </CardContent>
+                    </Card>
+                </Grid2>
+
+                <Grid2 xs={1} sm={4} md={4}>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h6" textAlign="center">Operation System</Typography>
+                            <MetricPie data={oss}/>
+                        </CardContent>
+                    </Card>
+                </Grid2>
+
+                <Grid2 xs={1} sm={4} md={4}>
+                    <Card>
+                        <CardContent>
+                            <Typography variant="h6" textAlign="center">Location</Typography>
+                            <MetricPie data={locations}/>
+                        </CardContent>
+                    </Card>
+                </Grid2>
+
             </Grid2>
-
-            <Grid2 xs={1} sm={4} md={4}>
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6" textAlign="center">Minecraft Version</Typography>
-                        <MetricPie data={mcVersions}/>
-                    </CardContent>
-                </Card>
-            </Grid2>
-
-            <Grid2 xs={1} sm={4} md={4}>
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6" textAlign="center">Online Mode</Typography>
-                        <MetricPie data={onlineModes}/>
-                    </CardContent>
-                </Card>
-            </Grid2>
-
-            <Grid2 xs={1} sm={4} md={4}>
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6" textAlign="center">Mod Version</Typography>
-                        <MetricPie data={modVersions}/>
-                    </CardContent>
-                </Card>
-            </Grid2>
-
-            <Grid2 xs={1} sm={4} md={4}>
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6" textAlign="center">Operation System</Typography>
-                        <MetricPie data={oss}/>
-                    </CardContent>
-                </Card>
-            </Grid2>
-
-            <Grid2 xs={1} sm={4} md={4}>
-                <Card>
-                    <CardContent>
-                        <Typography variant="h6" textAlign="center">Location</Typography>
-                        <MetricPie data={locations}/>
-                    </CardContent>
-                </Card>
-            </Grid2>
-
-        </Grid2>
+        </>
     )
 }
