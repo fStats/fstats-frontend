@@ -7,9 +7,9 @@ import {
     getOnlineModeMetricById,
     getOperationSystemMetricById,
     getSideMetricById
-} from "../service/FStatsApi";
+} from "../../service/FStatsApi";
 import {useEffect, useState} from "react";
-import {MetricPie} from "../components/MetricPie";
+import {MetricPie} from "./components/MetricPie";
 import {useLocation, useParams} from "react-router-dom";
 
 export function ModPage() {

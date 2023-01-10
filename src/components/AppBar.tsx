@@ -1,27 +1,27 @@
 import * as React from 'react';
-import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import {Button, Container} from "@mui/material";
-import {Link} from "react-router-dom";
-
-const linkStyle = {
-    color: `inherit`,
-    textDecoration: 'none'
-}
+import {StylelessLink} from "./StylelessLink";
+import {Login} from "@mui/icons-material";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 export default function PrimaryAppBar() {
+
+    const [isLogged, setLogged] = useState(false);
+    const navigate = useNavigate()
+
     return (
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Container maxWidth="xl">
                     <Toolbar disableGutters>
-                        <Link to={"/"} style={linkStyle}>
+                        <StylelessLink to={"/"}>
                             <Typography
                                 variant="h6"
                                 noWrap
@@ -29,19 +29,19 @@ export default function PrimaryAppBar() {
                                 sx={{display: {xs: 'none', sm: 'block'}}}>
                                 Fabric Stats
                             </Typography>
-                        </Link>
+                        </StylelessLink>
                         <Box sx={{flexGrow: 1}}/>
-                        <Link to={"/random"} style={linkStyle}>
+                        <StylelessLink to={"/random"}>
                             <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Random mod</Button>
-                        </Link>
-                        <Link to={"/mods"} style={linkStyle}>
+                        </StylelessLink>
+                        <StylelessLink to={"/mods"}>
                             <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Mods list</Button>
-                        </Link>
-                        <Link to={"/global"} style={linkStyle}>
+                        </StylelessLink>
+                        <StylelessLink to={"/global"}>
                             <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Global stats</Button>
-                        </Link>
-                        <Box sx={{display: {xs: 'none', md: 'flex'}}}>
-                            <Link to={"/profile"} style={linkStyle}>
+                        </StylelessLink>
+                        {isLogged ?
+                            <StylelessLink to={"/profile"}>
                                 <IconButton
                                     size="large"
                                     edge="end"
@@ -49,8 +49,18 @@ export default function PrimaryAppBar() {
                                     color="inherit">
                                     <AccountCircle/>
                                 </IconButton>
-                            </Link>
-                        </Box>
+                            </StylelessLink>
+                            :
+                            <IconButton onClick={() => {
+                                navigate("//./login")
+                            }}
+                                        size="large"
+                                        edge="end"
+                                        aria-haspopup="true"
+                                        color="inherit">
+                                <Login/>
+                            </IconButton>
+                        }
                     </Toolbar>
                 </Container>
             </AppBar>

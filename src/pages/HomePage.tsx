@@ -1,15 +1,18 @@
-import {Divider, Typography} from "@mui/material";
+import {Button, Typography} from "@mui/material";
+import React from "react";
+import Grid2 from "@mui/material/Unstable_Grid2";
 
 export function HomePage() {
     return (
-        <div style={
-            {
-                textAlign: "center",
-            }
-        }>
-                <Typography variant="h1">Fabric Stats</Typography>
-                <Divider style={{margin: "16px"}}/>
-                <Typography variant="h2">Minecraft metric mod for developers</Typography>
-        </div>
+        <Grid2 container spacing={2} direction="column" alignItems="center" padding={12}>
+            <Grid2>
+                <Typography textAlign="center" variant="h1">Fabric Stats</Typography>
+                <Typography textAlign="center" variant="h4">Minecraft metric mod for developers</Typography>
+            </Grid2>
+            <br/>
+            <Grid2>
+                <Button variant="contained">Getting start</Button>
+            </Grid2>
+        </Grid2>
     )
 }
