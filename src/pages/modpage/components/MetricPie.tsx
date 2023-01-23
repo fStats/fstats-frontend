@@ -9,7 +9,7 @@ export function MetricPie(props: ComponentProps<any>) {
         data,
         angleField: 'count',
         colorField: 'value',
-        radius: 0.65,
+        radius: 0.55,
         legend: false,
         label: {
             type: 'spider',
