@@ -1,10 +1,10 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
 import {useLoaderData, useNavigate} from "react-router-dom";
-import {Project} from "../dto/Project";
 import Grid from "@mui/material/Unstable_Grid2";
+import {Project} from "../services/types";
 
 export function ModsListPage() {
-    const mods = useLoaderData() as Array<Project>
+    const mods = useLoaderData() as Project[]
     const navigate = useNavigate()
 
     return (
