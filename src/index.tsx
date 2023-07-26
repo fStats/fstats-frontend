@@ -28,9 +28,7 @@ ReactDOM.createRoot(
                     <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
                     <Route path="mods/:modId" element={<ModPage/>}/>
 
-                    <Route path="global" element={<GlobalStatsPage/>}/>
-
-                    <Route path="profile/:username" element={<ProfilePage/>}/>
+                            <Route path="profile/:username" element={<ProfilePage/>}/>
 
                     <Route path="*" element={<NotFoundPage/>}/>
                 </Route>
