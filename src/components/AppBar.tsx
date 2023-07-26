@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {useState} from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -6,10 +7,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import {Button, Container} from "@mui/material";
-import {StylelessLink} from "./StylelessLink";
 import {Login} from "@mui/icons-material";
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export default function PrimaryAppBar() {
 
@@ -20,44 +19,41 @@ export default function PrimaryAppBar() {
         <Box sx={{flexGrow: 1}}>
             <AppBar position="static">
                 <Container maxWidth="xl">
-                    <Toolbar disableGutters>
-                        <StylelessLink to={"/"}>
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                component="div"
-                                sx={{display: {xs: 'none', sm: 'block'}}}>
-                                Fabric Stats
-                            </Typography>
-                        </StylelessLink>
+                    <Toolbar>
+                        <Typography
+                            variant="h5"
+                            noWrap
+                            color={"inherit"}
+                            component={Link}
+                            to="/"
+                            sx={{display: {xs: 'none', sm: 'block'}, textDecoration: "none"}}>
+                            Fabric Stats
+                        </Typography>
                         <Box sx={{flexGrow: 1}}/>
-                        <StylelessLink to={"/random"}>
-                            <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Random mod</Button>
-                        </StylelessLink>
-                        <StylelessLink to={"/mods"}>
-                            <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Mods list</Button>
-                        </StylelessLink>
-                        <StylelessLink to={"/global"}>
-                            <Button key={1} sx={{my: 2, color: 'white', display: 'block'}}>Global stats</Button>
-                        </StylelessLink>
+                        <Button key={1} sx={{my: 2, color: 'white', display: 'block'}} component={Link} to={"/random"}>Random
+                            mod</Button>
+                        <Button key={1} sx={{my: 2, color: 'white', display: 'block'}} component={Link} to={"/mods"}>Mods
+                            list</Button>
+                        <Button key={1} sx={{my: 2, color: 'white', display: 'block'}} component={Link} to={"/global"}>Global
+                            stats</Button>
                         {isLogged ?
-                            <StylelessLink to={"/profile"}>
-                                <IconButton
-                                    size="large"
-                                    edge="end"
-                                    aria-haspopup="true"
-                                    color="inherit">
-                                    <AccountCircle/>
-                                </IconButton>
-                            </StylelessLink>
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-haspopup="true"
+                                color="inherit"
+                                component={Link}
+                                to={"/profile"}>
+                                <AccountCircle/>
+                            </IconButton>
                             :
-                            <IconButton onClick={() => {
-                                navigate("//./login")
-                            }}
-                                        size="large"
-                                        edge="end"
-                                        aria-haspopup="true"
-                                        color="inherit">
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-haspopup="true"
+                                color="inherit"
+                                component={Link}
+                                to={"/login"}>
                                 <Login/>
                             </IconButton>
                         }
