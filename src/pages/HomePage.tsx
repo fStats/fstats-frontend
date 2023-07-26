@@ -1,6 +1,7 @@
 import {Button, Typography} from "@mui/material";
 import React from "react";
 import Grid2 from "@mui/material/Unstable_Grid2";
+import {Link} from "react-router-dom";
 
 export function HomePage() {
     return (
@@ -11,7 +12,7 @@ export function HomePage() {
             </Grid2>
             <br/>
             <Grid2>
-                <Button variant="contained">Getting start</Button>
+                <Button variant="contained" component={Link} to="/tutorial">Getting start</Button>
             </Grid2>
         </Grid2>
     )
