@@ -3,36 +3,51 @@ import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
 import {ProfilePage} from "./pages/profile/ProfilePage";
 import {RandomModPage} from "./pages/RandomModPage";
-import {GlobalStatsPage} from "./pages/GlobalStatsPage";
 import {ModsListPage} from "./pages/ModsListPage";
 import Root from "./Root";
 import {HomePage} from "./pages/HomePage";
-import {getAllProjects} from "./service/FStatsApi";
 import {ModPage} from "./pages/modpage/ModPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import {LoginPage} from "./pages/LoginPage";
+import {getAllProjects} from "./services/fStatsApi";
+import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import {ArcElement, Chart, Tooltip} from "chart.js";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+import zoomPlugin from 'chartjs-plugin-zoom';
+import TutorialPage from "./pages/TutorialPage";
+import RegisterPage from "./pages/RegisterPage";
+
+const queryClient = new QueryClient()
+Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 
 ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 ).render(
-    <RouterProvider router={
-        createBrowserRouter(
-            createRoutesFromElements(
-                <Route path="/" element={<Root/>}>
-                    <Route index element={<HomePage/>}/>
+    <React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+            <RouterProvider router={
+                createBrowserRouter(
+                    createRoutesFromElements(
+                        <Route path="/" element={<Root/>}>
+                            <Route index element={<HomePage/>}/>
 
-                    <Route path="login" element={<LoginPage/>}/>
+                            <Route path="login" element={<LoginPage/>}/>
+                            <Route path="register" element={<RegisterPage/>}/>
 
-                    <Route path="random" element={<RandomModPage/>}/>
+                            <Route path="random" element={<RandomModPage/>}/>
 
-                    <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
-                    <Route path="mods/:modId" element={<ModPage/>}/>
+                            <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
+                            <Route path="mods/:modId" element={<ModPage/>}/>
 
                             <Route path="profile/:username" element={<ProfilePage/>}/>
 
-                    <Route path="*" element={<NotFoundPage/>}/>
-                </Route>
-            )
-        )
-    }/>
+                            <Route path="tutorial" element={<TutorialPage/>}/>
+
+                            <Route path="*" element={<NotFoundPage/>}/>
+                        </Route>
+                    )
+                )
+            }/>
+        </QueryClientProvider>
+    </React.StrictMode>
 );
