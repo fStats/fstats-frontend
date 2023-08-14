@@ -7,7 +7,7 @@ export const getUser = async (nameOrId: string | number): Promise<User> =>
     await fetch(`${hostUrl}/users/${nameOrId}`).then(response => response.json())
 
 export const getUserProjects = async (userId: number): Promise<Project[]> =>
-    await fetch(`${hostUrl}/${userId}/projects`).then(response => response.json())
+    await fetch(`${hostUrl}/users/${userId}/projects`).then(response => response.json())
 
 export const deleteUser = async (): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/projects`, {
