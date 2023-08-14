@@ -17,6 +17,7 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import TutorialPage from "./pages/TutorialPage";
 import RegisterPage from "./pages/RegisterPage";
 import {SnackbarProvider} from "notistack";
+import {AuthProvider} from "./hooks/useAuth";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 const queryClient = new QueryClient({
@@ -34,29 +35,31 @@ ReactDOM.createRoot(
     <React.StrictMode>
         <QueryClientProvider client={queryClient}>
             <SnackbarProvider maxSnack={3}>
-                <RouterProvider router={
-                    createBrowserRouter(
-                        createRoutesFromElements(
-                            <Route path="/" element={<Root/>}>
-                                <Route index element={<HomePage/>}/>
+                <AuthProvider userToken={localStorage.getItem("token") || ""}>
+                    <RouterProvider router={
+                        createBrowserRouter(
+                            createRoutesFromElements(
+                                <Route path="/" element={<Root/>}>
+                                    <Route index element={<HomePage/>}/>
 
-                                <Route path="login" element={<LoginPage/>}/>
-                                <Route path="register" element={<RegisterPage/>}/>
+                                    <Route path="login" element={<LoginPage/>}/>
+                                    <Route path="register" element={<RegisterPage/>}/>
 
-                                <Route path="random" element={<RandomModPage/>}/>
+                                    <Route path="random" element={<RandomModPage/>}/>
 
-                                <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
-                                <Route path="mods/:modId" element={<ModPage/>}/>
+                                    <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
+                                    <Route path="mods/:modId" element={<ModPage/>}/>
 
-                                <Route path="profile/:username" element={<ProfilePage/>}/>
+                                    <Route path="profile/:username" element={<ProfilePage/>}/>
 
-                                <Route path="tutorial" element={<TutorialPage/>}/>
+                                    <Route path="tutorial" element={<TutorialPage/>}/>
 
-                                <Route path="*" element={<NotFoundPage/>}/>
-                            </Route>
+                                    <Route path="*" element={<NotFoundPage/>}/>
+                                </Route>
+                            )
                         )
-                    )
-                }/>
+                    }/>
+                </AuthProvider>
             </SnackbarProvider>
         </QueryClientProvider>
     </React.StrictMode>
