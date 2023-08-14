@@ -7,10 +7,6 @@ export interface AuthToken {
     token: string
 }
 
-export interface DataValue {
-    [value: string]: number;
-}
-
 export interface Metric {
     timestampSeconds: number
     projectId: number
@@ -20,14 +16,20 @@ export interface Metric {
     modVersion: string
     os: string & { length: 1 }
     location: string
+    fabric_api_version: string
 }
 
 export interface MinecraftData {
-    minecraft_version: DataValue;
-    online_mode: DataValue;
-    mod_version: DataValue;
-    os: DataValue;
-    location: DataValue;
+    minecraft_version: DataValue
+    online_mode: DataValue
+    mod_version: DataValue
+    os: DataValue
+    location: DataValue
+    fabric_api_version: DataValue
+}
+
+export interface DataValue {
+    [value: string]: number
 }
 
 export interface Project {
