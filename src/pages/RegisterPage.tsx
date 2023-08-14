@@ -1,17 +1,53 @@
-import {Button, Card, Container, Divider, Stack, TextField, Typography} from "@mui/material";
+import {Button, Card, CircularProgress, Container, Divider, Stack, TextField, Typography} from "@mui/material";
 import React, {useState} from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useRegistration} from "../services/auth";
+import {User} from "../services/types";
+import {useSnackbar} from "notistack";
+import {CenteredContainer} from "../components/CenteredContainer";
 
 export default function RegisterPage() {
+
+    const navigate = useNavigate()
+    const {enqueueSnackbar} = useSnackbar();
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordRepeat, setPasswordRepeat] = useState("")
 
+    const [user, setUser] = useState<User>()
+
+    const {data, status, error} = useRegistration(user)
+
+    if (status === "error" && user) {
+        enqueueSnackbar(error?.message, {variant: "error"})
+        setUser(undefined)
+    }
+
+    if (status === "loading" && user) {
+        return (
+            <CenteredContainer>
+                <CircularProgress/>
+            </CenteredContainer>
+        )
+    }
+
+    if (status === "success" && user) {
+        if (data.code !== 201) {
+            enqueueSnackbar(data.message, {variant: "warning"});
+        } else {
+            enqueueSnackbar(data.message, {variant: "success"})
+            navigate("/login", {state: {username: username}})
+        }
+        setUser(undefined)
+    }
+
     function registerUser(username: string, password: string, passwordRepeat: string) {
         if (password !== passwordRepeat) return alert("Password doesn't match")
-
-        //Registration
+        setUser({
+            username: username,
+            password: password
+        })
     }
 
     return (
