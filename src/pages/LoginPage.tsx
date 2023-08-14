@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import {Button, Card, CircularProgress, Container, Divider, Stack, Typography} from "@mui/material";
 import React, {useState} from "react";
-import {Link, Navigate} from "react-router-dom";
+import {Link, Navigate, useLocation} from "react-router-dom";
 import {User} from "../services/types";
 import {useLogin} from "../services/auth";
 import {useSnackbar} from "notistack";
@@ -10,15 +10,17 @@ import {useAuth} from "../hooks/useAuth";
 export function LoginPage() {
 
     const {enqueueSnackbar} = useSnackbar();
+    const {state} = useLocation()
 
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [username, setUsername] = useState<string>(state?.username || "")
+    const [password, setPassword] = useState<string>("")
 
     const [user, setUser] = useState<User>()
 
     const {data, status, error} = useLogin(user)
 
     const {setToken} = useAuth()!!
+
 
     if (status === "error" && user) {
         enqueueSnackbar(error?.message, {variant: "error"})
@@ -53,9 +55,10 @@ export function LoginPage() {
             <Card>
                 <Stack padding={2} spacing={2}>
                     <Typography variant="h4" align="center">Log In</Typography>
-                    <TextField label="Username" variant="outlined" type="text" onChange={(event) => {
-                        setUsername(event.target.value)
-                    }}/>
+                    <TextField label="Username" variant="outlined" type="text" defaultValue={state?.username || ""}
+                               onChange={(event) => {
+                                   setUsername(event.target.value)
+                               }}/>
                     <TextField label="Password" variant="outlined" type="password" onChange={(event) => {
                         setPassword(event.target.value)
                     }}/>
