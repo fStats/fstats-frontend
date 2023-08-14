@@ -37,6 +37,12 @@ ReactDOM.createRoot(
                     createRoutesFromElements(
                         <Route path="/" element={<Root/>}>
                             <Route index element={<HomePage/>}/>
+            <SnackbarProvider maxSnack={3}>
+                    <RouterProvider router={
+                        createBrowserRouter(
+                            createRoutesFromElements(
+                                <Route path="/" element={<Root/>}>
+                                    <Route index element={<HomePage/>}/>
 
                             <Route path="login" element={<LoginPage/>}/>
                             <Route path="register" element={<RegisterPage/>}/>
@@ -55,6 +61,12 @@ ReactDOM.createRoot(
                     )
                 )
             }/>
+                                    <Route path="*" element={<NotFoundPage/>}/>
+                                </Route>
+                            )
+                        )
+                    }/>
+            </SnackbarProvider>
         </QueryClientProvider>
     </React.StrictMode>
 );
