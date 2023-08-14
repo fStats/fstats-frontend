@@ -17,8 +17,15 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import TutorialPage from "./pages/TutorialPage";
 import RegisterPage from "./pages/RegisterPage";
 
-const queryClient = new QueryClient()
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            retry: false
+        },
+    },
+})
 
 ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
