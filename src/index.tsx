@@ -18,6 +18,7 @@ import TutorialPage from "./pages/TutorialPage";
 import RegisterPage from "./pages/RegisterPage";
 import {SnackbarProvider} from "notistack";
 import {AuthProvider} from "./hooks/useAuth";
+import {ProtectedRoute} from "./ProtectedRoute";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 const queryClient = new QueryClient({
@@ -50,7 +51,11 @@ ReactDOM.createRoot(
                                     <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
                                     <Route path="mods/:modId" element={<ModPage/>}/>
 
-                                    <Route path="profile/:username" element={<ProfilePage/>}/>
+                                    <Route path="profile" element={
+                                        <ProtectedRoute>
+                                            <ProfilePage/>
+                                        </ProtectedRoute>
+                                    }/>
 
                                     <Route path="tutorial" element={<TutorialPage/>}/>
 
