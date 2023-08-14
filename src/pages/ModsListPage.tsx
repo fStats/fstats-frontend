@@ -1,16 +1,21 @@
 import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import {useLoaderData, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import Grid from "@mui/material/Unstable_Grid2";
 import {Project} from "../services/types";
+import {useProjects} from "../services/projects";
 
 export function ModsListPage() {
-    const mods = useLoaderData() as Project[]
+    const {data, status, error} = useProjects()
     const navigate = useNavigate()
+
+    if (status === "loading") return (<></>)
+
+    if (status === "error") return (<>{error}</>)
 
     return (
         <Grid container spacing={2} justifyContent="center" padding={4}>
             {
-                mods.map((project: Project) => (
+                data.map((project: Project) => (
                     <Grid xs={8} sm={6} md={4} xl={2}>
                         <Card>
                             <CardActionArea onClick={() => navigate(`${project.id}`, {
