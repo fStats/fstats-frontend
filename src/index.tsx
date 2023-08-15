@@ -9,7 +9,6 @@ import {HomePage} from "./pages/HomePage";
 import {ModPage} from "./pages/modpage/ModPage";
 import {NotFoundPage} from "./pages/NotFoundPage";
 import {LoginPage} from "./pages/LoginPage";
-import {getAllProjects} from "./services/fStatsApi";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ArcElement, Chart, Tooltip} from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -48,7 +47,7 @@ ReactDOM.createRoot(
 
                                     <Route path="random" element={<RandomModPage/>}/>
 
-                                    <Route path="mods" loader={getAllProjects} element={<ModsListPage/>}/>
+                                    <Route path="mods" element={<ModsListPage/>}/>
                                     <Route path="mods/:modId" element={<ModPage/>}/>
 
                                     <Route path="profile" element={
