@@ -1,29 +1,27 @@
-import {CircularProgress, Stack, Typography} from "@mui/material";
-import {useParams} from "react-router-dom";
+import {Stack, Typography} from "@mui/material";
+import {Navigate, useParams} from "react-router-dom";
 import {useMetricCount} from "../../services/metrics";
 import React from "react";
 import {MetricCard} from "./components/MetricCard";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {DataValue} from "../../services/types";
 import {useProject} from "../../services/projects";
+import {Loader} from "../../components/Loader";
+import {ErrorMessage} from "../../components/ErrorMessage";
 
 export function ModPage() {
     const {modId} = useParams();
     const id = Number.parseInt(modId!!)
 
-    const {data: metrics, status, error} = useMetricCount(id)
-    const {data: project} = useProject(id)
+    const {data: metrics, status: metricStatus, error: metricError} = useMetricCount(id)
+    const {data: project, status: projectStatus, error: projectError} = useProject(id)
 
-    if (status === "loading") return (
-        <Typography variant="h4">
-            <CircularProgress/>
-        </Typography>
-    )
+    if (metricStatus === "loading" || projectStatus === "loading") return (<Loader/>)
 
-    if (status === "error") return (
-        <Typography variant="h4">
-            {error?.message}
-        </Typography>
+    if (metricStatus === "error" || projectStatus === "error") return (
+        <ErrorMessage message={metricError?.message || projectError?.message || "Unexpected error"}>
+            <Navigate to="/not-found"/>
+        </ErrorMessage>
     )
 
     return (

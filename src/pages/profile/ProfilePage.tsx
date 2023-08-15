@@ -1,11 +1,13 @@
 import React from "react";
-import {Card, CardActionArea, CardContent, CircularProgress, Stack, Typography} from "@mui/material";
+import {Card, CardActionArea, CardContent, Stack, Typography} from "@mui/material";
 import Grid2 from '@mui/material/Unstable_Grid2';
 import {ProfileImage} from "./components/ProfileImage";
 import {useNavigate} from "react-router-dom";
 import {useUserProjects} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
 import {User} from "../../services/types";
+import {ErrorMessage} from "../../components/ErrorMessage";
+import {Loader} from "../../components/Loader";
 
 export function ProfilePage() {
 
@@ -15,8 +17,9 @@ export function ProfilePage() {
 
     const {data, status, error} = useUserProjects(user.id!!)
 
-    if (status === "error") return (<>{error?.message}</>)
-    if (status === "loading") return (<CircularProgress/>)
+    if (status === "loading") return (<Loader/>)
+
+    if (status === "error") return (<ErrorMessage message={error?.message}/>)
 
     return (
         <Grid2 container spacing={2} padding={2}>
