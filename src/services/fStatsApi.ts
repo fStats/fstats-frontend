@@ -3,16 +3,27 @@ import {ApiMessage, AuthToken, Metric, MinecraftData, Project, User} from "./typ
 const hostUrl: string = "https://api.fstats.dev/v2"
 
 /*   USERS   */
-export const getUser = async (nameOrId: string | number): Promise<User> =>
-    await fetch(`${hostUrl}/users/${nameOrId}`).then(response => response.json())
+export const getUser = async (nameOrId: string | number): Promise<User> => {
+    const response = await fetch(`${hostUrl}/users/${nameOrId}`)
 
-export const getUserProjects = async (userId: number): Promise<Project[]> =>
-    await fetch(`${hostUrl}/users/${userId}/projects`).then(response => response.json())
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as User
+}
+
+export const getUserProjects = async (userId: number): Promise<Project[]> => {
+    const response = await fetch(`${hostUrl}/users/${userId}/projects`)
+
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as Project[]
+}
 
 export const deleteUser = async (): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/projects`, {
-        method: "DELETE",
-        headers: {"Authorization": "Where is token :?)"}
+        method: "DELETE", headers: {
+            "Authorization": "Where is token :?)"
+        }
     })
 
     if (response.status !== 202) throw new Error((await response.json() as ApiMessage).message)
@@ -21,20 +32,28 @@ export const deleteUser = async (): Promise<ApiMessage> => {
 }
 
 /*   PROJECTS   */
-export const getAllProjects = async (): Promise<Project[]> =>
-    await fetch(`${hostUrl}/projects`).then(response => response.json())
+export const getAllProjects = async (): Promise<Project[]> => {
+    const response = await fetch(`${hostUrl}/projects`)
 
-export const getProject = async (projectId: number): Promise<Project> =>
-    await fetch(`${hostUrl}/projects/${projectId}`).then(response => response.json())
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
 
-export const createProject = async (project: Project): Promise<ApiMessage> => {
+    return await response.json() as Project[]
+}
+
+export const getProject = async (projectId: number): Promise<Project> => {
+    const response = await fetch(`${hostUrl}/projects/${projectId}`)
+
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as Project
+}
+
+export const createProject = async (project: Project, token: string): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/projects`, {
-        method: "POST",
-        headers: {
+        method: "POST", headers: {
             "Content-Type": "application/json",
-            "Authorization": "Where is token :?)"
-        },
-        body: JSON.stringify(project)
+            "Authorization": `Bearer ${token}`
+        }, body: JSON.stringify(project)
     })
 
     if (response.status !== 201) throw new Error((await response.json() as ApiMessage).message)
@@ -42,10 +61,11 @@ export const createProject = async (project: Project): Promise<ApiMessage> => {
     return await response.json() as ApiMessage
 }
 
-export const deleteProject = async (projectId: number): Promise<ApiMessage> => {
+export const deleteProject = async (projectId: number, token: string): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/projects/${projectId}`, {
-        method: "DELETE",
-        headers: {"Authorization": "Where is token :) ?"}
+        method: "DELETE", headers: {
+            "Authorization": `Bearer ${token}`
+        }
     })
 
     if (response.status !== 202) throw new Error((await response.json() as ApiMessage).message)
@@ -54,18 +74,28 @@ export const deleteProject = async (projectId: number): Promise<ApiMessage> => {
 }
 
 /*   METRICS   */
-export const getMetric = async (projectId: number): Promise<Metric[]> =>
-    await fetch(`${hostUrl}/metrics/${projectId}`).then(response => response.json())
+export const getMetric = async (projectId: number): Promise<Metric[]> => {
+    const response = await fetch(`${hostUrl}/metrics/${projectId}`)
 
-export const getMetricCount = async (projectId: number): Promise<MinecraftData> =>
-    await fetch(`${hostUrl}/metrics/${projectId}/count`).then(response => response.json())
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as Metric[]
+}
+
+export const getMetricCount = async (projectId: number): Promise<MinecraftData> => {
+    const response = await fetch(`${hostUrl}/metrics/${projectId}/count`)
+
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as MinecraftData
+}
 
 /*   AUTH   */
 export const registration = async (user: User): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/auth/registration`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(user)
+        method: "POST", headers: {
+            "Content-Type": "application/json"
+        }, body: JSON.stringify(user)
     })
 
     if (response.status !== 201) throw new Error((await response.json() as ApiMessage).message)
@@ -75,9 +105,9 @@ export const registration = async (user: User): Promise<ApiMessage> => {
 
 export const login = async (user: User): Promise<AuthToken> => {
     const response = await fetch(`${hostUrl}/auth/login`, {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(user)
+        method: "POST", headers: {
+            "Content-Type": "application/json"
+        }, body: JSON.stringify(user)
     })
 
     if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
