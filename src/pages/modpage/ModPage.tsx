@@ -31,7 +31,7 @@ export function ModPage() {
                 <span style={{padding: 4}}/>
                 <Typography variant="h4">{`by ${project?.owner.username}`}</Typography>
             </Stack>
-            <Grid2 container spacing={2} padding={4} justifyContent="center">
+            {Object.entries(metrics).length > 0 ? <Grid2 container spacing={2} padding={4} justifyContent="center">
                 <Grid2>
                     <MetricCard title="Minecraft Version" metric={metrics.minecraft_version}/>
                 </Grid2>
@@ -55,7 +55,7 @@ export function ModPage() {
                 <Grid2>
                     <MetricCard title="Fabric API" metric={metrics.fabric_api_version}/>
                 </Grid2>
-            </Grid2>
+            </Grid2> : <Typography variant="h4" textAlign="center" paddingTop={4}>No data found</Typography>}
         </>
     )
 }
