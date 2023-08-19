@@ -29,7 +29,7 @@ export function ModPage() {
             <Stack direction="row" textAlign="center" paddingTop={2} alignItems="baseline" justifyContent="center">
                 <Typography variant="h2">{project?.name}</Typography>
                 <span style={{padding: 4}}/>
-                <Typography variant="h4">{`by ${project?.owner.username}`}</Typography>
+                <Typography variant="h4">{`by ${project?.owner?.username}`}</Typography>
             </Stack>
             {Object.entries(metrics).length > 0 ? <Grid2 container spacing={2} padding={4} justifyContent="center">
                 <Grid2>

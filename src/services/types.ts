@@ -33,9 +33,9 @@ export interface DataValue {
 }
 
 export interface Project {
-    id: number
+    id?: number
     name: string
-    owner: Owner
+    owner?: Owner
 }
 
 export interface Owner {
