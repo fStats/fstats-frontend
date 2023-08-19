@@ -52,9 +52,7 @@ export default function ChartJsPie(props: ChartProps) {
                         borderColor: "white",
                         borderWidth: 2,
                         color: "white",
-                        formatter: function (value, context) {
-                            return context.chart.data.labels!![context.dataIndex];
-                        }
+                        "formatter": (_, context) => context.chart.data.labels!![context.dataIndex]
                     }
                 }
             }}/>
