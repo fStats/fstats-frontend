@@ -18,13 +18,8 @@ export default function PrimaryAppBar() {
             <AppBar position="static">
                 <Container maxWidth="xl">
                     <Toolbar>
-                        <Typography
-                            variant="h5"
-                            noWrap
-                            color={"inherit"}
-                            component={Link}
-                            to="/"
-                            sx={{display: {xs: 'none', sm: 'block'}, textDecoration: "none"}}>
+                        <Typography variant="h5" noWrap color={"inherit"} component={Link} to="/"
+                                    sx={{display: {xs: 'none', sm: 'block'}, textDecoration: "none"}}>
                             Fabric Stats
                         </Typography>
                         <Typography variant="caption" paddingTop={3}
@@ -40,8 +35,8 @@ export default function PrimaryAppBar() {
                             Global stats
                         </Button>
                         {isAuthorized
-                            ? < IconButton size="large" aria-haspopup="true" color="inherit" component={Link}
-                                           to={"/profile"}>
+                            ? <IconButton size="large" aria-haspopup="true" color="inherit" component={Link}
+                                          to={"/profile"}>
                                 <AccountCircle/>
                             </IconButton>
                             : <IconButton size="large" edge="end" aria-haspopup="false" color="inherit" component={Link}
@@ -52,12 +47,8 @@ export default function PrimaryAppBar() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            {isAuthorized
-                ? <SpeedDial ariaLabel="Create project" sx={{position: 'absolute', bottom: 16, right: 16}}
-                             icon={<Add/>}/>
-                : <></>
-            }
+            {isAuthorized ? <SpeedDial ariaLabel="Create project" icon={<Add/>}
+                                       sx={{position: 'absolute', bottom: 16, right: 16}}/> : null}
         </Box>
-    )
-        ;
+    );
 }
