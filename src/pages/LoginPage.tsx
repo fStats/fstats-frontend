@@ -43,7 +43,7 @@ export function LoginPage() {
     }
 
     return (
-        <Container maxWidth="xs" style={{padding: 16}}>
+        <Container maxWidth="xs" sx={{padding: 4}}>
             <br/>
             <Card>
                 <Stack padding={2} spacing={2}>

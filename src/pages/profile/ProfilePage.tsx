@@ -1,7 +1,6 @@
 import React from "react";
 import {Card, CardActionArea, CardContent, Stack, Typography} from "@mui/material";
 import Grid2 from '@mui/material/Unstable_Grid2';
-import {ProfileImage} from "./components/ProfileImage";
 import {useNavigate} from "react-router-dom";
 import {useUserProjects} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
@@ -22,10 +21,9 @@ export function ProfilePage() {
     if (status === "error") return (<ErrorMessage message={error?.message}/>)
 
     return (
-        <Grid2 container spacing={2} padding={2}>
+        <Grid2 container spacing={2} padding={4}>
             <Grid2 xs={2}>
                 <Card>
-                    <ProfileImage/>
                     <CardContent>
                         <Typography variant="h5" textAlign="center">{user.username}</Typography>
                     </CardContent>
