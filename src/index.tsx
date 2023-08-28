@@ -18,13 +18,15 @@ import RegisterPage from "./pages/RegisterPage";
 import {SnackbarProvider} from "notistack";
 import {AuthProvider} from "./hooks/useAuth";
 import {ProtectedRoute} from "./ProtectedRoute";
+import {CreateProjectPage} from "./pages/CreateProjectPage";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            staleTime: 1000
         },
     },
 })
@@ -53,6 +55,12 @@ ReactDOM.createRoot(
                                     <Route path="profile" element={
                                         <ProtectedRoute>
                                             <ProfilePage/>
+                                        </ProtectedRoute>
+                                    }/>
+
+                                    <Route path="create" element={
+                                        <ProtectedRoute>
+                                            <CreateProjectPage/>
                                         </ProtectedRoute>
                                     }/>
 

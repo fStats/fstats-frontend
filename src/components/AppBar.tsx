@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import {Button, Container, SpeedDial} from "@mui/material";
+import {Button, Container, Fab} from "@mui/material";
 import {AccountCircle, Add, Login} from "@mui/icons-material";
 import {Link} from "react-router-dom";
 import {useAuth} from "../hooks/useAuth";
@@ -47,8 +47,10 @@ export default function PrimaryAppBar() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            {isAuthorized ? <SpeedDial ariaLabel="Create project" icon={<Add/>}
-                                       sx={{position: 'absolute', bottom: 16, right: 16}}/> : null}
+            {isAuthorized ?
+                <Fab color="primary" component={Link} to="/create" sx={{position: 'absolute', bottom: 16, right: 16}}>
+                    <Add/>
+                </Fab> : null}
         </Box>
     );
 }
