@@ -1,7 +1,7 @@
 import TextField from '@mui/material/TextField';
 import {Button, Card, Container, Divider, Stack, Typography} from "@mui/material";
 import React, {useState} from "react";
-import {Link, Navigate, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {User} from "../services/types";
 import {useLogin} from "../services/auth";
 import {useAuth} from "../hooks/useAuth";
@@ -21,6 +21,8 @@ export function LoginPage() {
 
     const {setToken} = useAuth()!!
 
+    const navigate = useNavigate()
+
     if (status === "loading" && user) return (<Loader/>)
 
     if (status === "error" && user) {
@@ -32,7 +34,7 @@ export function LoginPage() {
         setToken(data.token)
         localStorage.setItem("token", data.token);
         setUser(undefined)
-        return <Navigate to="/profile"/>
+        navigate('/profile')
     }
 
     function loginUser(username: string, password: string) {
