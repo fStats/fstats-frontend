@@ -48,3 +48,13 @@ export interface User {
     username: string
     password: string
 }
+
+export interface ProjectWithMinecraftData {
+    project: Project
+    metric_map: MinecraftData
+}
+
+export interface ProjectWithMetric {
+    project: Project
+    metrics: Metric[]
+}
