@@ -37,6 +37,7 @@ export default function RegisterPage() {
     }
 
     function registerUser(username: string, password: string, passwordRepeat: string) {
+        if (username.trim() === "" || password.trim() === "") return
         if (password !== passwordRepeat) return alert("Password doesn't match")
         setUser({
             username: username,
@@ -48,21 +49,21 @@ export default function RegisterPage() {
         <Container maxWidth="xs" sx={{padding: 4}}>
             <br/>
             <Card>
-                <Stack padding={2} spacing={2}>
-                    <Typography variant="h4" align="center">Register</Typography>
-                    <TextField label="Username" variant="outlined" type="text"
-                               onChange={event => setUsername(event.target.value)}/>
-                    <TextField label="Password" variant="outlined" type="password"
-                               onChange={event => setPassword(event.target.value)}/>
-                    <TextField label="Password repeat" variant="outlined" type="password"
-                               onChange={event => setPasswordRepeat(event.target.value)}/>
-                    <Stack direction="row" divider={<Divider orientation="vertical" flexItem/>} spacing={2}>
-                        <Button variant="contained" sx={{flexGrow: 9}} onClick={() => {
-                            registerUser(username, password, passwordRepeat)
-                        }}>Register</Button>
-                        <Button variant="outlined" sx={{flexGrow: 1}} component={Link} to="/login">Login</Button>
+                <form onSubmit={() =>  registerUser(username, password, passwordRepeat)}>
+                    <Stack padding={2} spacing={2}>
+                        <Typography variant="h4" align="center">Register</Typography>
+                        <TextField label="Username" variant="outlined" type="text"
+                                   onChange={event => setUsername(event.target.value)}/>
+                        <TextField label="Password" variant="outlined" type="password"
+                                   onChange={event => setPassword(event.target.value)}/>
+                        <TextField label="Password repeat" variant="outlined" type="password"
+                                   onChange={event => setPasswordRepeat(event.target.value)}/>
+                        <Stack direction="row" divider={<Divider orientation="vertical" flexItem/>} spacing={2}>
+                            <Button type="submit" variant="contained" sx={{flexGrow: 9}}>Register</Button>
+                            <Button variant="outlined" sx={{flexGrow: 1}} component={Link} to="/login">Login</Button>
+                        </Stack>
                     </Stack>
-                </Stack>
+                </form>
             </Card>
         </Container>
     )
