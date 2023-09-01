@@ -6,11 +6,12 @@ import {User} from "../services/types";
 import {useLogin} from "../services/auth";
 import {useAuth} from "../hooks/useAuth";
 import {Loader} from "../components/Loader";
-import {ErrorMessage} from "../components/ErrorMessage";
+import {useSnackbar} from "notistack";
 
 export function LoginPage() {
 
     const {state} = useLocation()
+    const {enqueueSnackbar} = useSnackbar()
 
     const [username, setUsername] = useState<string>(state?.username || "")
     const [password, setPassword] = useState<string>("")
@@ -26,7 +27,7 @@ export function LoginPage() {
     if (status === "loading" && user) return (<Loader/>)
 
     if (status === "error" && user) {
-        <ErrorMessage message={error?.message}/>
+        enqueueSnackbar(error?.message, {variant: "error"})
         setUser(undefined)
     }
 

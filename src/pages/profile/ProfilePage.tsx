@@ -5,10 +5,12 @@ import {useNavigate} from "react-router-dom";
 import {useUserProjects} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
 import {User} from "../../services/types";
-import {ErrorMessage} from "../../components/ErrorMessage";
 import {Loader} from "../../components/Loader";
+import {useSnackbar} from "notistack";
 
 export function ProfilePage() {
+
+    const {enqueueSnackbar} = useSnackbar();
 
     const navigate = useNavigate()
     const {token} = useAuth()!!
@@ -18,7 +20,11 @@ export function ProfilePage() {
 
     if (status === "loading") return (<Loader/>)
 
-    if (status === "error") return (<ErrorMessage message={error?.message}/>)
+    if (status === "error") {
+        enqueueSnackbar(error?.message, {variant: "error"})
+        navigate('/')
+        return <></>
+    }
 
     return (
         <Grid2 container spacing={2} padding={4}>

@@ -5,7 +5,6 @@ import {useRegistration} from "../services/auth";
 import {User} from "../services/types";
 import {useSnackbar} from "notistack";
 import {Loader} from "../components/Loader";
-import {ErrorMessage} from "../components/ErrorMessage";
 
 export default function RegisterPage() {
 
@@ -23,7 +22,7 @@ export default function RegisterPage() {
     if (status === "loading" && user) return (<Loader/>)
 
     if (status === "error" && user) {
-        <ErrorMessage message={error?.message}/>
+        enqueueSnackbar(error?.message, {variant: "error"})
         setUser(undefined)
     }
 

@@ -1,27 +1,30 @@
 import {Stack, Typography} from "@mui/material";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {useMetricCount} from "../../services/metrics";
 import React from "react";
 import {MetricCard} from "./components/MetricCard";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {DataValue} from "../../services/types";
-import {useProject} from "../../services/projects";
 import {Loader} from "../../components/Loader";
-import {ErrorMessage} from "../../components/ErrorMessage";
+import {useSnackbar} from "notistack";
 
 export function ModPage() {
+
+    const {enqueueSnackbar} = useSnackbar();
     const {modId} = useParams();
     const id = Number.parseInt(modId!!)
 
-    const {data: metrics, status: metricStatus, error: metricError} = useMetricCount(id)
+    const navigate = useNavigate()
+
+    const {data: metrics, status: metricStatus, error} = useMetricCount(id)
 
     if (metricStatus === "loading") return (<Loader/>)
 
-    if (metricStatus === "error") return (
-        <ErrorMessage message={metricError?.message || "Unexpected error"}>
-            <Navigate to="/not-found"/>
-        </ErrorMessage>
-    )
+    if (metricStatus === "error") {
+        enqueueSnackbar(error?.message, {variant: "error"})
+        navigate('/not-found')
+        return <></>
+    }
 
     return (
         <>
