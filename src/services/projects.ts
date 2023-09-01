@@ -4,7 +4,8 @@ import {ApiMessage, Project} from "./types";
 
 export const useProjects = () => useQuery<Project[], Error>({
     queryKey: ['projects'],
-    queryFn: () => getAllProjects().then(data => data)
+    queryFn: () => getAllProjects().then(data => data),
+    staleTime: 5000
 })
 
 export const useProject = (projectId: number) => useQuery<Project, Error>({
