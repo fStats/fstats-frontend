@@ -1,11 +1,6 @@
 import {Card, CardContent, Typography} from "@mui/material";
-import {DataValue} from "../../../services/types";
 import ChartJsPie from "./ChartJsPie";
-
-interface CardProps {
-    readonly title: string
-    readonly metric: DataValue
-}
+import {CardProps} from "./types";
 
 export function MetricCard(props: CardProps) {
     return (

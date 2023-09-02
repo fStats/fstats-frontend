@@ -1,27 +1,13 @@
-import {DataValue} from "../../../services/types";
 import {Pie} from "react-chartjs-2";
-
-interface ChartProps {
-    readonly title: string
-    readonly metric: DataValue
-}
+import {ChartProps} from "./types";
 
 export default function ChartJsPie(props: ChartProps) {
-
-    const values: string[] = []
-    const counts: number[] = []
-
-    Object.entries(props.metric).forEach(([value, count]) => {
-        values.push(value)
-        counts.push(count)
-    })
-
     return (
         <>
             <Pie data={{
                 datasets: [{
-                    label: 'Count',
-                    data: counts,
+                    label: "Count",
+                    data: Object.values(props.metric) as number[],
                     borderWidth: 1,
                     backgroundColor: [
                         "#e74c3c",
@@ -31,7 +17,7 @@ export default function ChartJsPie(props: ChartProps) {
                         "#f1c40f",
                     ],
                 }],
-                labels: values,
+                labels: Object.keys(props.metric) as string[],
             }} options={{
                 radius: "90%",
                 plugins: {
@@ -40,7 +26,10 @@ export default function ChartJsPie(props: ChartProps) {
                         anchor: "center",
                         textAlign: "center",
                         offset: -40,
-                        // display: "auto",
+                        /**
+                         * Enable on release
+                         * display: "auto"
+                         */
                         backgroundColor: [
                             "#e74c3c",
                             "#2ecc71",

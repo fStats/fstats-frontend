@@ -7,14 +7,13 @@ import {useSnackbar} from "notistack";
 import {Loader} from "../components/Loader";
 
 export default function RegisterPage() {
-
     const navigate = useNavigate()
+
     const {enqueueSnackbar} = useSnackbar();
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordRepeat, setPasswordRepeat] = useState("")
-
     const [user, setUser] = useState<User>()
 
     const {data, status, error} = useRegistration(user)
@@ -38,7 +37,10 @@ export default function RegisterPage() {
 
     function registerUser(username: string, password: string, passwordRepeat: string) {
         if (username.trim() === "" || password.trim() === "") return
-        if (password !== passwordRepeat) return alert("Password doesn't match")
+        if (password !== passwordRepeat) {
+            enqueueSnackbar("Password doesn't match", {variant: "warning"})
+            return
+        }
         setUser({
             username: username,
             password: password

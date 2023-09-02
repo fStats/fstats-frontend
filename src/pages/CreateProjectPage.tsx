@@ -17,6 +17,8 @@ export function CreateProjectPage() {
 
     const {data, status, error} = useCreateProject(project, token)
 
+    const isNameInvalid = !(name.trim().length > 1 && name[0]?.trim()?.length !== 0)
+
     if (status === "loading" && project) return (<Loader/>)
 
     if (status === "error" && project) {
@@ -27,7 +29,7 @@ export function CreateProjectPage() {
     if (status === "success" && project) {
         enqueueSnackbar(data.message, {variant: "success"})
         setProject(undefined)
-        navigate('/profile')
+        navigate("/profile")
     }
 
     return <Container maxWidth="xs" sx={{padding: 4}}>
@@ -35,8 +37,7 @@ export function CreateProjectPage() {
             <Stack padding={2} spacing={2}>
                 <Typography variant="h4" align="center">Create new project</Typography>
                 <TextField label="Name" variant="standard" onChange={(event) => setName(event.target.value)}/>
-                <Button autoFocus disabled={!(name.trim().length > 1 && name[0]?.trim()?.length !== 0)}
-                        onClick={() => setProject({name: name})}>Create</Button>
+                <Button autoFocus disabled={isNameInvalid} onClick={() => setProject({name: name})}>Create</Button>
             </Stack>
         </Card>
     </Container>

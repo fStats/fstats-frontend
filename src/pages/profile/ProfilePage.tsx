@@ -9,11 +9,11 @@ import {Loader} from "../../components/Loader";
 import {useSnackbar} from "notistack";
 
 export function ProfilePage() {
+    const navigate = useNavigate()
 
     const {enqueueSnackbar} = useSnackbar();
-
-    const navigate = useNavigate()
     const {token} = useAuth()!!
+
     const user: User = JSON.parse(atob(token.split('.')[1]))
 
     const {data, status, error} = useUserProjects(user.id!!)
@@ -22,7 +22,7 @@ export function ProfilePage() {
 
     if (status === "error") {
         enqueueSnackbar(error?.message, {variant: "error"})
-        navigate('/')
+        navigate("/")
         return <></>
     }
 
@@ -37,9 +37,9 @@ export function ProfilePage() {
             </Grid2>
             <Grid2 xs={10}>
                 <Stack spacing={2}>
-                    {(data.length > 0) ? data.map(project => (
+                    {data.length > 0 ? data.map(project => (
                         <Card>
-                            <CardActionArea onClick={() => navigate(`//./mods/${project.id}`)}>
+                            <CardActionArea onClick={() => navigate(`/mods/${project.id}`)}>
                                 <CardContent>
                                     {project.name}
                                 </CardContent>
