@@ -1,5 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
 import {ProfilePage} from "./pages/profile/ProfilePage";
 import {RandomModPage} from "./pages/RandomModPage";
@@ -11,8 +11,8 @@ import {NotFoundPage} from "./pages/NotFoundPage";
 import {LoginPage} from "./pages/LoginPage";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {ArcElement, Chart, Tooltip} from "chart.js";
-import ChartDataLabels from 'chartjs-plugin-datalabels';
-import zoomPlugin from 'chartjs-plugin-zoom';
+import ChartDataLabels from "chartjs-plugin-datalabels";
+import zoomPlugin from "chartjs-plugin-zoom";
 import TutorialPage from "./pages/TutorialPage";
 import RegisterPage from "./pages/RegisterPage";
 import {SnackbarProvider} from "notistack";

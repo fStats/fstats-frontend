@@ -1,6 +1,6 @@
 import React from "react";
 import {Card, CardActionArea, CardContent, Stack, Typography} from "@mui/material";
-import Grid2 from '@mui/material/Unstable_Grid2';
+import Grid2 from "@mui/material/Unstable_Grid2";
 import {useNavigate} from "react-router-dom";
 import {useUserProjects} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
