@@ -9,7 +9,7 @@ export const useProjects = () => useQuery<Project[], Error>({
 })
 
 export const useProject = (projectId: number) => useQuery<Project, Error>({
-    queryKey: ["project"],
+    queryKey: [`project_${projectId}`],
     queryFn: () => getProject(projectId).then(data => data)
 })
 
