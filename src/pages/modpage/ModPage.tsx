@@ -16,7 +16,7 @@ export function ModPage() {
     const {modId} = useParams();
     const {data: metrics, status: metricStatus, error} = useMetricCount(Number.parseInt(modId!!))
 
-    const hasData = Object.entries(metrics!!.metric_map).length > 0 || false
+    const hasData = (metrics && Object.entries(metrics.metric_map).length > 0) || false
 
     if (metricStatus === "loading") return (<Loader/>)
 
