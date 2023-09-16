@@ -7,7 +7,7 @@ import Typography from "@mui/material/Typography";
 import {Button, Container, Fab} from "@mui/material";
 import {AccountCircle, Add, Login} from "@mui/icons-material";
 import {Link} from "react-router-dom";
-import {useAuth} from "../hooks/useAuth";
+import {useAuth} from "../../hooks/useAuth";
 
 export default function PrimaryAppBar() {
 

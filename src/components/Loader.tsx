@@ -1,4 +1,4 @@
-import {CenteredContainer} from "./CenteredContainer";
+import CenteredContainer from "./CenteredContainer";
 import {CircularProgress} from "@mui/material";
 import React from "react";
 
