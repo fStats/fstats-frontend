@@ -1,6 +1,6 @@
 import {Typography} from "@mui/material";
 import React from "react";
-import CenteredContainer from "@fstats/components/CenteredContainer";
+import CenteredContainer from "../components/CenteredContainer";
 
 export default function NotFoundPage() {
     return (

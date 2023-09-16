@@ -16,7 +16,9 @@ const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
-            retry: false
+            retry: false,
+            staleTime: -1,
+            cacheTime: -1
         },
     },
 })
@@ -33,29 +35,6 @@ ReactDOM.createRoot(
                             createRoutesFromElements(
                                 <Route path="/" element={<Root/>}>
                                     <Route index element={<HomePage/>}/>
-
-                                    {/*<Route path="login" element={<LoginPage/>}/>*/}
-                                    {/*<Route path="register" element={<RegisterPage/>}/>*/}
-
-                                    {/*<Route path="random" element={<RandomModPage/>}/>*/}
-
-                                    {/*<Route path="mods" element={<ModsListPage/>}/>*/}
-                                    {/*<Route path="mods/:modId" element={<ModPage/>}/>*/}
-
-                                    {/*<Route path="profile" element={*/}
-                                    {/*    <ProtectedRoute>*/}
-                                    {/*        <ProfilePage/>*/}
-                                    {/*    </ProtectedRoute>*/}
-                                    {/*}/>*/}
-
-                                    {/*<Route path="create" element={*/}
-                                    {/*    <ProtectedRoute>*/}
-                                    {/*        <CreateProjectPage/>*/}
-                                    {/*    </ProtectedRoute>*/}
-                                    {/*}/>*/}
-
-                                    {/*<Route path="tutorial" element={<TutorialPage/>}/>*/}
-
                                     <Route path="*" element={<NotFoundPage/>}/>
                                 </Route>
                             )

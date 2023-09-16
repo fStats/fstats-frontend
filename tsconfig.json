@@ -27,8 +27,6 @@
     }
   },
   "include": [
-    "./src/**/*",
-    "**/build",
-    "**/node_modules"
+    "./src/**/*"
   ]
 }
