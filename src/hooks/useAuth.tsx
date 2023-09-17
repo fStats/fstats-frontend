@@ -1,8 +1,8 @@
 import {createContext, ReactNode, useContext, useState} from "react";
-import {ContextContent} from "./types";
+import {AuthContent} from "./types";
 
 
-const AuthContext = createContext<ContextContent | null>(null);
+const AuthContext = createContext<AuthContent | null>(null);
 
 export const AuthProvider = (props: { userToken: string, children: ReactNode }) => {
 
