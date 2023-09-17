@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import {Container, ListSubheader} from "@mui/material";
 import {Link, Outlet} from "react-router-dom";
 import {DrawerProps} from "./types";
-import {FormatListBulleted, MenuBook} from "@mui/icons-material";
+import {FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
 
 export const drawerWidth = 240;
 
@@ -31,9 +31,16 @@ export default function RootPage(props: DrawerProps) {
             icon: <MenuBook/>
         },
         {
-            label: "Mods catalogue",
-            route: "/mods",
+            label: "Projects catalogue",
+            route: "/projects",
             icon: <FormatListBulleted/>
+        }
+    ]
+
+    const userFavorites = [
+        {
+            id: 1,
+            name: "fStats"
         }
     ]
 
@@ -60,10 +67,20 @@ export default function RootPage(props: DrawerProps) {
                 )}
             </List>
             <Divider/>
-            <List subheader={
+            {userFavorites.length > 0 ? <List subheader={
                 <ListSubheader>Favorites</ListSubheader>
             }>
-            </List>
+                {userFavorites.map(project => {
+                    return <ListItem disablePadding>
+                        <ListItemButton component={Link} to={`${project.id}`}>
+                            <ListItemIcon>
+                                <Star/>
+                            </ListItemIcon>
+                            <ListItemText primary={project.name}/>
+                        </ListItemButton>
+                    </ListItem>
+                })}
+            </List> : null}
         </div>
     );
 
