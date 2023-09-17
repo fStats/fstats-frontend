@@ -5,11 +5,17 @@ import {CSSProperties} from "react";
 export default function CenteredContainer(props: CentredContainerProps) {
 
     const containerStyle: CSSProperties = {
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        textAlign: "center"
+        /*
+         * First 64px is Appbar toolbar
+         * Second 64px is spacing for other windows correction
+         * */
+        height: "calc(100svh - 64px - 64px)",
+        display: "flex",
+        flexDirection: "column",
+        flexWrap: "wrap",
+        alignContent: "center",
+        justifyContent: "center",
+        alignItems: "center"
     }
 
     return (
