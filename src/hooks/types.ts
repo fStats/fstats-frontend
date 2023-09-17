@@ -5,3 +5,8 @@ export interface ContextContent {
     setToken: Dispatch<SetStateAction<string>>
     isAuthorized: boolean
 }
+
+export interface LabelContent {
+    label: string,
+    setLabel: Dispatch<SetStateAction<string>>
+}
