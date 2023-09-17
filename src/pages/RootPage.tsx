@@ -12,7 +12,7 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {Container, ListSubheader} from "@mui/material";
+import {Container, CssBaseline, ListSubheader} from "@mui/material";
 import {Link, Outlet} from "react-router-dom";
 import {DrawerProps} from "./types";
 import {FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
@@ -88,6 +88,7 @@ export default function RootPage(props: DrawerProps) {
 
     return (
         <Box sx={{display: 'flex'}}>
+            <CssBaseline/>
             <AppBar
                 position="fixed"
                 sx={{
