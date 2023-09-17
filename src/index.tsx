@@ -12,8 +12,12 @@ import RootPage from "./pages/RootPage";
 import HomePage from "./pages/HomePage";
 import HowToStartPage from "./pages/HowToStartPage";
 import NotFoundPage from "./pages/NotFoundPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import {LabelProvider} from "./hooks/useLabel";
+import ProjectPage from "./pages/project/ProjectPage";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -27,7 +31,7 @@ const queryClient = new QueryClient({
 
 const theme = createTheme({
     palette: {
-        mode: 'dark',
+        mode: 'dark'
     },
 })
 
@@ -39,17 +43,21 @@ ReactDOM.createRoot(
             <QueryClientProvider client={queryClient}>
                 <SnackbarProvider maxSnack={3}>
                     <AuthProvider userToken={localStorage.getItem("token") || ""}>
-                        <RouterProvider router={
-                            createBrowserRouter(
-                                createRoutesFromElements(
-                                    <Route path="/" element={<RootPage/>}>
-                                        <Route index element={<HomePage/>}/>
-                                        <Route path="how-to-start" element={<HowToStartPage/>}/>
-                                        <Route path="*" element={<NotFoundPage/>}/>
-                                    </Route>
+                        <LabelProvider>
+                            <RouterProvider router={
+                                createBrowserRouter(
+                                    createRoutesFromElements(
+                                        <Route path="/" element={<RootPage/>}>
+                                            <Route index element={<HomePage/>}/>
+                                            <Route path="how-to-start" element={<HowToStartPage/>}/>
+                                            <Route path="projects" element={<ProjectsPage/>}/>
+                                            <Route path="projects/:id" element={<ProjectPage/>}/>
+                                            <Route path="*" element={<NotFoundPage/>}/>
+                                        </Route>
+                                    )
                                 )
-                            )
-                        }/>
+                            }/>
+                        </LabelProvider>
                     </AuthProvider>
                 </SnackbarProvider>
             </QueryClientProvider>
