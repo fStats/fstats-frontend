@@ -16,13 +16,17 @@ import {Container, CssBaseline, ListSubheader} from "@mui/material";
 import {Link, Outlet} from "react-router-dom";
 import {DrawerProps} from "./types";
 import {FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
+import {useLabel} from "../hooks/useLabel";
 
 export const drawerWidth = 240;
 
 export default function RootPage(props: DrawerProps) {
+
     const {window} = props;
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const {label} = useLabel()!!
 
     const publicItems = [
         {
@@ -72,7 +76,7 @@ export default function RootPage(props: DrawerProps) {
             }>
                 {userFavorites.map(project => {
                     return <ListItem disablePadding>
-                        <ListItemButton component={Link} to={`${project.id}`}>
+                        <ListItemButton component={Link} to={`projects/${project.id}`}>
                             <ListItemIcon>
                                 <Star/>
                             </ListItemIcon>
@@ -103,7 +107,7 @@ export default function RootPage(props: DrawerProps) {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" noWrap component="div">
-
+                        {label}
                     </Typography>
                 </Toolbar>
             </AppBar>
@@ -154,7 +158,6 @@ export default function RootPage(props: DrawerProps) {
                 sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
             >
                 <Toolbar/>
-
                 <Container maxWidth="xl">
                     <Outlet/>
                 </Container>
