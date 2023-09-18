@@ -24,9 +24,7 @@ export default function ProjectsPage() {
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
-
     const [page, setPage] = useState(0);
-
 
     if (status === "loading") return <Loader/>
 
@@ -35,12 +33,6 @@ export default function ProjectsPage() {
         navigate('/not-found')
         return <></>
     }
-
-
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
-
 
     return (
         <>
@@ -76,7 +68,7 @@ export default function ProjectsPage() {
                         rowsPerPage={10}
                         count={data.length}
                         page={page}
-                        onPageChange={handleChangePage}
+                        onPageChange={(_, newPage) => setPage(newPage)}
                         rowsPerPageOptions={[]}
                     />
                 </Paper>
