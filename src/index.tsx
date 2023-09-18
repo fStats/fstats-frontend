@@ -15,6 +15,8 @@ import NotFoundPage from "./pages/NotFoundPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import {LabelProvider} from "./hooks/useLabel";
 import ProjectPage from "./pages/project/ProjectPage";
+import RegisterPage from "./pages/RegisterPage";
+import {LoginPage} from "./pages/LoginPage";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 
@@ -50,8 +52,13 @@ ReactDOM.createRoot(
                                         <Route path="/" element={<RootPage/>}>
                                             <Route index element={<HomePage/>}/>
                                             <Route path="how-to-start" element={<HowToStartPage/>}/>
+
+                                            <Route path="login" element={<LoginPage/>}/>
+                                            <Route path="register" element={<RegisterPage/>}/>
+
                                             <Route path="projects" element={<ProjectsPage/>}/>
                                             <Route path="projects/:id" element={<ProjectPage/>}/>
+
                                             <Route path="*" element={<NotFoundPage/>}/>
                                         </Route>
                                     )
