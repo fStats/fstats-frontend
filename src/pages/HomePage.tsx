@@ -15,7 +15,7 @@ export default function HomePage() {
                 <Typography variant="h4" textAlign="center">Fabric metric system</Typography>
             </Box>
 
-            <Button variant="contained" component={Link} to="how-to-start">
+            <Button color="inherit" variant="contained" component={Link} to="how-to-start">
                 Getting start
             </Button>
 
