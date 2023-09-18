@@ -12,11 +12,13 @@ import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import {Container, CssBaseline, ListSubheader} from "@mui/material";
+import {Button, Container, CssBaseline, ListSubheader, Menu, MenuItem} from "@mui/material";
 import {Link, Outlet} from "react-router-dom";
 import {DrawerProps} from "./types";
-import {FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
+import {AccountCircle, FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
 import {useLabel} from "../hooks/useLabel";
+import {useAuth} from "../hooks/useAuth";
+import {useSnackbar} from "notistack";
 
 export const drawerWidth = 240;
 
@@ -25,6 +27,17 @@ export default function RootPage(props: DrawerProps) {
     const {window} = props;
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
+
+    const {isAuthorized, setToken} = useAuth()!!
+
+    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+    const {enqueueSnackbar} = useSnackbar()
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
 
     const {label} = useLabel()!!
 
@@ -48,10 +61,6 @@ export default function RootPage(props: DrawerProps) {
         }
     ]
 
-    const handleDrawerToggle = () => {
-        setMobileOpen(!mobileOpen);
-    };
-
     const drawer = (
         <div>
             <Toolbar>
@@ -71,7 +80,7 @@ export default function RootPage(props: DrawerProps) {
                 )}
             </List>
             <Divider/>
-            {userFavorites.length > 0 ? <List subheader={
+            {isAuthorized && userFavorites.length > 0 ? <List subheader={
                 <ListSubheader>Favorites</ListSubheader>
             }>
                 {userFavorites.map(project => {
@@ -88,8 +97,6 @@ export default function RootPage(props: DrawerProps) {
         </div>
     );
 
-    const container = window !== undefined ? () => window().document.body : undefined;
-
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
@@ -102,24 +109,57 @@ export default function RootPage(props: DrawerProps) {
             >
                 <Toolbar>
                     <IconButton color="inherit" aria-label="open drawer" edge="start"
-                                onClick={handleDrawerToggle}
+                                onClick={() => setMobileOpen(!mobileOpen)}
                                 sx={{mr: 2, display: {sm: 'none'}}}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
+                    <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>
                         {label}
                     </Typography>
+                    {isAuthorized ? <div>
+                            <IconButton
+                                size="large"
+                                aria-label="account of current user"
+                                aria-controls="menu-appbar"
+                                aria-haspopup="true"
+                                onClick={(event) => setAnchorEl(event.currentTarget)}
+                                color="inherit"
+                            >
+                                <AccountCircle/>
+                            </IconButton>
+                            <Menu
+                                id="menu-appbar"
+                                anchorEl={anchorEl}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                keepMounted
+                                transformOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={() => {
+                                    setAnchorEl(null)
+                                    setToken("")
+                                    localStorage.setItem("token", "");
+                                    enqueueSnackbar("Have a nice day :)", {variant: "info"})
+                                }}>Logout</MenuItem>
+                            </Menu>
+                        </div>
+                        : <Button color="inherit" component={Link} to="login">Login</Button>}
                 </Toolbar>
             </AppBar>
-            <Box
-                component="nav"
-                sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}
-            >
+            <Box component="nav" sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}>
                 <Drawer
-                    container={container}
+                    container={window !== undefined ? () => window().document.body : undefined}
                     variant="temporary"
                     open={mobileOpen}
-                    onClose={handleDrawerToggle}
+                    onClose={() => setMobileOpen(!mobileOpen)}
                     ModalProps={{
                         keepMounted: true,
                     }}
