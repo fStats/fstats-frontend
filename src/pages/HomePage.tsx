@@ -36,7 +36,7 @@ export default function HomePage() {
                             <CardContent>
                                 <Typography variant="h5" textAlign="center" paddingBottom={1}>Open Source</Typography>
                                 <Typography variant="body1">
-                                    fStats is completely open source! Feel free to check out our GitHub.
+                                    fStats is <b>completely open source</b>! Feel free to check out our GitHub.
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
