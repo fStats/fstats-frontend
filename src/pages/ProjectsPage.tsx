@@ -1,11 +1,20 @@
-import {Card, CardActionArea, CardContent, Typography} from "@mui/material";
-import Grid from "@mui/material/Unstable_Grid2"
+import {
+    Paper,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TablePagination,
+    TableRow,
+    Typography
+} from "@mui/material";
 import {useProjects} from "../services/projects"
 import {Loader} from "../components/Loader"
-import {Project} from "../services/types";
 import {useNavigate} from "react-router-dom";
 import {useLabel} from "../hooks/useLabel";
 import {useSnackbar} from "notistack";
+import {useState} from "react";
 
 export default function ProjectsPage() {
 
@@ -15,6 +24,10 @@ export default function ProjectsPage() {
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
+
+    const [page, setPage] = useState(0);
+
+
     if (status === "loading") return <Loader/>
 
     if (status === "error") {
@@ -23,26 +36,51 @@ export default function ProjectsPage() {
         return <></>
     }
 
+
+    const handleChangePage = (event: unknown, newPage: number) => {
+        setPage(newPage);
+    };
+
+
     return (
         <>
-            {data.length > 0 ? <Grid container spacing={2} justifyContent="center">
-                {data.map((project: Project) => (
-                    <Grid xs={8} sm={6} md={4} xl={2}>
-                        <Card>
-                            <CardActionArea onClick={() => navigate(`${project.id}`)}>
-                                <CardContent>
-                                    <Typography variant="body1" overflow="hidden"
-                                                textOverflow="ellipsis"><b>{project.name}</b></Typography>
-                                    <Typography variant="body2" overflow="hidden" textOverflow="ellipsis"
-                                                textAlign="right">
-                                        Owner by: <b>{project.owner?.username}</b>
-                                    </Typography>
-                                </CardContent>
-                            </CardActionArea>
-                        </Card>
-                    </Grid>
-                ))}
-            </Grid> : <Typography variant="h4" textAlign="center">No project available</Typography>}
+            {data.length > 0 ?
+                <Paper sx={{width: '100%', overflow: 'hidden'}}>
+                    <TableContainer sx={{maxHeight: 600}}>
+                        <Table stickyHeader aria-label="sticky table">
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>
+                                        Project name
+                                    </TableCell>
+                                    <TableCell>
+                                        Project owner
+                                    </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {data.slice(page * 10, page * 10 + 10).map((row) =>
+                                    <TableRow hover tabIndex={-1} key={row.name} onClick={() => navigate(`${row.id}`)}>
+                                        <TableCell>
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell>
+                                            {row.owner?.username}
+                                        </TableCell>
+                                    </TableRow>)}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <TablePagination
+                        component="div"
+                        rowsPerPage={10}
+                        count={data.length}
+                        page={page}
+                        onPageChange={handleChangePage}
+                        rowsPerPageOptions={[]}
+                    />
+                </Paper>
+                : <Typography variant="h4" textAlign="center">No project available</Typography>}
         </>
     )
 }
