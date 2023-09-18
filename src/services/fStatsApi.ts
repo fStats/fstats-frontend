@@ -1,17 +1,10 @@
-import {
-    ApiMessage,
-    AuthToken,
-    Project,
-    ProjectWithMetric,
-    ProjectWithMinecraftData,
-    User
-} from "./types";
+import {ApiMessage, AuthToken, Project, ProjectWithMetric, ProjectWithMinecraftData, User} from "./types";
 
 const hostUrl: string = "https://api.fstats.dev/v2"
 
 /*   USERS   */
-export const getUser = async (nameOrId: string | number): Promise<User> => {
-    const response = await fetch(`${hostUrl}/users/${nameOrId}`)
+export const getUser = async (id: number): Promise<User> => {
+    const response = await fetch(`${hostUrl}/users/${id}`)
 
     if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
 
