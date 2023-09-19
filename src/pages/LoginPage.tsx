@@ -1,25 +1,33 @@
 import TextField from "@mui/material/TextField";
 import {Button, Card, Container, Divider, Stack, Typography} from "@mui/material";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {User} from "../services/types";
 import {useLogin} from "../services/auth";
 import {useAuth} from "../hooks/useAuth";
 import {Loader} from "../components/Loader";
 import {useSnackbar} from "notistack";
+import {useLabel} from "../hooks/useLabel";
 
 export function LoginPage() {
     const navigate = useNavigate()
 
     const {state} = useLocation()
     const {enqueueSnackbar} = useSnackbar()
-    const {setToken} = useAuth()!!
+    const {setToken, isAuthorized} = useAuth()!!
 
     const [username, setUsername] = useState<string>(state?.username || "")
     const [password, setPassword] = useState<string>("")
     const [user, setUser] = useState<User>()
 
     const {data, status, error} = useLogin(user)
+
+
+    useLabel()?.setLabel("Authorization")
+
+    useEffect(() => () => {
+        if (isAuthorized) navigate("/profile")
+    }, [])
 
     if (status === "loading" && user) return (<Loader/>)
 
