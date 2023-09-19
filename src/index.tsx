@@ -10,7 +10,7 @@ import {AuthProvider} from "./hooks/useAuth";
 import {createTheme, ThemeProvider} from "@mui/material";
 import RootPage from "./pages/RootPage";
 import HomePage from "./pages/HomePage";
-import HowToStartPage from "./pages/HowToStartPage";
+import HowToStartPage from "./pages/howtostart/HowToStartPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import {LabelProvider} from "./hooks/useLabel";
@@ -57,7 +57,7 @@ ReactDOM.createRoot(
                                             <Route path="register" element={<RegisterPage/>}/>
 
                                             <Route path="projects" element={<ProjectsPage/>}/>
-                                            <Route path="projects/:id" element={<ProjectPage/>}/>
+                                            <Route path="project/:id" element={<ProjectPage/>}/>
 
                                             <Route path="*" element={<NotFoundPage/>}/>
                                         </Route>

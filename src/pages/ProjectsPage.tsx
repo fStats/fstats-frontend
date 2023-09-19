@@ -52,7 +52,8 @@ export default function ProjectsPage() {
                             </TableHead>
                             <TableBody>
                                 {data.slice(page * 10, page * 10 + 10).map((row) =>
-                                    <TableRow hover tabIndex={-1} key={row.name} onClick={() => navigate(`${row.id}`)}>
+                                    <TableRow hover tabIndex={-1} key={row.name}
+                                              onClick={() => navigate(`/project/${row.id}`)}>
                                         <TableCell>
                                             {row.name}
                                         </TableCell>
