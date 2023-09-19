@@ -19,10 +19,23 @@ export const getUserProjects = async (userId: number): Promise<Project[]> => {
     return await response.json() as Project[]
 }
 
-export const deleteUser = async (): Promise<ApiMessage> => {
+export const getUserFavorites = async (userId: number, token: string): Promise<Project[]> => {
+    const response = await fetch(`${hostUrl}/users/${userId}/favorite`, {
+        method: "GET", headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as Project[]
+}
+
+
+export const deleteUser = async (token: string): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/projects`, {
         method: "DELETE", headers: {
-            "Authorization": "Where is token :?)"
+            "Authorization": `Bearer ${token}`
         }
     })
 

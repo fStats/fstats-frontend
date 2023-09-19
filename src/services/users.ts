@@ -1,6 +1,7 @@
 import {useQuery} from "@tanstack/react-query";
-import {deleteUser, getUser, getUserProjects} from "./fStatsApi";
+import {deleteUser, getUser, getUserFavorites, getUserProjects} from "./fStatsApi";
 import {ApiMessage, Project, User} from "./types";
+import {useAuth} from "../hooks/useAuth";
 
 export const useUser = (id: number) => useQuery<User, Error>({
     queryKey: [`user_${id}`],
@@ -12,7 +13,13 @@ export const useUserProjects = (userId: number) => useQuery<Project[], Error>({
     queryFn: () => getUserProjects(userId).then(data => data)
 })
 
-export const useUserDelete = () => useQuery<ApiMessage, Error>({
+export const useUserFavorites = (userId: number, token: string) => useQuery<Project[], Error>({
+    queryKey: [`userFavorites_${userId}`],
+    queryFn: () => getUserFavorites(userId, token).then(data => data),
+    enabled: useAuth()?.isAuthorized
+})
+
+export const useUserDelete = (token: string) => useQuery<ApiMessage, Error>({
     queryKey: ["userDelete"],
-    queryFn: () => deleteUser().then(data => data)
+    queryFn: () => deleteUser(token).then(data => data)
 })
