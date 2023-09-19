@@ -15,10 +15,12 @@ import Typography from '@mui/material/Typography';
 import {Button, Container, CssBaseline, ListSubheader, Menu, MenuItem} from "@mui/material";
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import {DrawerProps} from "./types";
-import {AccountCircle, FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
+import {AccountCircle, FormatListBulleted, MenuBook, QuestionAnswer, Star} from "@mui/icons-material";
 import {useLabel} from "../hooks/useLabel";
 import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
+import {useUserFavorites} from "../services/users";
+import {User} from "../services/types";
 
 export const drawerWidth = 240;
 
@@ -30,7 +32,14 @@ export default function RootPage(props: DrawerProps) {
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
-    const {isAuthorized, setToken} = useAuth()!!
+    const {isAuthorized, setToken, token} = useAuth()!!
+
+    let user: User
+    if (isAuthorized) user = JSON.parse(atob(token.split('.')[1]))
+
+    const id = (isAuthorized && user!!.id) || NaN
+
+    const {data, status, error} = useUserFavorites(id, token)
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -40,26 +49,23 @@ export default function RootPage(props: DrawerProps) {
         setAnchorEl(null);
     };
 
-
     const {label} = useLabel()!!
 
     const publicItems = [
         {
             label: "How to start",
-            route: "/how-to-start",
+            route: "how-to-start",
             icon: <MenuBook/>
         },
         {
             label: "Projects catalogue",
-            route: "/projects",
+            route: "projects",
             icon: <FormatListBulleted/>
-        }
-    ]
-
-    const userFavorites = [
+        },
         {
-            id: 1,
-            name: "fStats"
+            label: "FAQ",
+            route: "faq",
+            icon: <QuestionAnswer/>
         }
     ]
 
@@ -82,16 +88,20 @@ export default function RootPage(props: DrawerProps) {
                 )}
             </List>
             <Divider/>
-            {isAuthorized && userFavorites.length > 0 ? <List subheader={
+            {isAuthorized && data && data.length > 0 ? <List subheader={
                 <ListSubheader>Favorites</ListSubheader>
             }>
-                {userFavorites.map(project => {
+                {data.map(project => {
                     return <ListItem disablePadding>
-                        <ListItemButton component={Link} to={`projects/${project.id}`}>
+                        <ListItemButton component={Link} to={`project/${project.id}`}>
                             <ListItemIcon>
                                 <Star/>
                             </ListItemIcon>
-                            <ListItemText primary={project.name}/>
+                            <ListItemText primary={
+                                <Typography overflow="hidden" textOverflow="ellipsis">
+                                    {project.name}
+                                </Typography>
+                            }/>
                         </ListItemButton>
                     </ListItem>
                 })}
