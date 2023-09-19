@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import {Button, Container, CssBaseline, ListSubheader, Menu, MenuItem} from "@mui/material";
-import {Link, Outlet} from "react-router-dom";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import {DrawerProps} from "./types";
 import {AccountCircle, FormatListBulleted, MenuBook, Star} from "@mui/icons-material";
 import {useLabel} from "../hooks/useLabel";
@@ -25,6 +25,8 @@ export const drawerWidth = 240;
 export default function RootPage(props: DrawerProps) {
 
     const {window} = props;
+
+    const navigate = useNavigate()
 
     const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -142,7 +144,7 @@ export default function RootPage(props: DrawerProps) {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                                <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
                                 <MenuItem onClick={() => {
                                     setAnchorEl(null)
                                     setToken("")
