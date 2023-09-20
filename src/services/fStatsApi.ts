@@ -86,6 +86,30 @@ export const deleteProject = async (projectId: number, token: string): Promise<A
     return await response.json() as ApiMessage
 }
 
+export const addProjectToFavorite = async (projectId: number, token: string): Promise<ApiMessage> => {
+    const response = await fetch(`${hostUrl}/projects/${projectId}/favorite`, {
+        method: "POST", headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    if (response.status !== 202) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as ApiMessage
+}
+
+export const removeProjectFromFavorite = async (projectId: number, token: string): Promise<ApiMessage> => {
+    const response = await fetch(`${hostUrl}/projects/${projectId}/favorite`, {
+        method: "DELETE", headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    if (response.status !== 202) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as ApiMessage
+}
+
 /*   METRICS   */
 export const getMetric = async (projectId: number): Promise<ProjectWithMetric> => {
     const response = await fetch(`${hostUrl}/metrics/${projectId}`)
