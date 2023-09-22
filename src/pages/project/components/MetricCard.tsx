@@ -3,7 +3,7 @@ import {CardProps} from "./types";
 import {Pie} from "react-chartjs-2";
 
 export default function MetricCard(props: CardProps) {
-    return (
+    return Object.keys(props.metric).length > 0 ? (
         <Card>
             <CardContent>
                 <Typography variant="h6" textAlign="center">{props.title}</Typography>
@@ -47,5 +47,5 @@ export default function MetricCard(props: CardProps) {
                 }}/>
             </CardContent>
         </Card>
-    )
+    ) : <></>;
 }
