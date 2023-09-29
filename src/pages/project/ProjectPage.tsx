@@ -1,22 +1,54 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import {Typography} from "@mui/material";
+import {Fab, Typography} from "@mui/material";
 import MetricCard from "./components/MetricCard";
 import {useMetricCount} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
 import {Loader} from "../../components/Loader";
-import {DataValue} from "../../services/types";
+import {DataValue, User} from "../../services/types";
+import {Favorite, Remove} from "@mui/icons-material";
+import {useUserFavorites} from "../../services/users";
+import {useAuth} from "../../hooks/useAuth";
+import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../services/projects";
 
 export default function ProjectPage() {
 
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
-    const id = Number.parseInt(useParams().id!!)
-    const {data, status, error} = useMetricCount(id)
+    const projectId = Number.parseInt(useParams().id!!)
+    const {data, status, error} = useMetricCount(projectId)
+
+    const {token, isAuthorized} = useAuth()!!
+
+    let user: User
+    if (isAuthorized) user = JSON.parse(atob(token.split('.')[1]))
+
+    const userId = (isAuthorized && user!!.id) || NaN
+
+    const {
+        data: userFavoriteData,
+        refetch: refetchUserFavorites
+    } = useUserFavorites(userId, token)
+
+    const {
+        data: addFavoriteData,
+        status: addFavoriteStatus,
+        error: addFavoriteError
+    } = useAddProjectToFavorite(projectId, token)
+
+    const {
+        data: removeFavoriteData,
+        status: removeFavoriteStatus,
+        error: removeFavoriteError
+    } = useRemoveProjectFromFavorite(projectId, token)
 
     useLabel()?.setLabel(data?.project.name || "")
+
+    console.log(Object.entries(userFavoriteData!!))
+    const isProjectFavorite = userFavoriteData?.some(project => project.id = projectId)
+    console.log(isProjectFavorite)
 
     if (status === "loading") return (<Loader/>)
 
@@ -53,27 +85,28 @@ export default function ProjectPage() {
                     <MetricCard title="Fabric API" metric={data.metric_map.fabric_api_version}/>
                 </Grid2>
             </Grid2> : <Typography variant="h4" textAlign="center" paddingTop={4}>No data found</Typography>}
+            {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() => {
+
+            }}>
+                {isProjectFavorite ? <Remove/> : <Favorite/>}
+            </Fab>}
         </>
     )
 }
 
-function formatOnlineMode(data: DataValue) {
-    return Object.fromEntries(
-        Object.entries(data).map(([value, count]) => {
-            if (value === 'true') value = 'Online';
-            if (value === 'false') value = 'Offline';
-            return [value, count];
-        })
-    ) as DataValue;
-}
+const formatOnlineMode = (data: DataValue) => (Object.fromEntries(
+    Object.entries(data).map(([value, count]) => {
+        if (value === 'true') value = 'Online';
+        if (value === 'false') value = 'Offline';
+        return [value, count];
+    })
+) as DataValue);
 
-function formatOperationSystem(data: DataValue) {
-    return Object.fromEntries(
-        Object.entries(data).map(([value, count]) => {
-            if (value === 'l') value = 'Linux'
-            if (value === 'm') value = 'MacOS'
-            if (value === 'w') value = 'Windows'
-            return [value, count];
-        })
-    ) as DataValue;
-}
+const formatOperationSystem = (data: DataValue) => (Object.fromEntries(
+    Object.entries(data).map(([value, count]) => {
+        if (value === 'l') value = 'Linux'
+        if (value === 'm') value = 'MacOS'
+        if (value === 'w') value = 'Windows'
+        return [value, count];
+    })
+) as DataValue);
