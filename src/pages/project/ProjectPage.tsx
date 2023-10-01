@@ -47,7 +47,7 @@ export default function ProjectPage() {
     useLabel()?.setLabel(data?.project.name || "")
 
     console.log(Object.entries(userFavoriteData!!))
-    const isProjectFavorite = userFavoriteData?.some(project => project.id = projectId)
+    const isProjectFavorite = userFavoriteData?.some(project => project.id === projectId)
     console.log(isProjectFavorite)
 
     if (status === "loading") return (<Loader/>)
