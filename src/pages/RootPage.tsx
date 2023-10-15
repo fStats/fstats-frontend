@@ -39,7 +39,7 @@ export default function RootPage(props: DrawerProps) {
 
     const id = (isAuthorized && user!!.id) || NaN
 
-    const {data, status, error} = useUserFavorites(id, token)
+    const {data} = useUserFavorites(id, token)
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -88,9 +88,7 @@ export default function RootPage(props: DrawerProps) {
                 )}
             </List>
             <Divider/>
-            {isAuthorized && data && data.length > 0 ? <List subheader={
-                <ListSubheader>Favorites</ListSubheader>
-            }>
+            {isAuthorized && data && data.length > 0 ? <List subheader={<ListSubheader>Favorites</ListSubheader>}>
                 {data.map(project => {
                     return <ListItem disablePadding>
                         <ListItemButton component={Link} to={`project/${project.id}`}>
@@ -112,22 +110,14 @@ export default function RootPage(props: DrawerProps) {
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
-            <AppBar
-                position="fixed"
-                sx={{
-                    width: {sm: `calc(100% - ${drawerWidth}px)`},
-                    ml: {sm: `${drawerWidth}px`},
-                }}
-            >
+            <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}, ml: {sm: `${drawerWidth}px`},}}>
                 <Toolbar>
                     <IconButton color="inherit" aria-label="open drawer" edge="start"
                                 onClick={() => setMobileOpen(!mobileOpen)}
                                 sx={{mr: 2, display: {sm: 'none'}}}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>
-                        {label}
-                    </Typography>
+                    <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>{label}</Typography>
                     {isAuthorized ? <div>
                             <IconButton
                                 size="large"
@@ -142,15 +132,9 @@ export default function RootPage(props: DrawerProps) {
                             <Menu
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
+                                anchorOrigin={{vertical: 'top', horizontal: 'right',}}
                                 keepMounted
-                                transformOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
+                                transformOrigin={{vertical: 'top', horizontal: 'right',}}
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
@@ -176,14 +160,8 @@ export default function RootPage(props: DrawerProps) {
                         keepMounted: true,
                     }}
                     sx={{
-                        display: {
-                            xs: 'block',
-                            sm: 'none'
-                        },
-                        '& .MuiDrawer-paper': {
-                            boxSizing: 'border-box',
-                            width: drawerWidth
-                        },
+                        display: {xs: 'block', sm: 'none'},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                     }}
                 >
                     {drawer}
@@ -191,24 +169,15 @@ export default function RootPage(props: DrawerProps) {
                 <Drawer
                     variant="permanent"
                     sx={{
-                        display: {
-                            xs: 'none',
-                            sm: 'block'
-                        },
-                        '& .MuiDrawer-paper': {
-                            boxSizing: 'border-box',
-                            width: drawerWidth
-                        },
+                        display: {xs: 'none', sm: 'block'},
+                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
                     }}
                     open
                 >
                     {drawer}
                 </Drawer>
             </Box>
-            <Box
-                component="main"
-                sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}
-            >
+            <Box component="main" sx={{flexGrow: 1, p: 3, width: {sm: `calc(100% - ${drawerWidth}px)`}}}>
                 <Toolbar/>
                 <Container maxWidth="xl">
                     <Outlet/>

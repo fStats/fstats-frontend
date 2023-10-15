@@ -29,9 +29,7 @@ const theme = createTheme({
     },
 })
 
-ReactDOM.createRoot(
-    document.getElementById("root") as HTMLElement
-).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
             <QueryClientProvider client={queryClient}>
