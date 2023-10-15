@@ -22,7 +22,6 @@ export function LoginPage() {
 
     const {data, status, error} = useLogin(user)
 
-
     useLabel()?.setLabel("Authorization")
 
     useEffect(() => () => {

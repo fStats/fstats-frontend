@@ -47,5 +47,5 @@ export default function MetricCard(props: CardProps) {
                 }}/>
             </CardContent>
         </Card>
-    ) : <></>;
+    ) : null
 }
