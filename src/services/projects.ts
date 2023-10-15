@@ -1,4 +1,4 @@
-import {useQuery} from "@tanstack/react-query";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
 import {
     addProjectToFavorite,
     createProject,
@@ -7,12 +7,12 @@ import {
     getProject,
     removeProjectFromFavorite
 } from "./fStatsApi";
-import {ApiMessage, Project} from "./types";
+import {ApiMessage, Project, User} from "./types";
+import {useAuth} from "../hooks/useAuth";
 
 export const useProjects = () => useQuery<Project[], Error>({
     queryKey: ["projects"],
-    queryFn: () => getAllProjects().then(data => data),
-    staleTime: 5000
+    queryFn: () => getAllProjects().then(data => data)
 })
 
 export const useProject = (projectId: number) => useQuery<Project, Error>({
@@ -20,26 +20,52 @@ export const useProject = (projectId: number) => useQuery<Project, Error>({
     queryFn: () => getProject(projectId).then(data => data)
 })
 
-export const useCreateProject = (project: Project | undefined, token: string) => useQuery<ApiMessage, Error>({
-    queryKey: [`projectCreate_${project?.id}`],
-    queryFn: () => createProject(project!!, token).then(data => data),
-    enabled: !!project?.name
-})
+export const useCreateProject = () => {
+    const queryClient = useQueryClient()
+    const {token} = useAuth()!!
+    return useMutation<ApiMessage, Error, Project>({
+        mutationFn: (project) => createProject(project, token).then(data => data),
+        onSettled: () => {
+            const userId = (JSON.parse(atob(token.split('.')[1])) as User).id
+            queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
+            return queryClient.invalidateQueries({queryKey: ["projects"]});
+        }
+    });
+}
 
-export const useDeleteProject = (projectId: number, token: string) => useQuery<ApiMessage, Error>({
-    queryKey: [`projectDelete_${projectId}`],
-    queryFn: () => deleteProject(projectId, token).then(data => data),
-    enabled: false
-})
+export const useDeleteProject = () => {
+    const queryClient = useQueryClient()
+    const {token} = useAuth()!!
+    return useMutation<ApiMessage, Error, number>({
+        mutationFn: (projectId) => deleteProject(projectId, token).then(data => data),
+        onSettled: () => {
+            const userId = (JSON.parse(atob(token.split('.')[1])) as User).id
+            queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
+            return queryClient.invalidateQueries({queryKey: ["projects"]});
+        }
+    });
+}
 
-export const useAddProjectToFavorite = (projectId: number, token: string) => useQuery<ApiMessage, Error>({
-    queryKey: [`projectDelete_${projectId}`],
-    queryFn: () => addProjectToFavorite(projectId, token).then(data => data),
-    enabled: false
-})
+export const useAddProjectToFavorite = () => {
+    const queryClient = useQueryClient()
+    const {token} = useAuth()!!
+    return useMutation<ApiMessage, Error, number>({
+        mutationFn: (projectId) => addProjectToFavorite(projectId, token).then(data => data),
+        onSettled: () => {
+            const userId = (JSON.parse(atob(token.split('.')[1])) as User).id
+            return queryClient.invalidateQueries({queryKey: [`userFavorites_${userId}`]});
+        }
+    });
+}
 
-export const useRemoveProjectFromFavorite = (projectId: number, token: string) => useQuery<ApiMessage, Error>({
-    queryKey: [`projectDelete_${projectId}`],
-    queryFn: () => removeProjectFromFavorite(projectId, token).then(data => data),
-    enabled: false
-})
+export const useRemoveProjectFromFavorite = () => {
+    const queryClient = useQueryClient()
+    const {token} = useAuth()!!
+    return useMutation<ApiMessage, Error, number>({
+        mutationFn: (projectId) => removeProjectFromFavorite(projectId, token).then(data => data),
+        onSettled: () => {
+            const userId = (JSON.parse(atob(token.split('.')[1])) as User).id
+            return queryClient.invalidateQueries({queryKey: [`userFavorites_${userId}`]});
+        }
+    });
+}
