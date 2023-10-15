@@ -42,24 +42,16 @@ export default function ProjectsPage() {
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>
-                                        Project name
-                                    </TableCell>
-                                    <TableCell>
-                                        Project owner
-                                    </TableCell>
+                                    <TableCell>Project name</TableCell>
+                                    <TableCell>Project owner</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
                                 {data.slice(page * 10, page * 10 + 10).map((row) =>
                                     <TableRow hover tabIndex={-1} key={row.name}
                                               onClick={() => navigate(`/project/${row.id}`)}>
-                                        <TableCell>
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell>
-                                            {row.owner?.username}
-                                        </TableCell>
+                                        <TableCell>{row.name}</TableCell>
+                                        <TableCell>{row.owner?.username}</TableCell>
                                     </TableRow>)}
                             </TableBody>
                         </Table>
@@ -72,8 +64,7 @@ export default function ProjectsPage() {
                         onPageChange={(_, newPage) => setPage(newPage)}
                         rowsPerPageOptions={[]}
                     />
-                </Paper>
-                : <Typography variant="h4" textAlign="center">No project available</Typography>}
+                </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
         </>
     )
 }
