@@ -143,7 +143,10 @@ export default function RootPage(props: DrawerProps) {
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={() => navigate("/profile")}>Profile</MenuItem>
+                                <MenuItem onClick={() => {
+                                    setAnchorEl(null)
+                                    navigate("/profile");
+                                }}>Profile</MenuItem>
                                 <MenuItem onClick={() => {
                                     setAnchorEl(null)
                                     setToken("")
