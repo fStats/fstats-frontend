@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import {Fab, Typography} from "@mui/material";
+import {CircularProgress, Fab, Typography} from "@mui/material";
 import MetricCard from "./components/MetricCard";
 import {useMetricCount} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
@@ -11,6 +11,7 @@ import {Favorite, Remove} from "@mui/icons-material";
 import {useUserFavorites} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
 import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../services/projects";
+import React, {useEffect, useState} from "react";
 
 export default function ProjectPage() {
 
@@ -27,28 +28,19 @@ export default function ProjectPage() {
 
     const userId = (isAuthorized && user!!.id) || NaN
 
-    const {
-        data: userFavoriteData,
-        refetch: refetchUserFavorites
-    } = useUserFavorites(userId, token)
+    const [isProjectFavorite, setProjectFavorite] = useState(false)
 
-    const {
-        data: addFavoriteData,
-        status: addFavoriteStatus,
-        error: addFavoriteError
-    } = useAddProjectToFavorite(projectId, token)
+    const {data: userFavoriteData} = useUserFavorites(userId, token)
 
-    const {
-        data: removeFavoriteData,
-        status: removeFavoriteStatus,
-        error: removeFavoriteError
-    } = useRemoveProjectFromFavorite(projectId, token)
+    const addProjectToFavorite = useAddProjectToFavorite()
+
+    const removeProjectFromFavorite = useRemoveProjectFromFavorite()
 
     useLabel()?.setLabel(data?.project.name || "")
 
-    console.log(Object.entries(userFavoriteData!!))
-    const isProjectFavorite = userFavoriteData?.some(project => project.id === projectId)
-    console.log(isProjectFavorite)
+    useEffect(() => {
+        setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
+    }, [userFavoriteData]);
 
     if (status === "loading") return (<Loader/>)
 
@@ -85,10 +77,16 @@ export default function ProjectPage() {
                     <MetricCard title="Fabric API" metric={data.metric_map.fabric_api_version}/>
                 </Grid2>
             </Grid2> : <Typography variant="h4" textAlign="center" paddingTop={4}>No data found</Typography>}
-            {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() => {
-
-            }}>
-                {isProjectFavorite ? <Remove/> : <Favorite/>}
+            {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
+                isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
+                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                }) : addProjectToFavorite.mutate((projectId), {
+                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                })}>
+                {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
+                    <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
             </Fab>}
         </>
     )
