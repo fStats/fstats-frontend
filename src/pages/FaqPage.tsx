@@ -28,7 +28,7 @@ export default function FaqPage() {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography variant="h6">{faq.question}</Typography>
+                            <Typography variant="h5">{faq.question}</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
                             <Typography whiteSpace="pre-wrap" variant="h6">
