@@ -21,16 +21,7 @@ import FaqPage from "./pages/FaqPage";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 
-const queryClient = new QueryClient({
-    defaultOptions: {
-        queries: {
-            refetchOnWindowFocus: false,
-            retry: false,
-            staleTime: -1,
-            cacheTime: -1
-        },
-    },
-})
+export const queryClient = new QueryClient()
 
 const theme = createTheme({
     palette: {
