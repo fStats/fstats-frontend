@@ -40,7 +40,8 @@ export default function ProjectPage() {
 
     useEffect(() => {
         setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
-    }, [userFavoriteData]);
+        return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
+    }, [userFavoriteData, projectId]);
 
     if (status === "loading") return (<Loader/>)
 
