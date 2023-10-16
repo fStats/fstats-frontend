@@ -1,5 +1,5 @@
 import {Button, Card, Container, Divider, Stack, TextField, Typography} from "@mui/material";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useRegistration} from "../services/auth";
 import {User} from "../services/types";
@@ -21,13 +21,9 @@ export default function RegisterPage() {
     const {data, status, error} = useRegistration(user)
 
     const {isAuthorized} = useAuth()!!
+    if (isAuthorized) navigate("/profile")
 
     useLabel()?.setLabel("Registration")
-
-    useEffect(() => () => {
-        if (isAuthorized) navigate("/profile")
-    }, [])
-
 
     if (status === "loading" && user) return (<Loader/>)
 
