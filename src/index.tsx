@@ -18,6 +18,8 @@ import ProjectPage from "./pages/project/ProjectPage";
 import RegisterPage from "./pages/RegisterPage";
 import {LoginPage} from "./pages/LoginPage";
 import FaqPage from "./pages/FaqPage";
+import {ProtectedRoute} from "./ProtectedRoute";
+import ProfilePage from "./pages/profile/ProfilePage";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip);
 
@@ -49,6 +51,10 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
 
                                             <Route path="projects" element={<ProjectsPage/>}/>
                                             <Route path="project/:id" element={<ProjectPage/>}/>
+
+                                            <Route path="profile" element={
+                                                <ProtectedRoute children={<ProfilePage/>}/>
+                                            }/>
 
                                             <Route path="*" element={<NotFoundPage/>}/>
                                         </Route>
