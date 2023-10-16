@@ -11,8 +11,6 @@ export default function CreateProjectDialog(props: { open: boolean, setOpen: Dis
 
     const {enqueueSnackbar} = useSnackbar();
 
-    const handleClickOpen = () => props.setOpen(true);
-
     const handleClose = () => props.setOpen(false);
 
     if (createProjectMutation.isError) {

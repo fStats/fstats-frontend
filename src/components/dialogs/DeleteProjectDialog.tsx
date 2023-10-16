@@ -9,8 +9,6 @@ export default function DeleteProjectDialog(props: { projectId: number, open: bo
 
     const {enqueueSnackbar} = useSnackbar();
 
-    const handleClickOpen = () => props.setOpen(true);
-
     const handleClose = () => props.setOpen(false);
 
     if (deleteProjectMutation.isError) {
