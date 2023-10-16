@@ -1,6 +1,7 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {CardProps} from "./types";
 import {Pie} from "react-chartjs-2";
+import {colors} from "./colors";
 
 export default function MetricCard(props: CardProps) {
     return Object.keys(props.metric).length > 0 ? (
@@ -12,13 +13,7 @@ export default function MetricCard(props: CardProps) {
                         label: 'Count',
                         data: Object.values(props.metric) as number[],
                         borderWidth: 1,
-                        backgroundColor: [
-                            "#e74c3c",
-                            "#2ecc71",
-                            "#3498db",
-                            "#e67e22",
-                            "#f1c40f",
-                        ],
+                        backgroundColor: colors,
                     }],
                     labels: Object.keys(props.metric) as string[],
                 }} options={{
@@ -30,13 +25,7 @@ export default function MetricCard(props: CardProps) {
                             textAlign: "center",
                             offset: -40,
                             // display: "auto",
-                            backgroundColor: [
-                                "#e74c3c",
-                                "#2ecc71",
-                                "#3498db",
-                                "#e67e22",
-                                "#f1c40f",
-                            ],
+                            backgroundColor: colors,
                             borderRadius: 8,
                             borderColor: "white",
                             borderWidth: 2,
