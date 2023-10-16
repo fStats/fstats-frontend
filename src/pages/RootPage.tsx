@@ -101,7 +101,7 @@ export default function RootPage(props: DrawerProps) {
                                 <Star/>
                             </ListItemIcon>
                             <ListItemText primary={
-                                <Typography overflow="hidden" textOverflow="ellipsis">
+                                <Typography whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis">
                                     {project.name}
                                 </Typography>
                             }/>
