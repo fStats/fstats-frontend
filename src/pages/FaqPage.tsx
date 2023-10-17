@@ -1,6 +1,6 @@
 import {useLabel} from "../hooks/useLabel";
 import {Accordion, AccordionDetails, AccordionSummary, Card, Stack, Typography} from "@mui/material";
-import {ExpandMore} from "@mui/icons-material";
+import {ExpandMore, Forum} from "@mui/icons-material";
 
 export default function FaqPage() {
 
@@ -15,6 +15,10 @@ export default function FaqPage() {
                 " - Location (no IP)\n" +
                 " - FabricAPI Version (if mod use it)\n" +
                 " - Online Mode"
+        },
+        {
+            question: "How to change or reset password",
+            answer: "There's no automatic option for that currently. Please contact me, so I can reset your password"
         }
     ]
 
@@ -28,10 +32,13 @@ export default function FaqPage() {
                             aria-controls="panel1a-content"
                             id="panel1a-header"
                         >
-                            <Typography variant="h5">{faq.question}</Typography>
+                            <Stack spacing={2} direction="row" alignItems="center">
+                                <Forum/>
+                                <Typography variant="h5">{faq.question}</Typography>
+                            </Stack>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Typography whiteSpace="pre-wrap" variant="h6">
+                            <Typography whiteSpace="pre-wrap" variant="h6" paddingX={6}>
                                 {faq.answer}
                             </Typography>
                         </AccordionDetails>
