@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import {CircularProgress, Fab, Typography} from "@mui/material";
+import {CircularProgress, Fab, Stack, Typography} from "@mui/material";
 import MetricCard from "./components/MetricCard";
 import {useMetricCount} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
@@ -12,6 +12,7 @@ import {useUserFavorites} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
 import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../services/projects";
 import React, {useEffect, useState} from "react";
+import TimelineCard from "./components/TimelineCard";
 
 export default function ProjectPage() {
 
@@ -51,8 +52,42 @@ export default function ProjectPage() {
         return <></>
     }
 
+    const labels = [
+        '2023-10-16 00:00:00',
+        '2023-10-16 00:30:00',
+        '2023-10-16 01:00:00',
+        '2023-10-16 01:30:00',
+        '2023-10-16 02:00:00',
+        '2023-10-16 02:30:00',
+        '2023-10-16 03:00:00',
+        '2023-10-16 03:30:00',
+        '2023-10-16 04:00:00',
+        '2023-10-16 04:30:00',
+        '2023-10-16 05:00:00',
+        '2023-10-16 05:30:00',
+        '2023-10-16 06:00:00',
+        '2023-10-16 06:30:00',
+        '2023-10-16 07:00:00',
+        '2023-10-16 07:30:00',
+        '2023-10-16 08:00:00',
+        '2023-10-16 08:30:00',
+        '2023-10-16 09:00:00',
+        '2023-10-16 09:30:00',
+        '2023-10-16 10:00:00',
+        '2023-10-16 10:30:00',
+        '2023-10-16 11:00:00',
+        '2023-10-16 11:30:00',
+        '2023-10-16 12:00:00',
+        '2023-10-16 12:30:00',
+        '2023-10-16 13:00:00',
+        '2023-10-16 13:30:00',
+        '2023-10-16 14:00:00',
+        '2023-10-16 14:30:00'
+    ];
+
     return (
-        <>
+        <Stack spacing={2}>
+            <TimelineCard data={labels}/>
             {Object.entries(data.metric_map).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
                 <Grid2>
                     <MetricCard title="Minecraft Version" metric={data.metric_map.minecraft_version}/>
@@ -89,7 +124,7 @@ export default function ProjectPage() {
                 {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
                     <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
             </Fab>}
-        </>
+        </Stack>
     )
 }
 
