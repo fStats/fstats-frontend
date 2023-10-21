@@ -1,4 +1,4 @@
-import {ApiMessage, AuthToken, Project, ProjectWithMetric, ProjectWithMinecraftData, User} from "./types";
+import {ApiMessage, AuthToken, DataValue, Project, ProjectWithMinecraftData, User} from "./types";
 
 const hostUrl: string = "https://api.fstats.dev/v2"
 
@@ -111,12 +111,12 @@ export const removeProjectFromFavorite = async (projectId: number, token: string
 }
 
 /*   METRICS   */
-export const getMetric = async (projectId: number): Promise<ProjectWithMetric> => {
-    const response = await fetch(`${hostUrl}/metrics/${projectId}`)
+export const getMetricTimeline = async (projectId: number): Promise<DataValue> => {
+    const response = await fetch(`${hostUrl}/metrics/${projectId}/timeline`)
 
     if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
 
-    return await response.json() as ProjectWithMetric
+    return await response.json() as DataValue
 }
 
 export const getMetricCount = async (projectId: number): Promise<ProjectWithMinecraftData> => {
