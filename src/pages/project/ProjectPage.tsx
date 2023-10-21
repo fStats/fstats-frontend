@@ -13,6 +13,7 @@ import {useAuth} from "../../hooks/useAuth";
 import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../services/projects";
 import React, {useEffect, useState} from "react";
 import TimelineCard from "./components/TimelineCard";
+import CenteredContainer from "../../components/CenteredContainer";
 
 export default function ProjectPage() {
 
@@ -112,7 +113,9 @@ export default function ProjectPage() {
                 <Grid2>
                     <MetricCard title="Fabric API" metric={data.metric_map.fabric_api_version}/>
                 </Grid2>
-            </Grid2> : <Typography variant="h4" textAlign="center" paddingTop={4}>No data found</Typography>}
+            </Grid2> : <CenteredContainer>
+                <Typography variant="h4" textAlign="center">No data found :(</Typography>
+            </CenteredContainer>}
             {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
                 isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
                     onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
