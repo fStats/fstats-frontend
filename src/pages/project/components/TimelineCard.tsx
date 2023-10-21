@@ -2,52 +2,55 @@ import {Card, CardContent} from "@mui/material";
 import {Line} from "react-chartjs-2";
 import {colors} from "./colors";
 import React from "react";
+import {DataValue} from "../../../services/types";
+import "chartjs-adapter-date-fns";
 
-export default function TimelineCard(props: { data: string[] }) {
+export default function TimelineCard(props: { data: DataValue }) {
+
+    console.log(Object.entries(props.data))
+
+    const list = Object.entries(props.data).map((value) => ({
+        x: new Date(value[0]).valueOf(),
+        y: value[1]
+    }))
+
+    console.log(list)
+
     return (
         <Card>
             <CardContent>
                 <Line style={{height: 300}} data={{
-                    labels: props.data.map((label) => new Date(label).toLocaleDateString()),
                     datasets: [
                         {
-                            data: props.data.map(() => Math.random()),
+                            data: list,
                             borderColor: colors[0],
                             backgroundColor: colors[0],
                             pointStyle: false,
-                            tension: 0.4
+                            spanGaps: 1000 * 60 * 30,
+                            parsing: false
                         }
                     ],
                 }} options={{
+                    interaction: {
+                        mode: "nearest",
+                        axis: "x",
+                        intersect: false
+                    },
                     maintainAspectRatio: false,
                     plugins: {
-                        tooltip: {
-                            callbacks: {
-                                title(tooltipItems): string | string[] | void {
-                                    const newArray: string[] = []
-                                    tooltipItems.forEach((tooltipItem) => {
-                                        newArray.push(new Date(props.data[tooltipItem.dataIndex]).toLocaleString())
-                                    })
-
-                                    return newArray
-                                }
-                            }
+                        decimation: {
+                            enabled: true
                         },
-                        datalabels: {
-                            display: false,
-                        },
+                        datalabels: {display: false},
                         zoom: {
                             limits: {
                                 x: {
-                                    min: 'original',
-                                    max: 'original',
-                                    minRange: 2
-                                },
+                                    max: Date.now(),
+                                    minRange: 1000 * 60 * 60 * 4,
+                                }
                             },
                             zoom: {
-                                wheel: {
-                                    enabled: true,
-                                },
+                                wheel: {enabled: true},
                                 drag: {
                                     enabled: true,
                                 },
@@ -55,10 +58,21 @@ export default function TimelineCard(props: { data: string[] }) {
                             }
                         }
                     },
-                    interaction: {
-                        mode: "nearest",
-                        axis: "x",
-                        intersect: false
+                    scales: {
+                        x: {
+                            type: "time"
+                        },
+                        y: {
+                            type: 'linear',
+                            min: 0
+                        }
+                    },
+                    transitions: {
+                        zoom: {
+                            animation: {
+                                duration: 0
+                            }
+                        }
                     }
                 }}/>
             </CardContent>

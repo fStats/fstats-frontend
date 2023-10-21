@@ -3,7 +3,7 @@ import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {CircularProgress, Fab, Stack, Typography} from "@mui/material";
 import MetricCard from "./components/MetricCard";
-import {useMetricCount} from "../../services/metrics";
+import {useMetricCount, useMetricTimeline} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
 import {Loader} from "../../components/Loader";
 import {DataValue, User} from "../../services/types";
@@ -22,6 +22,7 @@ export default function ProjectPage() {
 
     const projectId = Number.parseInt(useParams().id!!)
     const {data, status, error} = useMetricCount(projectId)
+    const {data: timeline, status: timeStatus, error: timeError} = useMetricTimeline(projectId)
 
     const {token, isAuthorized} = useAuth()!!
 
@@ -45,50 +46,18 @@ export default function ProjectPage() {
         return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
     }, [userFavoriteData, projectId]);
 
-    if (status === "loading") return (<Loader/>)
+    if (status === "loading" || timeStatus === "loading") return (<Loader/>)
 
-    if (status === "error") {
-        enqueueSnackbar(error?.message, {variant: "error"})
+    if (status === "error" || timeStatus === "error") {
+        error && enqueueSnackbar(error?.message, {variant: "error"})
+        timeError && enqueueSnackbar(timeError?.message, {variant: "error"})
         navigate('/not-found')
         return <></>
     }
 
-    const labels = [
-        '2023-10-16 00:00:00',
-        '2023-10-16 00:30:00',
-        '2023-10-16 01:00:00',
-        '2023-10-16 01:30:00',
-        '2023-10-16 02:00:00',
-        '2023-10-16 02:30:00',
-        '2023-10-16 03:00:00',
-        '2023-10-16 03:30:00',
-        '2023-10-16 04:00:00',
-        '2023-10-16 04:30:00',
-        '2023-10-16 05:00:00',
-        '2023-10-16 05:30:00',
-        '2023-10-16 06:00:00',
-        '2023-10-16 06:30:00',
-        '2023-10-16 07:00:00',
-        '2023-10-16 07:30:00',
-        '2023-10-16 08:00:00',
-        '2023-10-16 08:30:00',
-        '2023-10-16 09:00:00',
-        '2023-10-16 09:30:00',
-        '2023-10-16 10:00:00',
-        '2023-10-16 10:30:00',
-        '2023-10-16 11:00:00',
-        '2023-10-16 11:30:00',
-        '2023-10-16 12:00:00',
-        '2023-10-16 12:30:00',
-        '2023-10-16 13:00:00',
-        '2023-10-16 13:30:00',
-        '2023-10-16 14:00:00',
-        '2023-10-16 14:30:00'
-    ];
-
     return (
         <Stack spacing={2}>
-            <TimelineCard data={labels}/>
+            {Object.entries(timeline).length > 0 && <TimelineCard data={timeline}/>}
             {Object.entries(data.metric_map).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
                 <Grid2>
                     <MetricCard title="Minecraft Version" metric={data.metric_map.minecraft_version}/>

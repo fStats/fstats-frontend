@@ -2,7 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {ArcElement, CategoryScale, Chart, Colors, LinearScale, LineElement, PointElement, Tooltip} from "chart.js";
+import {
+    ArcElement,
+    CategoryScale,
+    Chart,
+    Colors,
+    LinearScale,
+    LineElement,
+    PointElement,
+    TimeScale,
+    Tooltip
+} from "chart.js";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import zoomPlugin from "chartjs-plugin-zoom";
 import {SnackbarProvider} from "notistack";
@@ -21,7 +31,7 @@ import FaqPage from "./pages/FaqPage";
 import {ProtectedRoute} from "./ProtectedRoute";
 import ProfilePage from "./pages/profile/ProfilePage";
 
-Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip, LinearScale, CategoryScale, PointElement, LineElement, Colors);
+Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip, LinearScale, CategoryScale, PointElement, LineElement, Colors, TimeScale);
 
 export const queryClient = new QueryClient()
 
