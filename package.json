@@ -3,7 +3,6 @@
   "version": "2022.12.1",
   "private": true,
   "type": "module",
-  "homepage": "https://fstats.dev",
   "dependencies": {
     "@ant-design/charts": "^1.4.2",
     "@emotion/react": "^11.10.4",
