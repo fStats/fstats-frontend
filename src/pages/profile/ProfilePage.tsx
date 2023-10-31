@@ -64,6 +64,7 @@ export default function ProfilePage() {
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
+                                    <TableCell>ID</TableCell>
                                     <TableCell>Project name</TableCell>
                                     <TableCell>Project owner</TableCell>
                                     <TableCell></TableCell>
@@ -72,6 +73,12 @@ export default function ProfilePage() {
                             <TableBody>
                                 {projects.slice(page * 10, page * 10 + 10).map((row) =>
                                     <TableRow hover tabIndex={-1} key={row.name}>
+                                        <TableCell onClick={() => {
+                                            navigator.clipboard.writeText(row.id!!.toString())
+                                            enqueueSnackbar("Project ID copied to clipboard", {variant: "info"})
+                                        }}>
+                                            {row.id}
+                                        </TableCell>
                                         <TableCell onClick={() => openProject(row.id!!)}>
                                             {row.name}
                                         </TableCell>
