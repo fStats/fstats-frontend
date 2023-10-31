@@ -30,6 +30,7 @@ import {LoginPage} from "./pages/LoginPage";
 import FaqPage from "./pages/FaqPage";
 import {ProtectedRoute} from "./ProtectedRoute";
 import ProfilePage from "./pages/profile/ProfilePage";
+import TermsPolicyPage from "./pages/TermsPolicyPage";
 
 Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip, LinearScale, CategoryScale, PointElement, LineElement, Colors, TimeScale);
 
@@ -65,6 +66,8 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
                                             <Route path="profile" element={
                                                 <ProtectedRoute children={<ProfilePage/>}/>
                                             }/>
+
+                                            <Route path="terms-policy" element={<TermsPolicyPage/>}/>
 
                                             <Route path="*" element={<NotFoundPage/>}/>
                                         </Route>

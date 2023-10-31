@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography';
 import {Button, Container, CssBaseline, ListSubheader, Menu, MenuItem} from "@mui/material";
 import {Link, Outlet, useNavigate} from "react-router-dom";
 import {DrawerProps} from "./types";
-import {AccountCircle, FormatListBulleted, Home, MenuBook, QuestionAnswer, Star} from "@mui/icons-material";
+import {AccountCircle, FormatListBulleted, Gavel, Home, MenuBook, QuestionAnswer, Star} from "@mui/icons-material";
 import {useLabel} from "../hooks/useLabel";
 import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
@@ -71,6 +71,11 @@ export default function RootPage(props: DrawerProps) {
             label: "FAQ",
             route: "faq",
             icon: <QuestionAnswer/>
+        },
+        {
+            label: "Terms & Policy",
+            route: "terms-policy",
+            icon: <Gavel/>
         }
     ]
 
