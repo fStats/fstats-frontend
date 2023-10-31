@@ -102,17 +102,18 @@ export default function ProjectPage() {
 
 const formatOnlineMode = (data: DataValue) => (Object.fromEntries(
     Object.entries(data).map(([value, count]) => {
-        if (value === 'true') value = 'Online';
-        if (value === 'false') value = 'Offline';
+        if (value === "true") value = "Online";
+        if (value === "false") value = "Offline";
         return [value, count];
     })
 ) as DataValue);
 
 const formatOperationSystem = (data: DataValue) => (Object.fromEntries(
     Object.entries(data).map(([value, count]) => {
-        if (value === 'l') value = 'Linux'
-        if (value === 'm') value = 'MacOS'
-        if (value === 'w') value = 'Windows'
+        if (value === 'l') value = "Linux"
+        if (value === 'm') value = "MacOS"
+        if (value === 'w') value = "Windows"
+        if (value === 'o') value = "Other"
         return [value, count];
     })
 ) as DataValue);
