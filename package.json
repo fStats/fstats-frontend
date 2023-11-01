@@ -1,9 +1,9 @@
 {
   "name": "fstats-frontend",
-  "version": "2023.7.1",
   "private": false,
+  "version": "2022.12.1",
+  "homepage": "https://fstats.dev/",
   "type": "module",
-  "homepage": "https://fstats.dev",
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
