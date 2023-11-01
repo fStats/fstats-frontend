@@ -1,9 +1,16 @@
 import {Typography} from "@mui/material";
+import React from "react";
+import CenteredContainer from "../components/CenteredContainer";
+import {useLabel} from "../hooks/useLabel";
 
-export function NotFoundPage() {
+export default function NotFoundPage() {
+
+    useLabel()?.setLabel("Who is here O_o ?")
+
     return (
-        <div style={{textAlign: "center"}}>
-            <Typography variant="h1">404 Ducky not found</Typography>
-        </div>
+        <CenteredContainer>
+            <Typography variant="h1">404</Typography>
+            <Typography variant="h3">🦆 not found</Typography>
+        </CenteredContainer>
     )
 }
