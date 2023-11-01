@@ -14,13 +14,13 @@ export default function HowToStartPage() {
 
     return (
         <Stack spacing={2}>
-            <Typography variant="h5">
+            <Typography variant="h4">
                 The first thing that you need to do is <MUILink component={Link} underline="none"
                                                                 to="/register">register</MUILink>,
                 then <MUILink component={Link} underline="none" to="/create">create</MUILink> a project and get it
                 projectId
             </Typography>
-            <Typography variant="h4">Adding library as/to dependency</Typography>
+            <Typography variant="h5">Adding library as/to dependency</Typography>
             <Card>
                 <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                     <Tabs value={page} onChange={(_, newPage) => setPage(newPage)}>
@@ -39,7 +39,6 @@ export default function HowToStartPage() {
                         {javaGradleCode}
                     </SyntaxHighlighter>
                 </> : null}
-
             </Card>
             <Card>
                 <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
@@ -47,9 +46,7 @@ export default function HowToStartPage() {
                     {fabricJsonSuggests}
                 </SyntaxHighlighter>
             </Card>
-
-            <Typography variant="h4">Setup project</Typography>
-
+            <Typography variant="h5">Setup project</Typography>
             <Card>
                 <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
                 <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
