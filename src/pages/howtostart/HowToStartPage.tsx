@@ -17,7 +17,7 @@ export default function HowToStartPage() {
             <Typography variant="h4">
                 The first thing that you need to do is <MUILink component={Link} underline="none"
                                                                 to="/register">register</MUILink>,
-                then <MUILink component={Link} underline="none" to="/create">create</MUILink> a project and get it
+                then <MUILink component={Link} underline="none" to="/profile">create</MUILink> a project and get it
                 projectId
             </Typography>
             <Typography variant="h5">Adding library as/to dependency</Typography>
