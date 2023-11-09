@@ -1,4 +1,15 @@
-import {Button, Card, Container, Divider, Stack, TextField, Typography} from "@mui/material";
+import {
+    Button,
+    Card,
+    Checkbox,
+    Container,
+    Divider,
+    FormControlLabel,
+    Link as MuiLink,
+    Stack,
+    TextField,
+    Typography
+} from "@mui/material";
 import React, {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useRegistration} from "../services/auth";
@@ -16,6 +27,7 @@ export default function RegisterPage() {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [passwordRepeat, setPasswordRepeat] = useState("")
+    const [acceptTermsAndPolicy, setAcceptTermsAndPolicy] = useState(false)
     const [user, setUser] = useState<User>()
 
     const {data, status, error} = useRegistration(user)
@@ -70,8 +82,14 @@ export default function RegisterPage() {
                                onChange={event => setPassword(event.target.value)}/>
                     <TextField label="Password repeat" variant="outlined" type="password"
                                onChange={event => setPasswordRepeat(event.target.value)}/>
+                    <FormControlLabel control={
+                        <Checkbox checked={acceptTermsAndPolicy}
+                                  onChange={event => setAcceptTermsAndPolicy(event.target.checked)}/>
+                    } label={<>
+                        Accept <MuiLink href="/terms-policy" underline="none" target="_blank">Terms & Policy</MuiLink>
+                    </>}/>
                     <Stack direction="row" divider={<Divider orientation="vertical" flexItem/>} spacing={2}>
-                        <Button color="inherit" variant="contained" sx={{flexGrow: 9}}
+                        <Button disabled={!acceptTermsAndPolicy} color="inherit" variant="contained" sx={{flexGrow: 9}}
                                 onClick={() => registerUser(username, password, passwordRepeat)}>Register</Button>
                         <Button color="inherit" variant="outlined" sx={{flexGrow: 1}} component={Link}
                                 to="/login">Login</Button>
