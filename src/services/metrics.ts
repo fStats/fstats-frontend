@@ -1,13 +1,13 @@
-import {getMetricCount, getMetricTimeline} from "./fStatsApi";
+import {getPieMetric, getLineMetric} from "./fStatsApi";
 import {useQuery} from "@tanstack/react-query";
-import {DataValue, ProjectWithMinecraftData} from "./types";
+import {LineMetric, PieMetric} from "./types";
 
-export const useMetricTimeline = (projectId: number) => useQuery<DataValue, Error>({
-    queryKey: [`metricTimeline_${projectId}`],
-    queryFn: () => getMetricTimeline(projectId).then(value => value)
+export const useLineMetric = (projectId: number) => useQuery<LineMetric, Error>({
+    queryKey: [`metricLine_${projectId}`],
+    queryFn: () => getLineMetric(projectId).then(value => value)
 })
 
-export const useMetricCount = (projectId: number) => useQuery<ProjectWithMinecraftData, Error>({
-    queryKey: [`metricCount_${projectId}`],
-    queryFn: () => getMetricCount(projectId)
+export const usePieMetric = (projectId: number) => useQuery<PieMetric, Error>({
+    queryKey: [`metricPie_${projectId}`],
+    queryFn: () => getPieMetric(projectId)
 })
