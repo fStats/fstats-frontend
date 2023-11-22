@@ -2,14 +2,14 @@ import {Card, CardContent} from "@mui/material";
 import {Line} from "react-chartjs-2";
 import {colors} from "./colors";
 import React from "react";
-import {DataValue} from "../../../services/types";
+import {LineMetric} from "../../../services/types";
 import "chartjs-adapter-date-fns";
 
-export default function TimelineCard(props: { data: DataValue }) {
+export default function TimelineCard(props: { data: LineMetric }) {
 
     console.log(Object.entries(props.data))
 
-    const list = Object.entries(props.data).map((value) => ({
+    const list = Object.entries(props.data.metric_line).map((value) => ({
         x: new Date(value[0]).valueOf(),
         y: value[1]
     }))
@@ -47,6 +47,7 @@ export default function TimelineCard(props: { data: DataValue }) {
                                 x: {
                                     max: Date.now(),
                                     minRange: 1000 * 60 * 60 * 4,
+                                    min: 0
                                 }
                             },
                             zoom: {
@@ -60,10 +61,16 @@ export default function TimelineCard(props: { data: DataValue }) {
                     },
                     scales: {
                         x: {
-                            type: "time"
+                            type: "time",
+                            time: {
+                                minUnit: "hour",
+                            },
                         },
                         y: {
                             type: 'linear',
+                            ticks: {
+                                precision: 0
+                            },
                             min: 0
                         }
                     },

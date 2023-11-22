@@ -24,26 +24,14 @@ export interface Project {
     owner?: Owner;
 }
 
-export interface ProjectWithMinecraftData {
+export interface PieMetric {
     project: Project;
-    metric_map: MinecraftData;
+    metric_pie: MinecraftData;
 }
 
-export interface ProjectWithMetric {
+export interface LineMetric {
     project: Project;
-    metrics: Metric[];
-}
-
-export interface Metric {
-    timestampSeconds: number;
-    projectId: number;
-    isServer: boolean;
-    minecraftVersion: string;
-    isOnlineMode: boolean;
-    modVersion: string;
-    os: string & { length: 1 };
-    location: string;
-    fabric_api_version: string;
+    metric_line: DataValue;
 }
 
 export interface MinecraftData {
