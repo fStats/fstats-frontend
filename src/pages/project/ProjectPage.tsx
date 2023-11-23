@@ -3,7 +3,7 @@ import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {CircularProgress, Fab, Stack, Typography} from "@mui/material";
 import MetricCard from "./components/MetricCard";
-import {usePieMetric, useLineMetric} from "../../services/metrics";
+import {useLineMetric, usePieMetric} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
 import {Loader} from "../../components/Loader";
 import {DataValue, User} from "../../services/types";
@@ -14,6 +14,7 @@ import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../servi
 import React, {useEffect, useState} from "react";
 import TimelineCard from "./components/TimelineCard";
 import CenteredContainer from "../../components/CenteredContainer";
+import {Helmet} from "react-helmet";
 
 export default function ProjectPage() {
 
@@ -56,47 +57,52 @@ export default function ProjectPage() {
     }
 
     return (
-        <Stack spacing={2}>
-            {Object.entries(timeline).length > 0 && <TimelineCard data={timeline}/>}
-            {Object.entries(data.metric_pie).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
-                <Grid2>
-                    <MetricCard title="Minecraft Version" metric={data.metric_pie.minecraft_version}/>
-                </Grid2>
+        <>
+            <Helmet>
+                <meta property="og:image" content={`https://img.fstats.dev/timeline/${projectId}`}/>
+            </Helmet>
+            <Stack spacing={2}>
+                {Object.entries(timeline).length > 0 && <TimelineCard data={timeline}/>}
+                {Object.entries(data.metric_pie).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
+                    <Grid2>
+                        <MetricCard title="Minecraft Version" metric={data.metric_pie.minecraft_version}/>
+                    </Grid2>
 
-                <Grid2>
-                    <MetricCard title="Online Mode" metric={formatOnlineMode(data.metric_pie.online_mode)}/>
-                </Grid2>
+                    <Grid2>
+                        <MetricCard title="Online Mode" metric={formatOnlineMode(data.metric_pie.online_mode)}/>
+                    </Grid2>
 
-                <Grid2>
-                    <MetricCard title="Mod Version" metric={data.metric_pie.mod_version}/>
-                </Grid2>
+                    <Grid2>
+                        <MetricCard title="Mod Version" metric={data.metric_pie.mod_version}/>
+                    </Grid2>
 
-                <Grid2>
-                    <MetricCard title="Operation System" metric={formatOperationSystem(data.metric_pie.os)}/>
-                </Grid2>
+                    <Grid2>
+                        <MetricCard title="Operation System" metric={formatOperationSystem(data.metric_pie.os)}/>
+                    </Grid2>
 
-                <Grid2>
-                    <MetricCard title="Location" metric={data.metric_pie.location}/>
-                </Grid2>
+                    <Grid2>
+                        <MetricCard title="Location" metric={data.metric_pie.location}/>
+                    </Grid2>
 
-                <Grid2>
-                    <MetricCard title="Fabric API" metric={data.metric_pie.fabric_api_version}/>
-                </Grid2>
-            </Grid2> : <CenteredContainer>
-                <Typography variant="h4" textAlign="center">No data found :(</Typography>
-            </CenteredContainer>}
-            {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
-                isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
-                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
-                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
-                }) : addProjectToFavorite.mutate((projectId), {
-                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
-                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
-                })}>
-                {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
-                    <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
-            </Fab>}
-        </Stack>
+                    <Grid2>
+                        <MetricCard title="Fabric API" metric={data.metric_pie.fabric_api_version}/>
+                    </Grid2>
+                </Grid2> : <CenteredContainer>
+                    <Typography variant="h4" textAlign="center">No data found :(</Typography>
+                </CenteredContainer>}
+                {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
+                    isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
+                        onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                        onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                    }) : addProjectToFavorite.mutate((projectId), {
+                        onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                        onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                    })}>
+                    {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
+                        <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
+                </Fab>}
+            </Stack>
+        </>
     )
 }
 
