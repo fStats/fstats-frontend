@@ -6,23 +6,16 @@ import {LineMetric} from "../../../services/types";
 import "chartjs-adapter-date-fns";
 
 export default function TimelineCard(props: { data: LineMetric }) {
-
-    console.log(Object.entries(props.data))
-
-    const list = Object.entries(props.data.metric_line).map((value) => ({
-        x: new Date(value[0]).valueOf(),
-        y: value[1]
-    }))
-
-    console.log(list)
-
     return (
         <Card>
             <CardContent>
                 <Line style={{height: 300}} data={{
                     datasets: [
                         {
-                            data: list,
+                            data: Object.entries(props.data.metric_line).map((value) => ({
+                                x: new Date(value[0]).valueOf(),
+                                y: value[1]
+                            })),
                             borderColor: colors[0],
                             backgroundColor: colors[0],
                             pointStyle: false,
@@ -41,7 +34,9 @@ export default function TimelineCard(props: { data: LineMetric }) {
                         decimation: {
                             enabled: true
                         },
-                        datalabels: {display: false},
+                        datalabels: {
+                            display: false
+                        },
                         zoom: {
                             limits: {
                                 x: {
@@ -65,6 +60,7 @@ export default function TimelineCard(props: { data: LineMetric }) {
                             time: {
                                 minUnit: "hour",
                             },
+                            max: Date.now(),
                         },
                         y: {
                             type: 'linear',
