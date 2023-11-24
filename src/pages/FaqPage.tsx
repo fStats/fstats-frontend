@@ -8,12 +8,20 @@ export default function FaqPage() {
 
     const faq = [
         {
-            question: "What data is collected from the user",
+            question: "What data is collected from the user?",
             answer: <Link underline="none" href="/terms-policy">Terms & Policy</Link>
         },
         {
-            question: "How to change or reset password",
+            question: "How to change or reset password?",
             answer: "There's no automatic option for that currently. Please contact me, so I can reset your password"
+        },
+        {
+            question: "Where I can found SVG or PNG?",
+            answer: <>
+                Image can be generated using <Link underline="none"
+                                                   href="https://img.fstats.dev/">microservice</Link>. <i
+                style={{color: "gray"}}>(Currently support only timeline chart)</i>
+            </>
         }
     ]
 
