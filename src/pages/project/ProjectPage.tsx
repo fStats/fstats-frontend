@@ -59,7 +59,7 @@ export default function ProjectPage() {
     return (
         <>
             <Helmet>
-                <meta property="og:image" content={`https://img.fstats.dev/timeline/${projectId}`}/>
+                <meta property="og:image" content={`https://img.fstats.dev/timeline/${projectId}?format=png`}/>
             </Helmet>
             <Stack spacing={2}>
                 {Object.entries(timeline).length > 0 && <TimelineCard data={timeline}/>}
