@@ -14,7 +14,6 @@ import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../servi
 import React, {useEffect, useState} from "react";
 import TimelineCard from "./components/TimelineCard";
 import CenteredContainer from "../../components/CenteredContainer";
-import {Helmet} from "react-helmet";
 
 export default function ProjectPage() {
 
@@ -58,9 +57,6 @@ export default function ProjectPage() {
 
     return (
         <>
-            <Helmet>
-                <meta property="og:image" content={`https://img.fstats.dev/timeline/${projectId}?format=png`}/>
-            </Helmet>
             <Stack spacing={2}>
                 {Object.entries(timeline).length > 0 && <TimelineCard data={timeline}/>}
                 {Object.entries(data.metric_pie).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
