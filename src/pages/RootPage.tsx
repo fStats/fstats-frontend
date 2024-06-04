@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -21,6 +20,7 @@ import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
 import {useUserFavorites} from "../services/users";
 import {User} from "../services/types";
+import {useState} from "react";
 
 export const drawerWidth = 240;
 
@@ -30,7 +30,7 @@ export default function RootPage(props: DrawerProps) {
 
     const navigate = useNavigate()
 
-    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     const {isAuthorized, setToken, token} = useAuth()!!
 
@@ -41,7 +41,7 @@ export default function RootPage(props: DrawerProps) {
 
     const {data} = useUserFavorites(id, token)
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const {enqueueSnackbar} = useSnackbar()
 

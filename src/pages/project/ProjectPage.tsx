@@ -11,7 +11,7 @@ import {Favorite, Remove} from "@mui/icons-material";
 import {useUserFavorites} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
 import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../services/projects";
-import React, {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import TimelineCard from "./components/TimelineCard";
 import CenteredContainer from "../../components/CenteredContainer";
 

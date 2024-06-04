@@ -1,7 +1,6 @@
 import {Card, CardContent} from "@mui/material";
 import {Line} from "react-chartjs-2";
 import {colors} from "./colors";
-import React from "react";
 import {LineMetric} from "../../../services/types";
 import "chartjs-adapter-date-fns";
 

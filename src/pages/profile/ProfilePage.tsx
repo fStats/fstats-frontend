@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Loader} from "../../components/Loader";
 import {useUserProjects} from "../../services/users";
 import {Add, Delete} from "@mui/icons-material";

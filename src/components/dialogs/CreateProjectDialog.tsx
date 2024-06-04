@@ -1,5 +1,5 @@
 import {Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@mui/material";
-import React, {Dispatch, useState} from "react";
+import {Dispatch, useState} from "react";
 import {useCreateProject} from "../../services/projects";
 import {useSnackbar} from "notistack";
 

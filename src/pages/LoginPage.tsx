@@ -1,6 +1,6 @@
 import TextField from "@mui/material/TextField";
 import {Button, Card, Container, Divider, Stack, Typography} from "@mui/material";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {User} from "../services/types";
 import {useLogin} from "../services/auth";

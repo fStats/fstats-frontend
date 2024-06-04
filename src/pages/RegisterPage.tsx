@@ -10,7 +10,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import React, {useState} from "react";
+import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {useRegistration} from "../services/auth";
 import {User} from "../services/types";
