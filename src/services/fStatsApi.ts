@@ -1,6 +1,6 @@
-import {ApiMessage, AuthToken, Project, PieMetric, User, LineMetric} from "./types";
+import {ApiMessage, AuthToken, LineMetric, PieMetric, Project, User} from "./types";
 
-const hostUrl: string = "https://api.fstats.dev/v2"
+const hostUrl: string = "http://0.0.0.0:1540/v3"
 
 /*   USERS   */
 export const getUser = async (id: number): Promise<User> => {
