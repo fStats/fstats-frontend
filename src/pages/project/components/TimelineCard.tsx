@@ -3,6 +3,7 @@ import {Line} from "react-chartjs-2";
 import {colors} from "./colors";
 import {LineMetric} from "../../../services/types";
 import "chartjs-adapter-date-fns";
+import {TimelineData} from "./types.ts";
 
 export default function TimelineCard(props: { data: LineMetric }) {
     return (
@@ -11,10 +12,7 @@ export default function TimelineCard(props: { data: LineMetric }) {
                 <Line style={{height: 300}} data={{
                     datasets: [
                         {
-                            data: Object.entries(props.data.metric_line).map((value) => ({
-                                x: new Date(value[0]).valueOf(),
-                                y: value[1]
-                            })),
+                            data: decodeLineMetric(props.data),
                             borderColor: colors[0],
                             backgroundColor: colors[0],
                             pointStyle: false,
@@ -80,4 +78,15 @@ export default function TimelineCard(props: { data: LineMetric }) {
             </CardContent>
         </Card>
     )
+}
+
+function decodeLineMetric(encoded: LineMetric): TimelineData[] {
+    let prevTimestamp = 0;
+    let prevCount = 0;
+
+    return encoded.timestamps.map((deltaTimestamp, index) => {
+        prevTimestamp += deltaTimestamp;
+        prevCount += encoded.counts[index];
+        return {x: prevTimestamp * 1000, y: prevCount};
+    });
 }

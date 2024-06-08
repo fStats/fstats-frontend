@@ -30,8 +30,8 @@ export interface PieMetric {
 }
 
 export interface LineMetric {
-    project: Project;
-    metric_line: DataValue;
+    timestamps: number[];
+    counts: number[];
 }
 
 export interface MinecraftData {
