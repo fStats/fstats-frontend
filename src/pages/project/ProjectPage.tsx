@@ -39,7 +39,7 @@ export default function ProjectPage() {
 
     const removeProjectFromFavorite = useRemoveProjectFromFavorite()
 
-    useLabel()?.setLabel(data?.project?.name || "")
+    useLabel()?.setLabel("Temporally unavailable :(")
 
     useEffect(() => {
         setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
@@ -59,29 +59,29 @@ export default function ProjectPage() {
         <>
             <Stack spacing={2}>
                 {Object.entries(timeline).length > 0 && <TimelineCard data={timeline}/>}
-                {Object.entries(data.metric_pie).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
+                {Object.entries(data).length > 0 ? <Grid2 container spacing={2} justifyContent="center">
                     <Grid2>
-                        <MetricCard title="Minecraft Version" metric={data.metric_pie.minecraft_version}/>
+                        <MetricCard title="Minecraft Version" metric={data.minecraft_version}/>
                     </Grid2>
 
                     <Grid2>
-                        <MetricCard title="Online Mode" metric={formatOnlineMode(data.metric_pie.online_mode)}/>
+                        <MetricCard title="Online Mode" metric={formatOnlineMode(data.online_mode)}/>
                     </Grid2>
 
                     <Grid2>
-                        <MetricCard title="Mod Version" metric={data.metric_pie.mod_version}/>
+                        <MetricCard title="Mod Version" metric={data.mod_version}/>
                     </Grid2>
 
                     <Grid2>
-                        <MetricCard title="Operation System" metric={formatOperationSystem(data.metric_pie.os)}/>
+                        <MetricCard title="Operation System" metric={formatOperationSystem(data.os)}/>
                     </Grid2>
 
                     <Grid2>
-                        <MetricCard title="Location" metric={data.metric_pie.location}/>
+                        <MetricCard title="Location" metric={data.location}/>
                     </Grid2>
 
                     <Grid2>
-                        <MetricCard title="Fabric API" metric={data.metric_pie.fabric_api_version}/>
+                        <MetricCard title="Fabric API" metric={data.fabric_api_version}/>
                     </Grid2>
                 </Grid2> : <CenteredContainer>
                     <Typography variant="h4" textAlign="center">No data found :(</Typography>

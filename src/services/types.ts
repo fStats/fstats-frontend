@@ -25,22 +25,17 @@ export interface Project {
 }
 
 export interface PieMetric {
-    project: Project;
-    metric_pie: MinecraftData;
-}
-
-export interface LineMetric {
-    timestamps: number[];
-    counts: number[];
-}
-
-export interface MinecraftData {
     minecraft_version: DataValue;
     online_mode: DataValue;
     mod_version: DataValue;
     os: DataValue;
     location: DataValue;
     fabric_api_version: DataValue;
+}
+
+export interface LineMetric {
+    timestamps: number[];
+    counts: number[];
 }
 
 export interface DataValue {
