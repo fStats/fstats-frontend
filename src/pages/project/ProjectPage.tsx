@@ -39,7 +39,7 @@ export default function ProjectPage() {
 
     const removeProjectFromFavorite = useRemoveProjectFromFavorite()
 
-    useLabel()?.setLabel(data?.project.name || "")
+    useLabel()?.setLabel(data?.project?.name || "")
 
     useEffect(() => {
         setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
