@@ -1,4 +1,13 @@
-import {Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, TextField} from "@mui/material";
+import {
+    Alert,
+    Button,
+    CircularProgress,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField
+} from "@mui/material";
 import {Dispatch, useState} from "react";
 import {useCreateProject} from "../../services/projects";
 import {useSnackbar} from "notistack";
@@ -25,6 +34,9 @@ export default function CreateProjectDialog(props: { open: boolean, setOpen: Dis
                     <TextField sx={{width: "100%"}} inputMode="text" placeholder="New project name" onChange={
                         (event) => setName(event.target.value)
                     }/>
+                    {name.match("server") && <Alert sx={{marginTop: 1}} variant="outlined" severity="warning">
+                        This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!
+                    </Alert>}
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
