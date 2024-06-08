@@ -2,8 +2,8 @@ import {Card, CardContent} from "@mui/material";
 import {Line} from "react-chartjs-2";
 import {colors} from "./colors";
 import {LineMetric} from "../../../services/types";
-import "chartjs-adapter-date-fns";
 import {TimelineData} from "./types.ts";
+import "chartjs-adapter-date-fns";
 
 export default function TimelineCard(props: { data: LineMetric }) {
     return (
