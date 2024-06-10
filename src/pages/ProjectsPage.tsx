@@ -11,20 +11,20 @@ import {
 } from "@mui/material";
 import {useProjects} from "../services/projects"
 import {Loader} from "../components/Loader"
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useSearchParams} from "react-router-dom";
 import {useLabel} from "../hooks/useLabel";
 import {useSnackbar} from "notistack";
-import {useState} from "react";
 
 export default function ProjectsPage() {
 
     useLabel()?.setLabel("Projects catalogue")
 
+    const [searchParams, setSearchParams] = useSearchParams();
     const {data, status, error} = useProjects()
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
-    const [page, setPage] = useState(0);
+    const page = Number.parseInt(searchParams.get('page') || "0") || 0;
 
     if (status === "loading") return <Loader/>
 
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
                         rowsPerPage={10}
                         count={data.length}
                         page={page}
-                        onPageChange={(_, newPage) => setPage(newPage)}
+                        onPageChange={(_, newPage) => setSearchParams({page: newPage.toString()})}
                         rowsPerPageOptions={[]}
                     />
                 </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
