@@ -14,6 +14,7 @@ import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../servi
 import {useEffect, useState} from "react";
 import TimelineCard from "./components/TimelineCard";
 import CenteredContainer from "../../components/CenteredContainer";
+import {WorldMapCard} from "./components/WorldMapCard.tsx";
 
 export default function ProjectPage() {
 
@@ -86,14 +87,16 @@ export default function ProjectPage() {
                 </Grid2> : <CenteredContainer>
                     <Typography variant="h4" textAlign="center">No data found :(</Typography>
                 </CenteredContainer>}
-                {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
-                    isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
-                        onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
-                        onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
-                    }) : addProjectToFavorite.mutate((projectId), {
-                        onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
-                        onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
-                    })}>
+                {Object.entries(data).length > 0 && <WorldMapCard title="Contries" metric={data.location}/>}
+                {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}}
+                                      onClick={() =>
+                                          isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
+                                              onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                                              onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                                          }) : addProjectToFavorite.mutate((projectId), {
+                                              onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                                              onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                                          })}>
                     {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
                         <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
                 </Fab>}
