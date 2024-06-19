@@ -31,8 +31,25 @@ import FaqPage from "./pages/FaqPage";
 import {ProtectedRoute} from "./ProtectedRoute";
 import ProfilePage from "./pages/profile/ProfilePage";
 import TermsPolicyPage from "./pages/TermsPolicyPage";
+import {ChoroplethController, ColorScale, GeoFeature, ProjectionScale, SizeScale} from "chartjs-chart-geo";
 
-Chart.register(ArcElement, ChartDataLabels, zoomPlugin, Tooltip, LinearScale, CategoryScale, PointElement, LineElement, Colors, TimeScale);
+Chart.register(
+    ArcElement,
+    ChartDataLabels,
+    zoomPlugin,
+    Tooltip,
+    LinearScale,
+    CategoryScale,
+    PointElement,
+    LineElement,
+    Colors,
+    TimeScale,
+    GeoFeature,
+    ChoroplethController,
+    ColorScale,
+    SizeScale,
+    ProjectionScale,
+);
 
 export const queryClient = new QueryClient()
 
