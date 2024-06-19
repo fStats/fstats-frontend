@@ -249,7 +249,8 @@ export const iso2name: KeyValue = {
     "ESH": "Western Sahara",
     "YEM": "Yemen",
     "ZMB": "Zambia",
-    "ZWE": "Zimbabwe"
+    "ZWE": "Zimbabwe",
+    "XXX": "Unknown"
 }
 
 export const iso2code: KeyValue = {
@@ -501,5 +502,6 @@ export const iso2code: KeyValue = {
     "ESH": "732",
     "YEM": "887",
     "ZMB": "894",
-    "ZWE": "716"
+    "ZWE": "716",
+    "XXX": "000"
 }
