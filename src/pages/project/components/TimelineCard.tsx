@@ -16,7 +16,7 @@ export default function TimelineCard(props: { data: LineMetric }) {
                             borderColor: colors[0],
                             backgroundColor: colors[0],
                             pointStyle: false,
-                            spanGaps: 1000 * 60 * 30,
+                            spanGaps: 1800000,
                             parsing: false
                         }
                     ],
@@ -38,7 +38,7 @@ export default function TimelineCard(props: { data: LineMetric }) {
                             limits: {
                                 x: {
                                     max: Date.now(),
-                                    minRange: 1000 * 60 * 60 * 4,
+                                    minRange: 14400000,
                                     min: 0
                                 }
                             },
