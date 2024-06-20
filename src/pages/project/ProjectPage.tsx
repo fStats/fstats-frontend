@@ -56,22 +56,22 @@ export default function ProjectPage() {
     }
 
     return (
-        <Stack spacing={1}>
+        <Stack spacing={2}>
             <TimelineCard data={timeline ?? []}/>
-            <Grid2 container spacing={2} justifyContent="center">
-                <Grid2>
+            <Grid2 container columnGap={2} rowGap={2} justifyContent="center">
+                <Grid2 xs={6} sm={8} md={2.296}>
                     <MetricCard title="Minecraft Version" metric={data.minecraft_version ?? []}/>
                 </Grid2>
-                <Grid2>
+                <Grid2 xs={6} sm={8} md={2.296}>
                     <MetricCard title="Online Mode" metric={formatOnlineMode(data.online_mode ?? [])}/>
                 </Grid2>
-                <Grid2>
+                <Grid2 xs={6} sm={8} md={2.296}>
                     <MetricCard title="Mod Version" metric={data.mod_version ?? []}/>
                 </Grid2>
-                <Grid2>
+                <Grid2 xs={6} sm={8} md={2.296}>
                     <MetricCard title="Operation System" metric={formatOperationSystem(data.os ?? [])}/>
                 </Grid2>
-                <Grid2>
+                <Grid2 xs={6} sm={8} md={2.296}>
                     <MetricCard title="Fabric API" metric={data.fabric_api_version ?? []}/>
                 </Grid2>
             </Grid2>
