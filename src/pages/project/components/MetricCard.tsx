@@ -13,7 +13,7 @@ export default function MetricCard(props: CardProps) {
         metric = (Object.fromEntries(Object.entries(metric).map(([value, count]) => [iso2name[value], count])) as DataValue)
     }
 
-    return Object.keys(metric).length > 0 ? (
+    return (
         <Card>
             <CardContent>
                 <Typography variant="h6" textAlign="center">{props.title}</Typography>
@@ -45,5 +45,5 @@ export default function MetricCard(props: CardProps) {
                 }}/>
             </CardContent>
         </Card>
-    ) : null
+    )
 }
