@@ -45,10 +45,10 @@ export function WorldMapCard(props: CardProps) {
                         datasets: [{
                             label: 'Countries',
                             data: (data as Feature[]).map((d) => ({feature: d, value: metric[d.id] ?? 0})),
-                            // TODO Replace with HSL
-                            backgroundColor: (ctx, _) => `rgba(46, 204, 113, ${map((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
-                                value: number
-                            })?.value ?? 0, minValue, maxValue)})`
+                            backgroundColor: (ctx, _) =>
+                                gradientColor(map((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
+                                    value: number
+                                })?.value, minValue, maxValue)),
                         }]
                     }}
                     options={{
@@ -63,8 +63,7 @@ export function WorldMapCard(props: CardProps) {
                                 projection: 'equalEarth'
                             },
                             color: {
-                                // TODO Replace with HSL
-                                interpolate: (v) => `rgba(46, 204, 113, ${v}`,
+                                interpolate: (v) => gradientColor(v),
                                 max: maxValue,
                                 axis: "x",
                                 ticks: {
@@ -79,4 +78,12 @@ export function WorldMapCard(props: CardProps) {
             </CardContent>
         </Card>
     )
+}
+
+const gradientColor = (offset: number): string => {
+    const r = Math.round(18 + 28 * offset);
+    const g = Math.round(18 + 186 * offset);
+    const b = Math.round(18 + 95 * offset);
+
+    return `rgb(${r}, ${g}, ${b})`;
 }
