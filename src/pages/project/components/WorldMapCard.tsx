@@ -3,7 +3,7 @@ import {Topology} from 'topojson-specification';
 import {CardProps} from "./types.ts";
 import {Feature, topojson} from "chartjs-chart-geo";
 import {FeatureCollection} from 'geojson';
-import {Card, CardContent} from "@mui/material";
+import {Card, CardContent, Typography} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
 import {ApiMessage, DataValue} from "../../../services/types.ts";
 import {iso2code} from "../../../mics/countryConvert.ts";
@@ -35,6 +35,7 @@ export function WorldMapCard(props: CardProps) {
     return (
         status === "success" && <Card>
             <CardContent>
+                <Typography variant="h6" textAlign="center">{props.title}</Typography>
                 <Chart
                     type="choropleth"
                     data={{
