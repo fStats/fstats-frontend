@@ -1,25 +1,10 @@
 import {Chart} from 'react-chartjs-2';
-import {Topology} from 'topojson-specification';
 import {CardProps} from "./types.ts";
-import {Feature, topojson} from "chartjs-chart-geo";
-import {FeatureCollection} from 'geojson';
+import {Feature} from "chartjs-chart-geo";
 import {Card, CardContent, Typography} from "@mui/material";
-import {useQuery} from "@tanstack/react-query";
-import {ApiMessage, DataValue} from "../../../services/types.ts";
+import {DataValue} from "../../../services/types.ts";
 import {iso2code} from "../../../mics/countryConvert.ts";
-
-const useWorldMap = () => useQuery<Feature[], Error>({
-    queryKey: ["worldMap"],
-    queryFn: () => getWorldMap().then(data => (topojson.feature(data, data.objects.countries) as FeatureCollection).features)
-})
-
-export const getWorldMap = async (): Promise<Topology> => {
-    const response = await fetch("https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json")
-
-    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
-
-    return await response.json() as Topology
-}
+import {useWorldMap} from "../../../services/worldatlas/worldMap.ts";
 
 export function WorldMapCard(props: CardProps) {
 
