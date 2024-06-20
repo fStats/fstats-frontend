@@ -43,7 +43,6 @@ export function WorldMapCard(props: CardProps) {
                             return d.properties.name;
                         }),
                         datasets: [{
-                            label: 'Countries',
                             data: (data as Feature[]).map((d) => ({feature: d, value: metric[d.id] ?? 0})),
                             backgroundColor: (ctx, _) =>
                                 gradientColor(map((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
