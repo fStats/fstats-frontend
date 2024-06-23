@@ -3,7 +3,7 @@ import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {CircularProgress, Fab, Stack} from "@mui/material";
 import MetricCard from "./components/MetricCard";
-import {useLineMetric, usePieMetric} from "../../services/metrics";
+import {usePieMetric} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
 import {Loader} from "../../components/Loader";
 import {DataValue, User} from "../../services/types";
@@ -22,7 +22,6 @@ export default function ProjectPage() {
 
     const projectId = Number.parseInt(useParams().id!!)
     const {data, status, error} = usePieMetric(projectId)
-    const {data: timeline, status: timeStatus, error: timeError} = useLineMetric(projectId)
 
     const {token, isAuthorized} = useAuth()!!
 
@@ -46,18 +45,17 @@ export default function ProjectPage() {
         return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
     }, [userFavoriteData, projectId]);
 
-    if (status === "loading" || timeStatus === "loading") return (<Loader/>)
+    if (status === "loading") return (<Loader/>)
 
-    if (status === "error" || timeStatus === "error") {
+    if (status === "error") {
         error && enqueueSnackbar(error?.message, {variant: "error"})
-        timeError && enqueueSnackbar(timeError?.message, {variant: "error"})
         navigate('/not-found')
         return <></>
     }
 
     return (
         <Stack spacing={2}>
-            <TimelineCard data={timeline ?? []}/>
+            <TimelineCard projectId={projectId}/>
             <Grid2 container columnGap={2} rowGap={2} justifyContent="center">
                 <Grid2 xs={6} sm={8} md={2.296}>
                     <MetricCard title="Minecraft Version" metric={data.minecraft_version ?? []}/>

@@ -1,10 +1,10 @@
-import {getPieMetric, getLineMetric} from "./fStatsApi";
-import {useQuery} from "@tanstack/react-query";
+import {getLineMetric, getPieMetric} from "./fStatsApi";
+import {useMutation, useQuery} from "@tanstack/react-query";
 import {LineMetric, PieMetric} from "./types";
 
-export const useLineMetric = (projectId: number) => useQuery<LineMetric, Error>({
-    queryKey: [`metricLine_${projectId}`],
-    queryFn: () => getLineMetric(projectId).then(value => value)
+export const useLineMetricMutation = (projectId: number) => useMutation<LineMetric, Error, number | undefined>({
+    mutationKey: [`metricLine_${projectId}`],
+    mutationFn: (from) => getLineMetric(projectId, from).then(value => value),
 })
 
 export const usePieMetric = (projectId: number) => useQuery<PieMetric, Error>({
