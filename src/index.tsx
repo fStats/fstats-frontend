@@ -51,7 +51,14 @@ Chart.register(
     ProjectionScale,
 );
 
-export const queryClient = new QueryClient()
+export const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            staleTime: 300000
+        }
+    }
+})
 
 const theme = createTheme({
     palette: {
