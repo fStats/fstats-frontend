@@ -111,9 +111,9 @@ export const removeProjectFromFavorite = async (projectId: number, token: string
 }
 
 /*   METRICS   */
-export const getLineMetric = async (projectId: number, from?: number): Promise<LineMetric> => {
+export const getLineMetric = async (projectId: number, from: number): Promise<LineMetric> => {
     console.log(from)
-    const response = await fetch(`${hostUrl}/metrics/${projectId}/line${from !== undefined ? `?from=${from}` : ""}`)
+    const response = await fetch(`${hostUrl}/metrics/${projectId}/line${(from !== undefined && from > 0) ? `?from=${from / 1000}` : ""}`)
 
     if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
 

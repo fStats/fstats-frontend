@@ -1,82 +1,66 @@
-import {Button, Card, CardActions, CardContent, Typography} from "@mui/material";
+import {
+    Card,
+    CardActions,
+    CardContent,
+    FormControl,
+    MenuItem,
+    Select,
+    SelectChangeEvent,
+    Typography
+} from "@mui/material";
 import {Line} from "react-chartjs-2";
 import {colors} from "./colors";
-import {LineMetric} from "../../../services/types";
 import {TimelineData} from "./types.ts";
 import {useLineMetricMutation} from "../../../services/metrics.ts";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
-import {useEffect, useState} from "react";
+import {useState} from "react";
+import {LineMetric} from "../../../services/types.ts";
 import "chartjs-adapter-date-fns";
+
+export type Mode = "week" | "month" | "quarter" | "all";
 
 export default function TimelineCard(props: { projectId: number }) {
 
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
-    const [limit, setLimit] = useState<number>(0)
+    const [mode, setMode] = useState<Mode>("month")
 
-    const lineMetricMutation = useLineMetricMutation(props.projectId)
+    const {data, status, error} = useLineMetricMutation(props.projectId, getTimestamp(mode), mode)
 
-    useEffect(() => {
-        const offset = offsetDate("month")
-        lineMetricMutation.mutate(offset)
-        setLimit(offset * 1000)
-    }, [props.projectId]);
+    const decodedData = decodeLineMetric(data)
 
-    // if (lineMetricMutation.status === "loading") return (<Loader/>)
-
-    if (lineMetricMutation.status === "error") {
-        lineMetricMutation.error && enqueueSnackbar(lineMetricMutation.error?.message, {variant: "error"})
+    if (status === "error") {
+        error && enqueueSnackbar(error?.message, {variant: "error"})
         navigate('/not-found')
         return <></>
     }
 
     return (
         <Card>
-            <CardActions>
-                <Typography variant="h6" paddingLeft={1} marginRight="auto">Servers online</Typography>
-                <Button variant="outlined" onClick={() => {
-                    const offset = offsetDate("week")
-                    lineMetricMutation.mutate(offset)
-                    setLimit(offset * 1000)
-                }}>
-                    <Typography variant="body2">
-                        Last Week
-                    </Typography>
-                </Button>
-                <Button variant="outlined" onClick={() => {
-                    const offset = offsetDate("month")
-                    lineMetricMutation.mutate(offset)
-                    setLimit(offset * 1000)
-                }}>
-                    <Typography variant="body2">
-                        Last Month
-                    </Typography>
-                </Button>
-                <Button variant="outlined" onClick={() => {
-                    const offset = offsetDate("quarter")
-                    lineMetricMutation.mutate(offset)
-                    setLimit(offset * 1000)
-                }}>
-                    <Typography variant="body2">
-                        Last Quarter
-                    </Typography>
-                </Button>
-                <Button variant="outlined" onClick={() => {
-                    lineMetricMutation.mutate(undefined)
-                    setLimit(Date.now())
-                }}>
-                    <Typography variant="body2">
-                        All
-                    </Typography>
-                </Button>
+            <CardActions sx={{paddingX: 2}}>
+                <Typography variant="h6" marginRight="auto">Servers online</Typography>
+                <FormControl>
+                    <Select
+                        variant="standard"
+                        value={mode}
+                        onChange={(event: SelectChangeEvent<Mode>) => {
+                            setMode(event.target.value as Mode);
+                        }}
+                    >
+                        <MenuItem value="week">Last week</MenuItem>
+                        <MenuItem value="month">Last month</MenuItem>
+                        <MenuItem value="quarter">Last quarter</MenuItem>
+                        <MenuItem value="all">All</MenuItem>
+                    </Select>
+                </FormControl>
             </CardActions>
             <CardContent>
                 <Line style={{height: 300}} data={{
                     datasets: [
                         {
-                            data: decodeLineMetric(lineMetricMutation.data),
+                            data: decodedData,
                             borderColor: colors[0],
                             backgroundColor: colors[0],
                             pointStyle: false,
@@ -103,7 +87,7 @@ export default function TimelineCard(props: { projectId: number }) {
                                 x: {
                                     max: Date.now(),
                                     minRange: 14400000,
-                                    min: limit
+                                    min: Math.min(...decodedData.map(value => value.x))
                                 }
                             },
                             zoom: {
@@ -144,31 +128,34 @@ export default function TimelineCard(props: { projectId: number }) {
     )
 }
 
-function offsetDate(type: "week" | "month" | "quarter"): number {
-    const currentDate = new Date(Date.now());
-    switch (type) {
+const getTimestamp = (mode: Mode): number => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() < 30 ? 0 : 30, 0, 0);
+
+    switch (mode) {
         case "week":
-            currentDate.setDate(currentDate.getDate() - 7);
-            break;
+            now.setDate(now.getDate() - 7);
+            return now.getTime();
         case "month":
-            currentDate.setMonth(currentDate.getMonth() - 1);
-            break;
+            now.setMonth(now.getMonth() - 1);
+            return now.getTime();
         case "quarter":
-            currentDate.setMonth(currentDate.getMonth() - 3);
-            break;
+            now.setMonth(now.getMonth() - 3);
+            return now.getTime();
+        case "all":
+            return 0
     }
-    return Number.parseInt((currentDate.getTime() / 1000).toFixed())
 }
 
-function decodeLineMetric(encoded: LineMetric | undefined): TimelineData[] {
-    if (encoded === undefined) return []
+function decodeLineMetric(data: LineMetric | undefined): TimelineData[] {
+    if (data === undefined) return []
 
     let prevTimestamp = 0;
     let prevCount = 0;
 
-    return encoded.timestamps.map((deltaTimestamp, index) => {
+    return data.timestamps.map((deltaTimestamp, index) => {
         prevTimestamp += deltaTimestamp;
-        prevCount += encoded.counts[index];
+        prevCount += data.counts[index];
         return {x: prevTimestamp * 1000, y: prevCount};
     });
 }
