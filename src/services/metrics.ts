@@ -1,7 +1,7 @@
 import {getLineMetric, getPieMetric} from "./fStatsApi";
 import {useQuery} from "@tanstack/react-query";
 import {LineMetric, PieMetric} from "./types";
-import {Mode} from "../pages/project/components/TimelineCard.tsx";
+import {Mode} from "../pages/project/components/card/TimelineCard.tsx";
 
 export const useLineMetricMutation = (projectId: number, from: number, mode: Mode) => useQuery<LineMetric, Error>({
     queryKey: ["metricLine", projectId, mode],

@@ -9,18 +9,18 @@ import {
     Typography
 } from "@mui/material";
 import {Line} from "react-chartjs-2";
-import {colors} from "./colors";
-import {TimelineData} from "./types.ts";
-import {useLineMetricMutation} from "../../../services/metrics.ts";
+import {colors} from "../colors.ts";
+import {useLineMetricMutation} from "../../../../services/metrics.ts";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
-import {LineMetric} from "../../../services/types.ts";
+import {decodeLineMetric} from "../../../../mics/decoder/line.ts";
+import {TimelineCardProps} from "./types.ts";
 import "chartjs-adapter-date-fns";
 
 export type Mode = "week" | "month" | "quarter" | "all";
 
-export default function TimelineCard(props: { projectId: number }) {
+export default function TimelineCard(props: TimelineCardProps) {
 
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
@@ -42,13 +42,8 @@ export default function TimelineCard(props: { projectId: number }) {
             <CardActions sx={{paddingX: 2}}>
                 <Typography variant="h6" marginRight="auto">Servers online</Typography>
                 <FormControl>
-                    <Select
-                        variant="standard"
-                        value={mode}
-                        onChange={(event: SelectChangeEvent<Mode>) => {
-                            setMode(event.target.value as Mode);
-                        }}
-                    >
+                    <Select variant="standard" value={mode}
+                            onChange={(event: SelectChangeEvent<Mode>) => setMode(event.target.value as Mode)}>
                         <MenuItem value="week">Last week</MenuItem>
                         <MenuItem value="month">Last month</MenuItem>
                         <MenuItem value="quarter">Last quarter</MenuItem>
@@ -145,17 +140,4 @@ const getTimestamp = (mode: Mode): number => {
         case "all":
             return 0
     }
-}
-
-function decodeLineMetric(data: LineMetric | undefined): TimelineData[] {
-    if (data === undefined) return []
-
-    let prevTimestamp = 0;
-    let prevCount = 0;
-
-    return data.timestamps.map((deltaTimestamp, index) => {
-        prevTimestamp += deltaTimestamp;
-        prevCount += data.counts[index];
-        return {x: prevTimestamp * 1000, y: prevCount};
-    });
 }

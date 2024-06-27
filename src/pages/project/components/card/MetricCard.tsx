@@ -1,9 +1,9 @@
 import {Card, CardContent, Typography} from "@mui/material";
-import {CardProps} from "./types";
 import {Pie} from "react-chartjs-2";
-import {colors} from "./colors";
-import {iso2name} from "../../../mics/countryConvert.ts";
-import {DataValue} from "../../../services/types.ts";
+import {colors} from "../colors.ts";
+import {DataValue} from "../../../../services/types.ts";
+import {CardProps} from "./types.ts";
+import {iso2name} from "../../../../mics/convertor/country.ts";
 
 export default function MetricCard(props: CardProps) {
 
@@ -33,7 +33,6 @@ export default function MetricCard(props: CardProps) {
                             anchor: "center",
                             textAlign: "center",
                             offset: -40,
-                            // display: "auto",
                             backgroundColor: colors,
                             borderRadius: 8,
                             borderColor: "white",

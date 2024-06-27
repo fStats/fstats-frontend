@@ -2,18 +2,20 @@ import {useNavigate, useParams} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import {CircularProgress, Fab, Stack} from "@mui/material";
-import MetricCard from "./components/MetricCard";
+import MetricCard from "./components/card/MetricCard.tsx";
 import {usePieMetric} from "../../services/metrics";
 import {useLabel} from "../../hooks/useLabel";
 import {Loader} from "../../components/Loader";
-import {DataValue, User} from "../../services/types";
+import {User} from "../../services/types";
 import {Favorite, Remove} from "@mui/icons-material";
 import {useUserFavorites} from "../../services/users";
 import {useAuth} from "../../hooks/useAuth";
 import {useAddProjectToFavorite, useRemoveProjectFromFavorite} from "../../services/projects";
 import {useEffect, useState} from "react";
-import TimelineCard from "./components/TimelineCard";
-import {WorldMapCard} from "./components/WorldMapCard.tsx";
+import TimelineCard from "./components/card/TimelineCard.tsx";
+import {WorldMapCard} from "./components/card/WorldMapCard.tsx";
+import {formatOnlineMode} from "../../mics/formatter/onlineMode.ts";
+import {formatOperationSystem} from "../../mics/formatter/operationSystem.ts";
 
 export default function ProjectPage() {
 
@@ -88,21 +90,3 @@ export default function ProjectPage() {
         </Stack>
     )
 }
-
-const formatOnlineMode = (data: DataValue) => (Object.fromEntries(
-    Object.entries(data).map(([value, count]) => {
-        if (value === "true") value = "Online";
-        if (value === "false") value = "Offline";
-        return [value, count];
-    })
-) as DataValue);
-
-const formatOperationSystem = (data: DataValue) => (Object.fromEntries(
-    Object.entries(data).map(([value, count]) => {
-        if (value === 'l') value = "Linux"
-        if (value === 'm') value = "MacOS"
-        if (value === 'w') value = "Windows"
-        if (value === 'o') value = "Other"
-        return [value, count];
-    })
-) as DataValue);

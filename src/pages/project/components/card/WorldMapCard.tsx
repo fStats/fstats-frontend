@@ -1,10 +1,10 @@
 import {Chart} from 'react-chartjs-2';
-import {CardProps} from "./types.ts";
 import {Feature} from "chartjs-chart-geo";
 import {Card, CardContent, Typography} from "@mui/material";
-import {DataValue} from "../../../services/types.ts";
-import {iso2code} from "../../../mics/countryConvert.ts";
-import {useWorldMap} from "../../../services/worldatlas/worldMap.ts";
+import {DataValue} from "../../../../services/types.ts";
+import {useWorldMap} from "../../../../services/worldatlas/worldMap.ts";
+import {CardProps} from "./types.ts";
+import {iso2code} from "../../../../mics/convertor/country.ts";
 
 export function WorldMapCard(props: CardProps) {
 
@@ -16,6 +16,7 @@ export function WorldMapCard(props: CardProps) {
     const maxValue = Math.max(...values);
 
     const map = (value: number, min: number, max: number) => (value - min) / (max - min);
+    const gradientColor = (offset: number): string => `rgb(${Math.round(18 + 28 * offset)}, ${Math.round(18 + 186 * offset)}, ${Math.round(18 + 95 * offset)})`
 
     return (
         status === "success" && <Card>
@@ -62,12 +63,4 @@ export function WorldMapCard(props: CardProps) {
             </CardContent>
         </Card>
     )
-}
-
-const gradientColor = (offset: number): string => {
-    const r = Math.round(18 + 28 * offset);
-    const g = Math.round(18 + 186 * offset);
-    const b = Math.round(18 + 95 * offset);
-
-    return `rgb(${r}, ${g}, ${b})`;
 }
