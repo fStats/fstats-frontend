@@ -55,6 +55,7 @@ export const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
             refetchOnWindowFocus: false,
+            refetchInterval: false,
             staleTime: 300000
         }
     }
