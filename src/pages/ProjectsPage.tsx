@@ -1,6 +1,5 @@
 import {
     Paper,
-    Stack,
     Table,
     TableBody,
     TableCell,
@@ -31,8 +30,6 @@ export default function ProjectsPage() {
 
     const page = Number.parseInt(searchParams.get('page') || "0") || 0;
 
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - (data?.length ?? 0)) : 0;
-
     if (status === "loading") return <Loader/>
 
     if (status === "error") {
@@ -42,9 +39,17 @@ export default function ProjectsPage() {
     }
 
     const filteredData = (): Project[] => searchFilter.length > 0 ? data.filter((value) => value.name.toLowerCase().includes(searchFilter.toLowerCase())) : data
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - (filteredData()?.length ?? 0)) : 0;
 
     return (
         <>
+            <TextField sx={{flexGrow: 1, paddingBottom: 2}} fullWidth variant="outlined"
+                       placeholder="Enter project name"
+                       value={searchFilter}
+                       onChange={event => {
+                           setSearchFilter(event.target.value);
+                           searchParams.set("page", "0")
+                       }}/>
             {data.length > 0 ?
                 <Paper sx={{width: '100%', overflow: 'hidden'}}>
                     <TableContainer>
@@ -71,10 +76,6 @@ export default function ProjectsPage() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Stack direction="row" alignItems="center">
-                        <TextField sx={{flexGrow: 1}} variant="outlined" placeholder="Enter project name"
-                                   value={searchFilter}
-                                   onChange={event => setSearchFilter(event.target.value)}/>
                         <TablePagination
                             component="div"
                             rowsPerPage={10}
@@ -83,7 +84,6 @@ export default function ProjectsPage() {
                             onPageChange={(_, newPage) => setSearchParams({page: newPage.toString()})}
                             rowsPerPageOptions={[]}
                         />
-                    </Stack>
                 </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
         </>
     )
