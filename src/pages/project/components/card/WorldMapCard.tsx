@@ -15,8 +15,10 @@ export function WorldMapCard(props: CardProps) {
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
 
-    const map = (value: number, min: number, max: number) => (value - min) / (max - min);
-    const gradientColor = (offset: number): string => `rgb(${Math.round(18 + 28 * offset)}, ${Math.round(18 + 186 * offset)}, ${Math.round(18 + 95 * offset)})`
+    const gradientColor = (value: number, skipOffset: boolean): string => {
+        const offset = skipOffset ? value : Math.max(0, Math.min(1, (value - minValue) / (maxValue - minValue)));
+        return `rgb(${Math.round(5 + 28 * offset)}, ${Math.round(5 + 186 * offset)}, ${Math.round(5 + 95 * offset)})`;
+    };
 
     return (
         status === "success" && <Card>
@@ -31,9 +33,9 @@ export function WorldMapCard(props: CardProps) {
                         datasets: [{
                             data: (data as Feature[]).map((d) => ({feature: d, value: metric[d.id] ?? 0})),
                             backgroundColor: (ctx, _) =>
-                                gradientColor(map((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
+                                gradientColor((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
                                     value: number
-                                })?.value, minValue, maxValue)),
+                                })?.value, false)
                         }]
                     }}
                     options={{
@@ -48,7 +50,7 @@ export function WorldMapCard(props: CardProps) {
                                 projection: 'equalEarth'
                             },
                             color: {
-                                interpolate: (v) => gradientColor(v),
+                                interpolate: (v) => gradientColor(v, true),
                                 max: maxValue,
                                 axis: "x",
                                 ticks: {
