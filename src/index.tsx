@@ -4,6 +4,7 @@ import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} fr
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 import {
     ArcElement,
+    BarElement,
     CategoryScale,
     Chart,
     Colors,
@@ -30,6 +31,7 @@ import {LoginPage} from "./pages/LoginPage";
 import FaqPage from "./pages/FaqPage";
 import {ProtectedRoute} from "./ProtectedRoute";
 import ProfilePage from "./pages/profile/ProfilePage";
+import {ExperimentalProjectPage} from "./pages/project/experemental/ExperimentalProjectPage.tsx";
 import TermsPolicyPage from "./pages/TermsPolicyPage";
 import {ChoroplethController, ColorScale, GeoFeature, ProjectionScale, SizeScale} from "chartjs-chart-geo";
 
@@ -49,6 +51,7 @@ Chart.register(
     ColorScale,
     SizeScale,
     ProjectionScale,
+    BarElement
 );
 
 export const queryClient = new QueryClient({
@@ -66,6 +69,8 @@ const theme = createTheme({
         mode: 'dark'
     },
 })
+
+const experimentalPage = true
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
@@ -86,7 +91,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                                             <Route path="register" element={<RegisterPage/>}/>
 
                                             <Route path="projects" element={<ProjectsPage/>}/>
-                                            <Route path="project/:id" element={<ProjectPage/>}/>
+                                            <Route path="project/:id"
+                                                   element={experimentalPage ? <ExperimentalProjectPage/> :
+                                                       <ProjectPage/>}/>
 
                                             <Route path="profile" element={
                                                 <ProtectedRoute children={<ProfilePage/>}/>

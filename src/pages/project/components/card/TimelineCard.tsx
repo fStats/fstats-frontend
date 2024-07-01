@@ -38,7 +38,7 @@ export default function TimelineCard(props: TimelineCardProps) {
     }
 
     return (
-        <Card>
+        <Card sx={{flexGrow: 1}}>
             <CardActions sx={{paddingX: 2}}>
                 <Typography variant="h6" marginRight="auto">Servers online</Typography>
                 <FormControl>
