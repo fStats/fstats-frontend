@@ -1,7 +1,11 @@
 import {createContext, ReactNode, useContext, useState} from "react";
 import {LabelContent} from "./types";
 
-const LabelContext = createContext<LabelContent | null>(null);
+const LabelContext = createContext<LabelContent>({
+    setLabel: () => {
+    },
+    label: ""
+});
 
 export const LabelProvider = (props: { children: ReactNode }) => {
 
