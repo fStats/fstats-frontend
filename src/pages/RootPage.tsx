@@ -1,36 +1,37 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuIcon from '@mui/icons-material/Menu';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import {Button, Container, CssBaseline, ListSubheader, Menu, MenuItem} from "@mui/material";
+import {useState} from "react";
+import {
+    AppBar,
+    Box,
+    Button,
+    Container,
+    CssBaseline,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    ListSubheader,
+    Menu,
+    MenuItem,
+    Toolbar,
+    Typography
+} from '@mui/material';
 import {Link, Outlet, useNavigate} from "react-router-dom";
-import {DrawerProps} from "./types";
 import {AccountCircle, FormatListBulleted, Gavel, Home, MenuBook, QuestionAnswer, Star} from "@mui/icons-material";
 import {useLabel} from "../hooks/useLabel";
 import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
 import {useUserFavorites} from "../services/users";
 import {User} from "../services/types";
-import {useState} from "react";
 
 export const drawerWidth = 240;
 
-export default function RootPage(props: DrawerProps) {
-
-    const {window} = props;
+export default function RootPage() {
 
     const navigate = useNavigate()
-
-    const [mobileOpen, setMobileOpen] = useState(false);
 
     const {isAuthorized, setToken, token} = useAuth()!!
 
@@ -49,7 +50,7 @@ export default function RootPage(props: DrawerProps) {
         setAnchorEl(null);
     };
 
-    const {label} = useLabel()!!
+    const {label} = useLabel()
 
     const publicItems = [
         {
@@ -88,7 +89,7 @@ export default function RootPage(props: DrawerProps) {
             <List>
                 {publicItems.map(item =>
                     <ListItem disablePadding>
-                        <ListItemButton component={Link} to={item.route}>
+                        <ListItemButton component={Link} to={item.route} key={item.route}>
                             <ListItemIcon>
                                 {item.icon}
                             </ListItemIcon>
@@ -120,23 +121,12 @@ export default function RootPage(props: DrawerProps) {
     return (
         <Box sx={{display: 'flex'}}>
             <CssBaseline/>
-            <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}, ml: {sm: `${drawerWidth}px`},}}>
+            <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}}}>
                 <Toolbar>
-                    <IconButton color="inherit" aria-label="open drawer" edge="start"
-                                onClick={() => setMobileOpen(!mobileOpen)}
-                                sx={{mr: 2, display: {sm: 'none'}}}>
-                        <MenuIcon/>
-                    </IconButton>
                     <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>{label}</Typography>
                     {isAuthorized ? <div>
-                            <IconButton
-                                size="large"
-                                aria-label="account of current user"
-                                aria-controls="menu-appbar"
-                                aria-haspopup="true"
-                                onClick={(event) => setAnchorEl(event.currentTarget)}
-                                color="inherit"
-                            >
+                            <IconButton size="large" color="inherit"
+                                        onClick={(event) => setAnchorEl(event.currentTarget)}>
                                 <AccountCircle/>
                             </IconButton>
                             <Menu
@@ -163,30 +153,8 @@ export default function RootPage(props: DrawerProps) {
                         : <Button color="inherit" component={Link} to="login">Login</Button>}
                 </Toolbar>
             </AppBar>
-            <Box component="nav" sx={{width: {sm: drawerWidth}, flexShrink: {sm: 0}}}>
-                <Drawer
-                    container={window !== undefined ? () => window().document.body : undefined}
-                    variant="temporary"
-                    open={mobileOpen}
-                    onClose={() => setMobileOpen(!mobileOpen)}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
-                    sx={{
-                        display: {xs: 'block', sm: 'none'},
-                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
-                    }}
-                >
-                    {drawer}
-                </Drawer>
-                <Drawer
-                    variant="permanent"
-                    sx={{
-                        display: {xs: 'none', sm: 'block'},
-                        '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
-                    }}
-                    open
-                >
+            <Box component="nav" sx={{width: {sm: drawerWidth}}}>
+                <Drawer variant="permanent" sx={{'& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth}}}>
                     {drawer}
                 </Drawer>
             </Box>
