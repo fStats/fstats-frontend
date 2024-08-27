@@ -32,6 +32,7 @@ export interface PieMetric {
     os: DataValue;
     location: DataValue;
     fabric_api_version: DataValue;
+    server_side: DataValue;
 }
 
 export interface LineMetric {
