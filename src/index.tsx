@@ -1,4 +1,5 @@
 import React from "react";
+import {createTheme, ThemeProvider} from "@mui/material";
 import ReactDOM from "react-dom/client";
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from "react-router-dom";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
@@ -18,14 +19,12 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 import zoomPlugin from "chartjs-plugin-zoom";
 import {SnackbarProvider} from "notistack";
 import {AuthProvider} from "./hooks/useAuth";
-import {createTheme, ThemeProvider} from "@mui/material";
 import RootPage from "./pages/RootPage";
 import HomePage from "./pages/HomePage";
 import HowToStartPage from "./pages/howtostart/HowToStartPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import {LabelProvider} from "./hooks/useLabel";
-import ProjectPage from "./pages/project/ProjectPage";
 import RegisterPage from "./pages/RegisterPage";
 import {LoginPage} from "./pages/LoginPage";
 import FaqPage from "./pages/FaqPage";
@@ -70,8 +69,6 @@ const theme = createTheme({
     },
 })
 
-const experimentalPage = true
-
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
@@ -91,9 +88,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                                             <Route path="register" element={<RegisterPage/>}/>
 
                                             <Route path="projects" element={<ProjectsPage/>}/>
-                                            <Route path="project/:id"
-                                                   element={experimentalPage ? <ExperimentalProjectPage/> :
-                                                       <ProjectPage/>}/>
+                                            <Route path="project/:id" element={<ExperimentalProjectPage/>}/>
 
                                             <Route path="profile" element={
                                                 <ProtectedRoute children={<ProfilePage/>}/>
