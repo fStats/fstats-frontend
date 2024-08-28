@@ -5,11 +5,15 @@ import {DataValue} from "../../../../services/types.ts";
 import {useWorldMap} from "../../../../services/worldatlas/worldMap.ts";
 import {CardProps} from "./types.ts";
 import {iso2code} from "../../../../mics/convertor/country.ts";
+import {mergeClientAndServerData} from "../../../../mics/merge.ts";
 
 export function WorldMapCard(props: CardProps) {
 
     const {data, status} = useWorldMap()
-    const metric = (Object.fromEntries(Object.entries(props.metric).map(([value, count]) => [iso2code[value], count])) as DataValue)
+
+    const metric = Object.fromEntries(Object.entries(
+        mergeClientAndServerData(props.clientMetric, props.serverMetric)
+    ).map(([value, count]) => [iso2code[value], count])) as DataValue
 
     const values = Object.values(metric);
     const minValue = Math.min(...values);
@@ -27,11 +31,9 @@ export function WorldMapCard(props: CardProps) {
                 <Chart
                     type="choropleth"
                     data={{
-                        labels: (data as Feature[]).map((d) => {
-                            return d.properties.name;
-                        }),
+                        labels: (data as Feature[]).map(d => d.properties.name),
                         datasets: [{
-                            data: (data as Feature[]).map((d) => ({feature: d, value: metric[d.id] ?? 0})),
+                            data: (data as Feature[]).map(d => ({feature: d, value: metric[d.id] ?? 0})),
                             backgroundColor: (ctx, _) =>
                                 gradientColor((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
                                     value: number
@@ -55,7 +57,6 @@ export function WorldMapCard(props: CardProps) {
                                 axis: "x",
                                 ticks: {
                                     precision: 0,
-                                    count: 5,
                                 },
                                 beginAtZero: true
                             }

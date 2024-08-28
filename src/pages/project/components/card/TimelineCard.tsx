@@ -17,6 +17,7 @@ import {useState} from "react";
 import {decodeLineMetric} from "../../../../mics/decoder/line.ts";
 import {TimelineCardProps} from "./types.ts";
 import "chartjs-adapter-date-fns";
+import {mergeData} from "../../../../mics/merge.ts";
 
 export type Mode = "week" | "month" | "quarter" | "all";
 
@@ -27,12 +28,25 @@ export default function TimelineCard(props: TimelineCardProps) {
 
     const [mode, setMode] = useState<Mode>("month")
 
-    const {data, status, error} = useLineMetricMutation(props.projectId, getTimestamp(mode), mode)
+    const {
+        data: serverData,
+        status: serverStatus,
+        error: serverError
+    } = useLineMetricMutation(props.projectId, getTimestamp(mode), mode, true)
+    const {
+        data: clientData,
+        status: clientStatus,
+        error: clientError
+    } = useLineMetricMutation(props.projectId, getTimestamp(mode), mode, false)
 
-    const decodedData = decodeLineMetric(data)
+    const serverDecodedData = decodeLineMetric(serverData)
+    const clientDecodedData = decodeLineMetric(clientData)
 
-    if (status === "error") {
-        error && enqueueSnackbar(error?.message, {variant: "error"})
+    const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData)
+
+    if (serverStatus === "error" || clientStatus === "error") {
+        serverError && enqueueSnackbar(serverError?.message, {variant: "error"})
+        clientError && enqueueSnackbar(clientError?.message, {variant: "error"})
         navigate('/not-found')
         return <></>
     }
@@ -40,7 +54,7 @@ export default function TimelineCard(props: TimelineCardProps) {
     return (
         <Card sx={{flexGrow: 1}}>
             <CardActions sx={{paddingX: 2}}>
-                <Typography variant="h6" marginRight="auto">Servers online</Typography>
+                <Typography variant="h6" marginRight="auto" textAlign="center">Online</Typography>
                 <FormControl>
                     <Select variant="standard" value={mode}
                             onChange={(event: SelectChangeEvent<Mode>) => setMode(event.target.value as Mode)}>
@@ -52,12 +66,31 @@ export default function TimelineCard(props: TimelineCardProps) {
                 </FormControl>
             </CardActions>
             <CardContent>
-                <Line style={{height: 300}} data={{
+                <Line data={{
                     datasets: [
                         {
-                            data: decodedData,
+                            data: serverDecodedData,
+                            label: "Server",
                             borderColor: colors[0],
                             backgroundColor: colors[0],
+                            pointStyle: false,
+                            spanGaps: 1800000,
+                            parsing: false
+                        },
+                        {
+                            data: clientDecodedData,
+                            label: "Client",
+                            borderColor: colors[1],
+                            backgroundColor: colors[1],
+                            pointStyle: false,
+                            spanGaps: 1800000,
+                            parsing: false
+                        },
+                        {
+                            data: mergedDecodedData,
+                            label: "Mixed",
+                            borderColor: colors[2],
+                            backgroundColor: colors[2],
                             pointStyle: false,
                             spanGaps: 1800000,
                             parsing: false
@@ -69,7 +102,6 @@ export default function TimelineCard(props: TimelineCardProps) {
                         axis: "x",
                         intersect: false
                     },
-                    maintainAspectRatio: false,
                     plugins: {
                         decimation: {
                             enabled: true
@@ -82,7 +114,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                                 x: {
                                     max: Date.now(),
                                     minRange: 14400000,
-                                    min: Math.min(...decodedData.map(value => value.x))
+                                    min: Math.min(...mergedDecodedData.map(value => value.x))
                                 }
                             },
                             zoom: {

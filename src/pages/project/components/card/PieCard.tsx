@@ -1,17 +1,12 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {Pie} from "react-chartjs-2";
 import {colors} from "../colors.ts";
-import {DataValue} from "../../../../services/types.ts";
+import {mergeClientAndServerData} from "../../../../mics/merge.ts";
 import {CardProps} from "./types.ts";
-import {iso2name} from "../../../../mics/convertor/country.ts";
 
-export default function MetricCard(props: CardProps) {
+export default function PieCard(props: CardProps) {
 
-    let metric = props.metric
-
-    if (props.title === "Location") {
-        metric = (Object.fromEntries(Object.entries(metric).map(([value, count]) => [iso2name[value], count])) as DataValue)
-    }
+    const metric = mergeClientAndServerData(props.clientMetric, props.serverMetric)
 
     return (
         <Card>
@@ -19,7 +14,7 @@ export default function MetricCard(props: CardProps) {
                 <Typography variant="h6" textAlign="center">{props.title}</Typography>
                 <Pie data={{
                     datasets: [{
-                        label: 'Count',
+                        label: "Count",
                         data: Object.values(metric) as number[],
                         borderWidth: 1,
                         backgroundColor: colors,

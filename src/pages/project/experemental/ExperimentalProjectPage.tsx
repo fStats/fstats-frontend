@@ -1,22 +1,16 @@
-import {Card, CardContent, Stack, Typography} from "@mui/material";
+import {useEffect, useState} from "react";
+import {Box, Card, CardContent, Stack, Tab, Tabs, Typography} from "@mui/material";
 import TimelineCard from "../components/card/TimelineCard.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useLineMetricMutation, usePieMetric} from "../../../services/metrics.ts";
 import {useSnackbar} from "notistack";
-import {TimelineData} from "../components/types.ts";
 import {decodeLineMetric} from "../../../mics/decoder/line.ts";
-import {WorldMapCard} from "../components/card/WorldMapCard.tsx";
 import {Loader} from "../../../components/Loader.tsx";
-import {Bar} from "react-chartjs-2";
-import {DataValue} from "../../../services/types.ts";
-import {colors} from "../components/colors.ts";
-import MetricCard from "../components/card/MetricCard.tsx";
-import {formatOnlineMode} from "../../../mics/formatter/onlineMode.ts";
-import {formatOperationSystem} from "../../../mics/formatter/operationSystem.ts";
-
-interface GroupedDataValue {
-    [group: string]: DataValue;
-}
+import {mergeData} from "../../../mics/merge.ts";
+import {ChartsTab} from "./ChartsTab.tsx";
+import {MetricTab, TimelineData} from "./types.ts";
+import {useLabel} from "../../../hooks/useLabel.tsx";
+import {useProject} from "../../../services/projects.ts";
 
 export function ExperimentalProjectPage() {
 
@@ -25,36 +19,52 @@ export function ExperimentalProjectPage() {
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
-    const {data, status, error} = useLineMetricMutation(projectId, 0, "all")
-    const {data: pieData, status: pieStatus} = usePieMetric(projectId)
-    const decodedData = decodeLineMetric(data)
+    const {data: projectData} = useProject(projectId)
+    const {
+        data: serverData,
+        status: serverStatus,
+        error: serverError
+    } = useLineMetricMutation(projectId, 0, "all", true)
+    const {
+        data: clientData,
+        status: clientStatus,
+        error: clientError
+    } = useLineMetricMutation(projectId, 0, "all", false)
+    const {data: serverPieData, status: serverPieStatus, error: serverPieError} = usePieMetric(projectId, true)
+    const {data: clientPieData, status: clientPieStatus, error: clientPieError} = usePieMetric(projectId, false)
 
-    if (status === "loading" || pieStatus === "loading") return (<Loader/>)
+    const [tab, setTab] = useState(MetricTab.Mixed)
 
-    if (status === "error" || pieStatus === "error") {
-        error && enqueueSnackbar(error?.message, {variant: "error"})
+    const clientNotExist = Object.entries(clientPieData?.mod_version ?? 0).length <= 0
+    const serverNotExist = Object.entries(serverPieData?.mod_version ?? 0).length <= 0
+
+    const {setLabel} = useLabel()
+
+    useEffect(() => {
+        if (clientNotExist) setTab(MetricTab.Server)
+        if (serverNotExist) setTab(MetricTab.Client)
+        setLabel(projectData?.name ?? "")
+    }, [projectId, clientNotExist, serverNotExist]);
+
+    if (serverStatus === "loading" || clientStatus === "loading" || serverPieStatus === "loading" || clientPieStatus === "loading") return (
+        <Loader/>)
+
+    if (serverStatus === "error" || clientStatus === "error" || serverPieStatus === "error" || clientPieStatus === "error") {
+        serverError && enqueueSnackbar(serverError?.message, {variant: "error"})
+        clientError && enqueueSnackbar(clientError?.message, {variant: "error"})
+        serverPieError && enqueueSnackbar(serverPieError?.message, {variant: "error"})
+        clientPieError && enqueueSnackbar(clientPieError?.message, {variant: "error"})
         navigate('/not-found')
         return <></>
     }
 
-    const findMaxX = (): TimelineData => decodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), decodedData[0])
+    const serverDecodedData = decodeLineMetric(serverData)
+    const clientDecodedData = decodeLineMetric(clientData)
+    const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData)
 
-    const groupByFirstTwoElements = (data: DataValue): GroupedDataValue => Object.entries(data).sort().reduce((acc, [key, value]) => {
-        const groupKey = key.split('.').slice(0, 2).join('.');
-        if (!acc[groupKey]) acc[groupKey] = {};
-        acc[groupKey][key] = value;
-        return acc;
-    }, {} as GroupedDataValue);
-
-    const groupedData: GroupedDataValue = groupByFirstTwoElements(pieData.fabric_api_version);
-
-    const labels = Object.keys(groupedData);
-    const versionKeys = new Set<string>();
-    labels.forEach(label => {
-        Object.keys(groupedData[label]).forEach(version => {
-            versionKeys.add(version);
-        });
-    });
+    const findMaxClientX = (): TimelineData => clientDecodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), clientDecodedData[0])
+    const findMaxServerX = (): TimelineData => serverDecodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), serverDecodedData[0])
+    const findMaxMixedX = (): TimelineData => mergedDecodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), mergedDecodedData[0])
 
     return (
         <Stack spacing={2}>
@@ -64,71 +74,49 @@ export function ExperimentalProjectPage() {
                     <Card>
                         <CardContent>
                             <Typography variant="h5" align="center" fontWeight="bold">Client</Typography>
-                            <Typography variant="h6">Peak Count: {findMaxX()?.y}</Typography>
-                            <Typography variant="h6">Peak Date: {new Date(findMaxX()?.x).toLocaleString()}</Typography>
+                            <Typography variant="h6">Last
+                                Count: {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0}</Typography>
+                            <Typography variant="h6">Last
+                                Date: {new Date(clientDecodedData[clientDecodedData.length - 1]?.x).toLocaleString()}</Typography>
+                            <Typography variant="h6">Peak Count: {findMaxClientX()?.y ?? 0}</Typography>
+                            <Typography variant="h6">Peak
+                                Date: {new Date(findMaxClientX()?.x).toLocaleString()}</Typography>
                         </CardContent>
                     </Card>
                     <Card>
                         <CardContent>
                             <Typography variant="h5" align="center" fontWeight="bold">Server</Typography>
-                            <Typography variant="h6">Peak Count: {findMaxX()?.y}</Typography>
-                            <Typography variant="h6">Peak Date: {new Date(findMaxX()?.x).toLocaleString()}</Typography>
+                            <Typography variant="h6">Last
+                                Count: {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0}</Typography>
+                            <Typography variant="h6">Last
+                                Date: {new Date(serverDecodedData[serverDecodedData.length - 1]?.x).toLocaleString()}</Typography>
+                            <Typography variant="h6">Peak Count: {findMaxServerX()?.y ?? 0}</Typography>
+                            <Typography variant="h6">Peak
+                                Date: {new Date(findMaxServerX()?.x).toLocaleString()}</Typography>
                         </CardContent>
                     </Card>
-                </Stack>
-            </Stack>
-            <Stack direction="row" spacing={2}>
-                <Stack sx={{flexGrow: 1}} spacing={2}>
                     <Card>
                         <CardContent>
-                            <Typography variant="h6" align="center">Fabric API</Typography>
-                            <Bar data={{
-                                labels: labels,
-                                datasets: Array.from(versionKeys).map((version, index) => ({
-                                    label: version,
-                                    data: labels.map(label => groupedData[label][version] || 0),
-                                    backgroundColor: colors[index % colors.length]
-                                }))
-                            }} options={{
-                                plugins: {
-                                    datalabels: {
-                                        display: false
-                                    },
-                                    zoom: {
-                                        zoom: {
-                                            wheel: {enabled: true},
-                                            drag: {
-                                                enabled: true,
-                                            },
-                                            mode: "y",
-                                        }
-                                    }
-                                },
-                                indexAxis: 'y',
-                                scales: {
-                                    x: {
-                                        stacked: true
-                                    },
-                                    y: {
-                                        stacked: true,
-                                    }
-                                }
-                            }}/>
+                            <Typography variant="h5" align="center" fontWeight="bold">Mixed</Typography>
+                            <Typography variant="h6">Last
+                                Count: {mergedDecodedData[mergedDecodedData.length - 1]?.y ?? 0}</Typography>
+                            <Typography variant="h6">Last
+                                Date: {new Date(mergedDecodedData[mergedDecodedData.length - 1]?.x).toLocaleString()}</Typography>
+                            <Typography variant="h6">Peak Count: {findMaxMixedX()?.y ?? 0}</Typography>
+                            <Typography variant="h6">Peak
+                                Date: {new Date(findMaxMixedX()?.x).toLocaleString()}</Typography>
                         </CardContent>
                     </Card>
-                    <WorldMapCard title="Location" metric={pieData.location ?? []}/>
-                </Stack>
-                <Stack spacing={2}>
-                    <Stack direction="row" spacing={2}>
-                        <MetricCard title="Minecraft Version" metric={pieData.minecraft_version ?? []}/>
-                        <MetricCard title="Online Mode" metric={formatOnlineMode(pieData.online_mode ?? [])}/>
-                    </Stack>
-                    <Stack direction="row" spacing={2}>
-                        <MetricCard title="Mod Version" metric={pieData.mod_version ?? []}/>
-                        <MetricCard title="Operation System" metric={formatOperationSystem(pieData.os ?? [])}/>
-                    </Stack>
                 </Stack>
             </Stack>
+            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} variant="fullWidth">
+                    <Tab label="Client" disabled={clientNotExist}/>
+                    <Tab label="Mixed"/>
+                    <Tab label="Server" disabled={serverNotExist}/>
+                </Tabs>
+            </Box>
+            <ChartsTab value={tab} clientPieData={clientPieData} serverPieData={serverPieData}/>
         </Stack>
     )
 }
