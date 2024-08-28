@@ -62,7 +62,7 @@ export default function ProjectsPage() {
                             </TableHead>
                             <TableBody>
                                 {(10 > 0 ? filteredData().slice(page * 10, page * 10 + 10) : filteredData()).map((row) => (
-                                    <TableRow hover tabIndex={-1} key={row.name}
+                                    <TableRow hover tabIndex={-1} key={row.id}
                                               onClick={() => navigate(`/project/${row.id}`)}>
                                         <TableCell>{row.name}</TableCell>
                                         <TableCell>{row.owner?.username}</TableCell>
