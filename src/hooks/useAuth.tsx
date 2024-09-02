@@ -1,5 +1,5 @@
-import {createContext, ReactNode, useContext, useState} from "react";
-import {AuthContent} from "./types";
+import {createContext, useContext, useState} from "react";
+import {AuthContent, AuthProviderProps} from "./types";
 
 
 const AuthContext = createContext<AuthContent>({
@@ -9,7 +9,7 @@ const AuthContext = createContext<AuthContent>({
     }
 });
 
-export const AuthProvider = (props: { userToken: string, children: ReactNode }) => {
+export const AuthProvider = (props: AuthProviderProps) => {
 
     const [token, setToken] = useState(props.userToken);
 

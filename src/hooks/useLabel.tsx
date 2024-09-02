@@ -1,5 +1,5 @@
-import {createContext, ReactNode, useContext, useState} from "react";
-import {LabelContent} from "./types";
+import {createContext, useContext, useState} from "react";
+import {DefaultProvidersProps, LabelContent} from "./types";
 
 const LabelContext = createContext<LabelContent>({
     setLabel: () => {
@@ -7,7 +7,7 @@ const LabelContext = createContext<LabelContent>({
     label: ""
 });
 
-export const LabelProvider = (props: { children: ReactNode }) => {
+export const LabelProvider = (props: DefaultProvidersProps) => {
 
     const [label, setLabel] = useState("");
 
