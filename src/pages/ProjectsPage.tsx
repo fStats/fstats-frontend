@@ -15,12 +15,12 @@ import {Loader} from "../components/Loader"
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useLabel} from "../hooks/useLabel";
 import {useSnackbar} from "notistack";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Project} from "../services/types.ts";
 
 export default function ProjectsPage() {
 
-    useLabel()?.setLabel("Projects catalogue")
+    const {setLabel} = useLabel()
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [searchFilter, setSearchFilter] = useState("")
@@ -29,6 +29,8 @@ export default function ProjectsPage() {
     const {enqueueSnackbar} = useSnackbar();
 
     const page = Number.parseInt(searchParams.get('page') || "0") || 0;
+
+    useEffect(() => setLabel("Projects catalogue"), []);
 
     if (status === "loading") return <Loader/>
 
