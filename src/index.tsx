@@ -33,6 +33,7 @@ import ProfilePage from "./pages/profile/ProfilePage";
 import {ExperimentalProjectPage} from "./pages/project/experemental/ExperimentalProjectPage.tsx";
 import TermsPolicyPage from "./pages/TermsPolicyPage";
 import {ChoroplethController, ColorScale, GeoFeature, ProjectionScale, SizeScale} from "chartjs-chart-geo";
+import {SettingsProvider} from "./hooks/useSettings.tsx";
 
 Chart.register(
     ArcElement,
@@ -72,40 +73,42 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
     <React.StrictMode>
-        <ThemeProvider theme={theme}>
-            <QueryClientProvider client={queryClient}>
-                <SnackbarProvider maxSnack={3}>
-                    <AuthProvider userToken={localStorage.getItem("token") || ""}>
-                        <LabelProvider>
-                            <RouterProvider router={
-                                createBrowserRouter(
-                                    createRoutesFromElements(
-                                        <Route path="/" element={<RootPage/>}>
-                                            <Route index element={<HomePage/>}/>
-                                            <Route path="how-to-start" element={<HowToStartPage/>}/>
-                                            <Route path="faq" element={<FaqPage/>}/>
+        <SettingsProvider>
+            <ThemeProvider theme={theme}>
+                <QueryClientProvider client={queryClient}>
+                    <SnackbarProvider maxSnack={3}>
+                        <AuthProvider userToken={localStorage.getItem("token") || ""}>
+                            <LabelProvider>
+                                <RouterProvider router={
+                                    createBrowserRouter(
+                                        createRoutesFromElements(
+                                            <Route path="/" element={<RootPage/>}>
+                                                <Route index element={<HomePage/>}/>
+                                                <Route path="how-to-start" element={<HowToStartPage/>}/>
+                                                <Route path="faq" element={<FaqPage/>}/>
 
-                                            <Route path="login" element={<LoginPage/>}/>
-                                            <Route path="register" element={<RegisterPage/>}/>
+                                                <Route path="login" element={<LoginPage/>}/>
+                                                <Route path="register" element={<RegisterPage/>}/>
 
-                                            <Route path="projects" element={<ProjectsPage/>}/>
-                                            <Route path="project/:id" element={<ExperimentalProjectPage/>}/>
+                                                <Route path="projects" element={<ProjectsPage/>}/>
+                                                <Route path="project/:id" element={<ExperimentalProjectPage/>}/>
 
-                                            <Route path="profile" element={
-                                                <ProtectedRoute children={<ProfilePage/>}/>
-                                            }/>
+                                                <Route path="profile" element={
+                                                    <ProtectedRoute children={<ProfilePage/>}/>
+                                                }/>
 
-                                            <Route path="terms-policy" element={<TermsPolicyPage/>}/>
+                                                <Route path="terms-policy" element={<TermsPolicyPage/>}/>
 
-                                            <Route path="*" element={<NotFoundPage/>}/>
-                                        </Route>
+                                                <Route path="*" element={<NotFoundPage/>}/>
+                                            </Route>
+                                        )
                                     )
-                                )
-                            }/>
-                        </LabelProvider>
-                    </AuthProvider>
-                </SnackbarProvider>
-            </QueryClientProvider>
-        </ThemeProvider>
+                                }/>
+                            </LabelProvider>
+                        </AuthProvider>
+                    </SnackbarProvider>
+                </QueryClientProvider>
+            </ThemeProvider>
+        </SettingsProvider>
     </React.StrictMode>
 );
