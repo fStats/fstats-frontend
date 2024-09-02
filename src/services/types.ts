@@ -13,16 +13,11 @@ export interface User {
     password: string;
 }
 
-export interface Owner {
-    id: number;
-    username: string;
-}
-
 export interface Project {
     id?: number;
     name: string;
-    is_visible?: boolean;
-    owner?: Owner;
+    is_visible: boolean;
+    owner?: User;
 }
 
 export interface PieMetric {
