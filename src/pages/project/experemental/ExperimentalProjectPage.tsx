@@ -41,8 +41,9 @@ export function ExperimentalProjectPage() {
     const {setLabel} = useLabel()
 
     useEffect(() => {
-        if (clientNotExist) setTab(MetricTab.Server)
-        if (serverNotExist) setTab(MetricTab.Client)
+        if (clientNotExist && serverNotExist) setTab(MetricTab.Mixed)
+        else if (clientNotExist) setTab(MetricTab.Server)
+        else if (serverNotExist) setTab(MetricTab.Client)
         setLabel(projectData?.name ?? "")
     }, [projectId, clientNotExist, serverNotExist]);
 
