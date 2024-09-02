@@ -40,7 +40,7 @@ export default function ProjectsPage() {
         return <></>
     }
 
-    const filteredData = (): Project[] => searchFilter.length > 0 ? data.filter((value) => value.name.toLowerCase().includes(searchFilter.toLowerCase())) : data
+    const filteredData = (): Project[] => searchFilter.length > 0 ? data.filter((value) => value.is_visible && value.name.toLowerCase().includes(searchFilter.toLowerCase())) : data.filter((value) => value.is_visible)
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - (filteredData()?.length ?? 0)) : 0;
 
     return (
@@ -78,14 +78,14 @@ export default function ProjectsPage() {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                        <TablePagination
-                            component="div"
-                            rowsPerPage={10}
-                            count={filteredData().length}
-                            page={page}
-                            onPageChange={(_, newPage) => setSearchParams({page: newPage.toString()})}
-                            rowsPerPageOptions={[]}
-                        />
+                    <TablePagination
+                        component="div"
+                        rowsPerPage={10}
+                        count={filteredData().length}
+                        page={page}
+                        onPageChange={(_, newPage) => setSearchParams({page: newPage.toString()})}
+                        rowsPerPageOptions={[]}
+                    />
                 </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
         </>
     )
