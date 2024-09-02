@@ -33,7 +33,7 @@ export const getUserFavorites = async (userId: number, token: string): Promise<P
 
 
 export const deleteUser = async (token: string): Promise<ApiMessage> => {
-    const response = await fetch(`${hostUrl}/projects`, {
+    const response = await fetch(`${hostUrl}/users`, {
         method: "DELETE", headers: {
             "Authorization": `Bearer ${token}`
         }
