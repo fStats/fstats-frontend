@@ -3,9 +3,11 @@ import {Bar} from "react-chartjs-2";
 import {GroupedDataValue} from "../../experemental/types.ts";
 import {mergeClientAndServerData} from "../../../../mics/merge.ts";
 import {CardProps} from "./types.ts";
-import {colors} from "../colors.ts";
+import {useSettings} from "../../../../hooks/useSettings.tsx";
 
 export function BarCard(props: CardProps) {
+
+    const {colors} = useSettings()
 
     const groupedData: GroupedDataValue = Object.entries(mergeClientAndServerData(props.clientMetric, props.serverMetric) ?? []).sort().reduce((acc, [key, value]) => {
         const groupKey = key.split('.').slice(0, 2).join('.');

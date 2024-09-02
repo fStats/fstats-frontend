@@ -1,11 +1,12 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {Pie} from "react-chartjs-2";
-import {colors} from "../colors.ts";
 import {mergeClientAndServerData} from "../../../../mics/merge.ts";
 import {CardProps} from "./types.ts";
+import {useSettings} from "../../../../hooks/useSettings.tsx";
 
 export default function PieCard(props: CardProps) {
 
+    const {colors} = useSettings()
     const metric = mergeClientAndServerData(props.clientMetric, props.serverMetric)
 
     return (

@@ -9,7 +9,6 @@ import {
     Typography
 } from "@mui/material";
 import {Line} from "react-chartjs-2";
-import {colors} from "../colors.ts";
 import {useLineMetricMutation} from "../../../../services/metrics.ts";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
@@ -18,6 +17,7 @@ import {decodeLineMetric} from "../../../../mics/decoder/line.ts";
 import {TimelineCardProps} from "./types.ts";
 import "chartjs-adapter-date-fns";
 import {mergeData} from "../../../../mics/merge.ts";
+import {useSettings} from "../../../../hooks/useSettings.tsx";
 
 export type Mode = "week" | "month" | "quarter" | "all";
 
@@ -25,6 +25,7 @@ export default function TimelineCard(props: TimelineCardProps) {
 
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
+    const {colors} = useSettings()
 
     const [mode, setMode] = useState<Mode>("month")
 
