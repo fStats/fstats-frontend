@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Box, Card, CardContent, Stack, Tab, Tabs, Typography} from "@mui/material";
+import {Alert, Box, Card, CardContent, Stack, Tab, Tabs, Typography} from "@mui/material";
 import TimelineCard from "../components/card/TimelineCard.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useLineMetricMutation, usePieMetric} from "../../../services/metrics.ts";
@@ -11,6 +11,7 @@ import {ChartsTab} from "./ChartsTab.tsx";
 import {MetricTab, TimelineData} from "./types.ts";
 import {useLabel} from "../../../hooks/useLabel.tsx";
 import {useProject} from "../../../services/projects.ts";
+import {Warning} from "@mui/icons-material";
 
 export function ExperimentalProjectPage() {
 
@@ -69,6 +70,9 @@ export function ExperimentalProjectPage() {
 
     return (
         <Stack spacing={2}>
+            {projectData && !projectData.is_visible &&
+                <Alert variant="outlined" color="warning" icon={<Warning/>}>Your project is hidded. Please rename or
+                    delete project!</Alert>}
             <Stack direction="row" spacing={2}>
                 <TimelineCard projectId={projectId}/>
                 <Stack spacing={2}>
