@@ -88,7 +88,7 @@ export default function RootPage() {
             <Divider/>
             <List>
                 {publicItems.map(item =>
-                    <ListItem disablePadding>
+                    <ListItem disablePadding key={item.route}>
                         <ListItemButton component={Link} to={item.route} key={item.route}>
                             <ListItemIcon>
                                 {item.icon}
@@ -100,8 +100,8 @@ export default function RootPage() {
             </List>
             <Divider/>
             {isAuthorized && data && data.length > 0 ? <List subheader={<ListSubheader>Favorites</ListSubheader>}>
-                {data.map(project => {
-                    return <ListItem disablePadding>
+                {data.map(project =>
+                    <ListItem disablePadding key={project.id}>
                         <ListItemButton component={Link} to={`project/${project.id}`}>
                             <ListItemIcon>
                                 <Star/>
@@ -112,8 +112,7 @@ export default function RootPage() {
                                 </Typography>
                             }/>
                         </ListItemButton>
-                    </ListItem>
-                })}
+                    </ListItem>)}
             </List> : null}
         </div>
     );
