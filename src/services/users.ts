@@ -1,5 +1,5 @@
-import {useQuery} from "@tanstack/react-query";
-import {deleteUser, getUser, getUserFavorites, getUserProjects} from "./fStatsApi";
+import {useMutation, useQuery} from "@tanstack/react-query";
+import {deleteUser, getUser, getUserFavorites, getUserProjects, patchUser} from "./fStatsApi";
 import {ApiMessage, Project, User} from "./types";
 import {useAuth} from "../hooks/useAuth";
 
@@ -19,7 +19,12 @@ export const useUserFavorites = (userId: number, token: string) => useQuery<Proj
     enabled: useAuth()?.isAuthorized
 })
 
-export const useUserDelete = (token: string) => useQuery<ApiMessage, Error>({
-    queryKey: ["userDelete"],
-    queryFn: () => deleteUser(token).then(data => data)
+export const useUserPatch = (token: string) => useMutation<ApiMessage, Error, User>({
+    mutationKey: ["userPatch"],
+    mutationFn: (user) => patchUser(token, user).then(data => data)
+})
+
+export const useUserDelete = (token: string) => useMutation<ApiMessage, Error>({
+    mutationKey: ["userDelete"],
+    mutationFn: () => deleteUser(token).then(data => data)
 })
