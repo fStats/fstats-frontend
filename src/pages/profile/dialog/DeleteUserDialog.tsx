@@ -36,13 +36,11 @@ export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispat
     }
 
     const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
 
     const deleteUserMutation = useUserDelete(token)
 
     const handleClose = () => {
         setUsername("")
-        setPassword("")
         props.setOpen(false);
     };
 
@@ -61,15 +59,13 @@ export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispat
                         </Typography>
                         <TextField required variant="outlined" label="Username" value={username}
                                    onChange={(event) => setUsername(event.target.value)}></TextField>
-                        <TextField required variant="outlined" label="Password" value={password}
-                                   onChange={(event) => setPassword(event.target.value)} type="password"></TextField>
                     </Stack>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button disabled={username !== user.username || password.trim().length <= 0} variant="contained"
+                    <Button disabled={username !== user.username} variant="contained"
                             onClick={() => {
-                                if (username.trim().length <= 0 || password.trim().length <= 0) {
+                                if (username.trim().length <= 0) {
                                     enqueueSnackbar("Both field required", {variant: "warning"})
                                     return
                                 }
