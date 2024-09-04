@@ -16,7 +16,7 @@ export interface User {
 export interface Project {
     id?: number;
     name: string;
-    is_visible: boolean;
+    is_visible?: boolean;
     owner?: User;
 }
 
