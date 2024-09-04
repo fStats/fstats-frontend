@@ -32,8 +32,8 @@ import {Loader} from "../../components/Loader";
 import {useUserProjects} from "../../services/users";
 import {Add, Delete, Edit} from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
-import DeleteProjectDialog from "../../components/dialogs/DeleteProjectDialog";
-import CreateProjectDialog from "../../components/dialogs/CreateProjectDialog";
+import DeleteProjectDialog from "./dialog/DeleteProjectDialog.tsx";
+import CreateProjectDialog from "./dialog/CreateProjectDialog.tsx";
 import {useSettings} from "../../hooks/useSettings.tsx";
 import EditUserDialog from "./dialog/EditUserDialog.tsx";
 import DeleteUserDialog from "./dialog/DeleteUserDialog.tsx";
@@ -231,12 +231,19 @@ export default function ProfilePage() {
                                                     </Alert>}
                                             </TableCell>
                                             <TableCell align="right" sx={{width: 100}}>
-                                                <IconButton sx={{padding: 0}} onClick={() => {
-                                                    setSelectedProject(row.id!!)
-                                                    setDeleteOpen(true)
-                                                }}>
-                                                    <Delete color="error"/>
-                                                </IconButton>
+                                                <Stack direction="row" spacing={2}>
+                                                    <IconButton sx={{padding: 0}} onClick={() => {
+                                                        setSelectedProject(row.id!!)
+                                                    }}>
+                                                        <Edit/>
+                                                    </IconButton>
+                                                    <IconButton sx={{padding: 0}} onClick={() => {
+                                                        setSelectedProject(row.id!!)
+                                                        setDeleteOpen(true)
+                                                    }}>
+                                                        <Delete color="error"/>
+                                                    </IconButton>
+                                                </Stack>
                                             </TableCell>
                                         </TableRow>
                                     )}
