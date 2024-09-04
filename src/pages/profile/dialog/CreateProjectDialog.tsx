@@ -9,7 +9,7 @@ import {
     TextField
 } from "@mui/material";
 import {Dispatch, useState} from "react";
-import {useCreateProject} from "../../services/projects";
+import {useCreateProject} from "../../../services/projects.ts";
 import {useSnackbar} from "notistack";
 
 export default function CreateProjectDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
