@@ -23,6 +23,7 @@ import {
     TablePagination,
     TableRow,
     TextField,
+    Tooltip,
     Typography
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
@@ -37,6 +38,7 @@ import CreateProjectDialog from "./dialog/CreateProjectDialog.tsx";
 import {useSettings} from "../../hooks/useSettings.tsx";
 import EditUserDialog from "./dialog/EditUserDialog.tsx";
 import DeleteUserDialog from "./dialog/DeleteUserDialog.tsx";
+import {getUserFromJWT} from "../../mics/decoder/jwt.ts";
 
 export default function ProfilePage() {
 

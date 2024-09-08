@@ -1,4 +1,4 @@
-const getUserFromJWT = (token: string) => JSON.parse(base64UrlDecode(token.split('.')[1]))
+export const getUserFromJWT = (token: string) => JSON.parse(base64UrlDecode(token.split('.')[1]))
 
 function base64UrlDecode(str: string) {
     str = str.replace(/-/g, '+').replace(/_/g, '/');

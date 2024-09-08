@@ -14,6 +14,7 @@ import {useSnackbar} from "notistack";
 import {useUserDelete} from "../../../services/users.ts";
 import {useAuth} from "../../../hooks/useAuth.tsx";
 import {User} from "../../../services/types.ts";
+import {getUserFromJWT} from "../../../mics/decoder/jwt.ts";
 
 export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 
