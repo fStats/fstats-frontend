@@ -79,12 +79,12 @@ export default function ProfilePage() {
 
     useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => !project.is_visible).length), [sortedProjects]);
 
-    useEffect(() => {
-        localStorage.setItem("settings", JSON.stringify({
-            language: language,
-            colors: colors
-        }));
-    }, [language, colors]);
+    useEffect(() => setLabel("Profile"), []);
+
+    useEffect(() => localStorage.setItem("settings", JSON.stringify({
+        language: language,
+        colors: colors
+    })), [language, colors]);
 
     if (status === "loading") return <Loader/>
 
@@ -93,8 +93,6 @@ export default function ProfilePage() {
         navigate("/not-found")
         return <></>
     }
-
-    console.log(projects)
 
     const openProject = (id: number) => navigate(`/project/${id}`);
 
