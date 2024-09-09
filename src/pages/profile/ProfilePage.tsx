@@ -150,31 +150,33 @@ export default function ProfilePage() {
                                     </Stack>
                                     <Stack direction="row" spacing={2}>
                                         {colors.map((value, index) =>
-                                            <Box sx={{display: 'flex', alignItems: 'flex-end'}} key={index}>
+                                            <Box sx={{display: "flex", alignItems: "flex-end"}} key={index}>
                                                 <Icon sx={{mr: 1, my: 0.5, backgroundColor: value}}/>
-                                                <TextField
-                                                    fullWidth
-                                                    label={`Color ${index + 1}`}
-                                                    variant="standard"
-                                                    value={value}
-                                                    onChange={event =>
-                                                        setColors(prevState => prevState.map(
-                                                            (color, i) => i === index ? event.target.value : color
-                                                        ))}
-                                                    sx={{
-                                                        '& .MuiInput-underline:before': {
-                                                            borderBottomColor: value
-                                                        },
-                                                        '& .MuiInput-underline:hover:before': {
-                                                            borderBottomColor: value
-                                                        },
-                                                        '& .MuiInput-underline:after': {
-                                                            borderBottomColor: value
-                                                        },
-                                                        '& .MuiInputLabel-root': {
-                                                            color: value
-                                                        }
-                                                    }}/>
+                                                <Tooltip title="RGBA Hex">
+                                                    <TextField
+                                                        fullWidth
+                                                        label={`Color ${index + 1}`}
+                                                        variant="standard"
+                                                        value={value}
+                                                        onChange={event =>
+                                                            setColors(prevState => prevState.map(
+                                                                (color, i) => i === index ? event.target.value : color
+                                                            ))}
+                                                        sx={{
+                                                            "& .MuiInput-underline:before": {
+                                                                borderBottomColor: value
+                                                            },
+                                                            "& .MuiInput-underline:hover:before": {
+                                                                borderBottomColor: value
+                                                            },
+                                                            "& .MuiInput-underline:after": {
+                                                                borderBottomColor: value
+                                                            },
+                                                            "& .MuiInputLabel-root": {
+                                                                color: value
+                                                            }
+                                                        }}/>
+                                                </Tooltip>
                                             </Box>
                                         )}
                                     </Stack>
@@ -211,7 +213,7 @@ export default function ProfilePage() {
                                             <TableCell onClick={() => openProject(row.id!!)}>
                                                 {row.owner?.username}
                                             </TableCell>
-                                            <TableCell sx={{width: 200, p: 0}} onClick={() => openProject(row.id!!)}>
+                                            <TableCell sx={{paddingY: 0}} onClick={() => openProject(row.id!!)}>
                                                 {!row.is_visible &&
                                                     <Alert color="warning" icon={false} variant="outlined"
                                                            sx={{justifyContent: "center", p: 0}}>
@@ -249,7 +251,7 @@ export default function ProfilePage() {
                         />
                     </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
             </Stack>
-            <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() => setCreateOpen(true)}>
+            <Fab color="primary" sx={{position: "fixed", bottom: 16, right: 16}} onClick={() => setCreateOpen(true)}>
                 <Add/>
             </Fab>
         </>
