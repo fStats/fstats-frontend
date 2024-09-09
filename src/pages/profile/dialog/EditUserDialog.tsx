@@ -47,23 +47,24 @@ export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
-                    <Button variant="contained" onClick={() => {
-                        if (username.trim().length <= 0 && password.trim().length <= 0) {
-                            enqueueSnackbar("At least one field should be filled", {variant: "warning"})
-                            return
-                        }
-                        patchUserMutation.mutate({
-                            username: username,
-                            password: password
-                        }, {
-                            onSuccess: () => {
-                                setToken("")
-                                localStorage.removeItem("token")
-                                return enqueueSnackbar("User data updated, please re-login", {variant: "success"});
-                            },
-                            onSettled: () => handleClose()
-                        })
-                    }} autoFocus>Edit</Button>
+                    <Button variant="contained" disabled={username.trim().length <= 0 && password.trim().length <= 0}
+                            onClick={() => {
+                                if (username.trim().length <= 0 && password.trim().length <= 0) {
+                                    enqueueSnackbar("At least one field should be filled", {variant: "warning"})
+                                    return
+                                }
+                                patchUserMutation.mutate({
+                                    username: username,
+                                    password: password
+                                }, {
+                                    onSuccess: () => {
+                                        setToken("")
+                                        localStorage.removeItem("token")
+                                        return enqueueSnackbar("User data updated, please re-login", {variant: "success"});
+                                    },
+                                    onSettled: () => handleClose()
+                                })
+                            }} autoFocus>Edit</Button>
                 </DialogActions>
             </>}
         </Dialog>
