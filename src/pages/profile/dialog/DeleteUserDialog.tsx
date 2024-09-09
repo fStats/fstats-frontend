@@ -43,7 +43,7 @@ export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispat
                 <DialogContent>
                     <Stack spacing={2} paddingY={1}>
                         <Typography>
-                            Verify account and projects deletion by typing current username and password!
+                            Verify account and projects deletion by typing current username!
                         </Typography>
                         <TextField required variant="outlined" label="Username" value={username}
                                    onChange={(event) => setUsername(event.target.value)}></TextField>
