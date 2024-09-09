@@ -98,6 +98,19 @@ export const deleteProject = async (projectId: number, token: string): Promise<A
     return await response.json() as ApiMessage
 }
 
+export const patchProject = async (projectId: number, project: Project, token: string): Promise<ApiMessage> => {
+    const response = await fetch(`${hostUrl}/projects/${projectId}`, {
+        method: "PATCH", headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }, body: JSON.stringify(project)
+    })
+
+    if (response.status !== 202) throw new Error((await response.json() as ApiMessage).message)
+
+    return await response.json() as ApiMessage
+}
+
 export const addProjectToFavorite = async (projectId: number, token: string): Promise<ApiMessage> => {
     const response = await fetch(`${hostUrl}/projects/${projectId}/favorite`, {
         method: "POST", headers: {
