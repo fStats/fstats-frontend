@@ -1,5 +1,5 @@
 import {useEffect, useState} from "react";
-import {Alert, Box, Card, CardContent, Stack, Tab, Tabs, Typography} from "@mui/material";
+import {Alert, Box, Card, CardContent, CircularProgress, Fab, Stack, Tab, Tabs, Typography} from "@mui/material";
 import TimelineCard from "../components/card/TimelineCard.tsx";
 import {useNavigate, useParams} from "react-router-dom";
 import {useLineMetricMutation, usePieMetric} from "../../../services/metrics.ts";
@@ -10,8 +10,12 @@ import {mergeData} from "../../../mics/merge.ts";
 import {ChartsTab} from "./ChartsTab.tsx";
 import {MetricTab, TimelineData} from "./types.ts";
 import {useLabel} from "../../../hooks/useLabel.tsx";
-import {useProject} from "../../../services/projects.ts";
-import {Warning} from "@mui/icons-material";
+import {useAddProjectToFavorite, useProject, useRemoveProjectFromFavorite} from "../../../services/projects.ts";
+import {Favorite, Remove, Warning} from "@mui/icons-material";
+import {useAuth} from "../../../hooks/useAuth.tsx";
+import {useUserFavorites} from "../../../services/users.ts";
+import {getUserFromJWT} from "../../../mics/decoder/jwt.ts";
+import {User} from "../../../services/types.ts";
 
 export function ExperimentalProjectPage() {
 
