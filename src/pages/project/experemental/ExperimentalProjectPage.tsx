@@ -24,6 +24,9 @@ export function ExperimentalProjectPage() {
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
+    const {isAuthorized, token} = useAuth()
+    const user: User = getUserFromJWT(token)
+
     const {data: projectData} = useProject(projectId)
     const {
         data: serverData,
@@ -37,7 +40,12 @@ export function ExperimentalProjectPage() {
     } = useLineMetricMutation(projectId, 0, "all", false)
     const {data: serverPieData, status: serverPieStatus, error: serverPieError} = usePieMetric(projectId, true)
     const {data: clientPieData, status: clientPieStatus, error: clientPieError} = usePieMetric(projectId, false)
+    const {data: userFavoriteData} = useUserFavorites(user.id || NaN, token)
 
+    const addProjectToFavorite = useAddProjectToFavorite()
+    const removeProjectFromFavorite = useRemoveProjectFromFavorite()
+
+    const [isProjectFavorite, setProjectFavorite] = useState(false)
     const [tab, setTab] = useState(MetricTab.Mixed)
 
     const clientNotExist = Object.entries(clientPieData?.mod_version ?? 0).length <= 0
@@ -51,6 +59,11 @@ export function ExperimentalProjectPage() {
         else if (serverNotExist) setTab(MetricTab.Client)
         setLabel(projectData?.name ?? "")
     }, [projectId, clientNotExist, serverNotExist]);
+
+    useEffect(() => {
+        setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
+        return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
+    }, [userFavoriteData, projectId]);
 
     if (serverStatus === "loading" || clientStatus === "loading" || serverPieStatus === "loading" || clientPieStatus === "loading") return (
         <Loader/>)
@@ -126,6 +139,17 @@ export function ExperimentalProjectPage() {
                 </Tabs>
             </Box>
             <ChartsTab value={tab} clientPieData={clientPieData} serverPieData={serverPieData}/>
+            {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
+                isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
+                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                }) : addProjectToFavorite.mutate((projectId), {
+                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                })}>
+                {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
+                    <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
+            </Fab>}
         </Stack>
     )
 }
