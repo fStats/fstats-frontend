@@ -66,6 +66,7 @@ export default function ProfilePage() {
 
     const [deleteOpen, setDeleteOpen] = useState(false);
     const [createOpen, setCreateOpen] = useState(false);
+    const [editOpen, setEditOpen] = useState(false);
     const [editUserOpen, setEditUserOpen] = useState(false);
     const [removeUserOpen, setRemoveUserOpen] = useState(false);
 
@@ -100,6 +101,7 @@ export default function ProfilePage() {
         <>
             <DeleteProjectDialog projectId={selectedProject} open={deleteOpen} setOpen={setDeleteOpen}/>
             <CreateProjectDialog open={createOpen} setOpen={setCreateOpen}/>
+            <EditProjectDialog projectId={selectedProject} open={editOpen} setOpen={setEditOpen}/>
             <EditUserDialog open={editUserOpen} setOpen={setEditUserOpen}/>
             <DeleteUserDialog open={removeUserOpen} setOpen={setRemoveUserOpen}/>
             <Stack spacing={2}>
@@ -220,6 +222,7 @@ export default function ProfilePage() {
                                                 <Stack direction="row" spacing={2}>
                                                     <IconButton sx={{padding: 0}} onClick={() => {
                                                         setSelectedProject(row.id!!)
+                                                        setEditOpen(true)
                                                     }}>
                                                         <Edit/>
                                                     </IconButton>
