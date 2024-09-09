@@ -34,9 +34,9 @@ export default function CreateProjectDialog(props: { open: boolean, setOpen: Dis
                     <TextField sx={{width: "100%"}} inputMode="text" placeholder="New project name" onChange={
                         (event) => setName(event.target.value)
                     }/>
-                    {name.match("server") && <Alert sx={{marginTop: 1}} variant="outlined" severity="warning">
+                    <Alert sx={{marginTop: 1}} variant="outlined" severity="warning">
                         This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!
-                    </Alert>}
+                    </Alert>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
