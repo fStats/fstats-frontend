@@ -28,7 +28,7 @@ import {
 } from "@mui/material";
 import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
-import {useEffect, useState} from "react";
+import {useEffect, useMemo, useState} from "react";
 import {Loader} from "../../components/Loader";
 import {useUserProjects} from "../../services/users";
 import {Add, Delete, Edit} from "@mui/icons-material";
@@ -39,6 +39,7 @@ import {useSettings} from "../../hooks/useSettings.tsx";
 import EditUserDialog from "./dialog/EditUserDialog.tsx";
 import DeleteUserDialog from "./dialog/DeleteUserDialog.tsx";
 import {getUserFromJWT} from "../../mics/decoder/jwt.ts";
+import EditProjectDialog from "./dialog/EditProjectDialog.tsx";
 
 export default function ProfilePage() {
 
@@ -70,15 +71,13 @@ export default function ProfilePage() {
 
     const [selectedProject, setSelectedProject] = useState<number>(0)
 
-    useEffect(() => {
-        projects && setHidedProjectsCount(projects.filter(project => !project.is_visible).length)
-        projects && projects.sort((a, b) => {
-            if (a.id === undefined) return 1;
-            if (b.id === undefined) return -1;
-            return a.id - b.id;
-        });
-        setLabel("Profile")
-    }, [projects]);
+    const sortedProjects = useMemo(() => projects ? [...projects].sort((a, b) => {
+        if (a.id === undefined) return 1;
+        if (b.id === undefined) return -1;
+        return a.id - b.id;
+    }) : [], [projects]);
+
+    useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => !project.is_visible).length), [sortedProjects]);
 
     useEffect(() => {
         localStorage.setItem("settings", JSON.stringify({
@@ -184,8 +183,8 @@ export default function ProfilePage() {
                         </CardContent>
                     </Card>
                 </Stack>
-                {projects.length > 0 ?
-                    <Paper sx={{width: '100%', overflow: 'hidden'}}>
+                {sortedProjects.length > 0 ?
+                    <Paper sx={{width: "100%", overflow: "hidden"}}>
                         <TableContainer sx={{maxHeight: 600}}>
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
@@ -198,7 +197,7 @@ export default function ProfilePage() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {projects.slice(page * 10, page * 10 + 10).map((row: Project) =>
+                                    {sortedProjects.slice(page * 10, page * 10 + 10).map((row: Project) =>
                                         <TableRow hover tabIndex={-1} key={row.id}>
                                             <TableCell onClick={() => {
                                                 navigator.clipboard.writeText(row.id!!.toString())
@@ -242,7 +241,7 @@ export default function ProfilePage() {
                         <TablePagination
                             component="div"
                             rowsPerPage={10}
-                            count={projects.length}
+                            count={sortedProjects.length}
                             page={page}
                             onPageChange={(_, newPage) => setPage(newPage)}
                             rowsPerPageOptions={[]}

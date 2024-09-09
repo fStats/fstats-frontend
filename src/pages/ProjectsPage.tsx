@@ -15,8 +15,7 @@ import {Loader} from "../components/Loader"
 import {useNavigate, useSearchParams} from "react-router-dom";
 import {useLabel} from "../hooks/useLabel";
 import {useSnackbar} from "notistack";
-import {useEffect, useState} from "react";
-import {Project} from "../services/types.ts";
+import {useEffect, useMemo, useState} from "react";
 
 export default function ProjectsPage() {
 
@@ -32,6 +31,14 @@ export default function ProjectsPage() {
 
     useEffect(() => setLabel("Projects catalogue"), []);
 
+    const filteredData = useMemo(() => data ? (searchFilter.length > 0
+        ? data.filter((value) => value.is_visible && value.name.toLowerCase().includes(searchFilter.toLowerCase()))
+        : data.filter((value) => value.is_visible)).sort((a, b) => {
+        if (a.name === undefined) return 1;
+        if (b.name === undefined) return -1;
+        return a.name.charCodeAt(0) - b.name.charCodeAt(0);
+    }) : [], [data, searchFilter]);
+
     if (status === "loading") return <Loader/>
 
     if (status === "error") {
@@ -40,8 +47,7 @@ export default function ProjectsPage() {
         return <></>
     }
 
-    const filteredData = (): Project[] => searchFilter.length > 0 ? data.filter((value) => value.is_visible && value.name.toLowerCase().includes(searchFilter.toLowerCase())) : data.filter((value) => value.is_visible)
-    const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - (filteredData()?.length ?? 0)) : 0;
+    const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - (filteredData.length ?? 0)) : 0;
 
     return (
         <>
@@ -63,7 +69,7 @@ export default function ProjectsPage() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {(10 > 0 ? filteredData().slice(page * 10, page * 10 + 10) : filteredData()).map((row) => (
+                                {(10 > 0 ? filteredData.slice(page * 10, page * 10 + 10) : filteredData).map((row) => (
                                     <TableRow hover tabIndex={-1} key={row.id}
                                               onClick={() => navigate(`/project/${row.id}`)}>
                                         <TableCell>{row.name}</TableCell>
@@ -81,7 +87,7 @@ export default function ProjectsPage() {
                     <TablePagination
                         component="div"
                         rowsPerPage={10}
-                        count={filteredData().length}
+                        count={filteredData.length}
                         page={page}
                         onPageChange={(_, newPage) => setSearchParams({page: newPage.toString()})}
                         rowsPerPageOptions={[]}
