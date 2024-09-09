@@ -9,22 +9,23 @@ export function mergeClientAndServerData(clientData: DataValue, serverData: Data
 
 export function mergeData(clientData: TimelineData[], serverData: TimelineData[]): TimelineData[] {
     const merged: TimelineData[] = [];
-    let i = 0, j = 0;
+    let serverIndex = 0;
+    let clientIndex = 0;
 
-    while (i < serverData.length || j < clientData.length) {
-        const serverPoint = serverData[i];
-        const clientPoint = clientData[j];
+    while (serverIndex < serverData.length || clientIndex < clientData.length) {
+        const serverPoint = serverData[serverIndex];
+        const clientPoint = clientData[clientIndex];
 
-        if (j >= clientData.length || (i < serverData.length && serverPoint.x < clientPoint.x)) {
+        if (clientIndex >= clientData.length || (serverIndex < serverData.length && serverPoint.x < clientPoint.x)) {
             merged.push(serverPoint);
-            i++;
-        } else if (i >= serverData.length || (j < clientData.length && serverPoint.x > clientPoint.x)) {
+            serverIndex++;
+        } else if (serverIndex >= serverData.length || (clientIndex < clientData.length && serverPoint.x > clientPoint.x)) {
             merged.push(clientPoint);
-            j++;
+            clientIndex++;
         } else {
             merged.push({x: serverPoint.x, y: serverPoint.y + clientPoint.y});
-            i++;
-            j++;
+            serverIndex++;
+            clientIndex++;
         }
     }
 
