@@ -29,17 +29,18 @@ export default function GettingStartedPage() {
                         <Tab label="Java"/>
                     </Tabs>
                 </Box>
-                {page === 0 ? <>
+                {page === 0 && <>
                     <Typography variant="h6" padding={2}>build.gradle.kts</Typography>
                     <SyntaxHighlighter customStyle={{margin: 0}} language="groovy" style={materialDark}>
                         {kotlinGradleCode}
                     </SyntaxHighlighter>
-                </> : page === 1 ? <>
+                </>}
+                {page === 1 && <>
                     <Typography variant="h6" padding={2}>build.gradle</Typography>
                     <SyntaxHighlighter customStyle={{margin: 0}} language="groovy" style={materialDark}>
                         {javaGradleCode}
                     </SyntaxHighlighter>
-                </> : null}
+                </>}
             </Card>
             <Card>
                 <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
