@@ -2,14 +2,15 @@ import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
 import {useLabel} from "../../hooks/useLabel";
 import {Box, Card, Link as MUILink, Stack, Tab, Tabs, Typography} from "@mui/material";
 import {materialDark} from "react-syntax-highlighter/dist/esm/styles/prism";
-import {fabricJson, javaGradleCode, kotlinGradleCode} from "./codes";
+import {fabricJsonFull, fabricJsonMinimal, javaGradleCode, kotlinGradleCode} from "./codes";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
 export default function GettingStartedPage() {
 
     const {setLabel} = useLabel()
-    const [page, setPage] = useState(0)
+    const [lang, setLang] = useState(0)
+    const [size, setSize] = useState(0)
 
     useEffect(() => setLabel("Getting started"), []);
 
@@ -29,18 +30,18 @@ export default function GettingStartedPage() {
             </Typography>
             <Card>
                 <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                    <Tabs value={page} onChange={(_, newPage) => setPage(newPage)}>
+                    <Tabs value={lang} onChange={(_, newPage) => setLang(newPage)}>
                         <Tab label="Kotlin"/>
                         <Tab label="Java"/>
                     </Tabs>
                 </Box>
-                {page === 0 && <>
+                {lang === 0 && <>
                     <Typography variant="h6" padding={2}>build.gradle.kts</Typography>
                     <SyntaxHighlighter customStyle={{margin: 0}} language="groovy" style={materialDark}>
                         {kotlinGradleCode}
                     </SyntaxHighlighter>
                 </>}
-                {page === 1 && <>
+                {lang === 1 && <>
                     <Typography variant="h6" padding={2}>build.gradle</Typography>
                     <SyntaxHighlighter customStyle={{margin: 0}} language="groovy" style={materialDark}>
                         {javaGradleCode}
@@ -52,10 +53,21 @@ export default function GettingStartedPage() {
                 4. Added mod as dependency and projectId to your fabric.mod.json
             </Typography>
             <Card>
+                <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                    <Tabs value={size} onChange={(_, newPage) => setSize(newPage)}>
+                        <Tab label="Minimal"/>
+                        <Tab label="Full"/>
+                    </Tabs>
+                </Box>
                 <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
-                <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
-                    {fabricJson}
-                </SyntaxHighlighter>
+                {size === 0 && <>
+                    <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
+                        {fabricJsonMinimal}
+                    </SyntaxHighlighter>
+                </>}
+                {size === 1 && <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
+                    {fabricJsonFull}
+                </SyntaxHighlighter>}
             </Card>
 
 

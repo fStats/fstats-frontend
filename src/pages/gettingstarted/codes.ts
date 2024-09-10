@@ -24,7 +24,17 @@ dependencies {
     modImplementation "maven.modrinth:fstats:<version>"
 }`
 
-export const fabricJson: string = `{
+export const fabricJsonMinimal: string = `// Add fstats projectId as custom data
+"custom": {
+    "fstats": <projectId>
+}
+
+// Add library to suggested mods
+"suggests": {
+    "fstats-api": "*"
+}`
+
+export const fabricJsonFull: string = `{
   "id": "modid",
   "version": "1.0.0",
   "name": "Example mod",
