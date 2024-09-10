@@ -17,8 +17,8 @@ export default function GettingStartedPage() {
         <Stack spacing={2}>
             <Typography variant="h4">
                 The first thing that you need to do is <MUILink component={Link} underline="none"
-                                                                to="/register">register</MUILink>,
-                then <MUILink component={Link} underline="none" to="/profile">create</MUILink> a project and get it
+                                                                to={"/register"}>register</MUILink>,
+                then <MUILink component={Link} underline="none" to={"/profile"}>create</MUILink> a project and get it
                 projectId
             </Typography>
             <Typography variant="h5">Adding library as/to dependency</Typography>
