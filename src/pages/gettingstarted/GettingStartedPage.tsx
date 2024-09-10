@@ -2,7 +2,7 @@ import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
 import {useLabel} from "../../hooks/useLabel";
 import {Box, Card, Link as MUILink, Stack, Tab, Tabs, Typography} from "@mui/material";
 import {materialDark} from "react-syntax-highlighter/dist/esm/styles/prism";
-import {fabricJsonSetup, fabricJsonSuggests, javaGradleCode, kotlinGradleCode} from "./codes";
+import {fabricJson, javaGradleCode, kotlinGradleCode} from "./codes";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
@@ -15,13 +15,18 @@ export default function GettingStartedPage() {
 
     return (
         <Stack spacing={2}>
-            <Typography variant="h4">
-                The first thing that you need to do is <MUILink component={Link} underline="none"
-                                                                to={"/register"}>register</MUILink>,
-                then <MUILink component={Link} underline="none" to={"/profile"}>create</MUILink> a project and get it
-                projectId
+
+            <Typography variant="h5">
+                1. <MUILink component={Link} underline="none" to={"/register"}>Register account</MUILink>
             </Typography>
-            <Typography variant="h5">Adding library as/to dependency</Typography>
+
+            <Typography variant="h5">
+                2. <MUILink component={Link} underline="none" to={"/profile"}>Create project</MUILink>
+            </Typography>
+
+            <Typography variant="h5">
+                3. Add library to your project gradle
+            </Typography>
             <Card>
                 <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
                     <Tabs value={page} onChange={(_, newPage) => setPage(newPage)}>
@@ -42,19 +47,21 @@ export default function GettingStartedPage() {
                     </SyntaxHighlighter>
                 </>}
             </Card>
+
+            <Typography variant="h5">
+                4. Added mod as dependency and projectId to your fabric.mod.json
+            </Typography>
             <Card>
                 <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
                 <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
-                    {fabricJsonSuggests}
+                    {fabricJson}
                 </SyntaxHighlighter>
             </Card>
-            <Typography variant="h5">Setup project</Typography>
-            <Card>
-                <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
-                <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
-                    {fabricJsonSetup}
-                </SyntaxHighlighter>
-            </Card>
+
+
+            <Typography variant="h5">
+                5. When data come you can see it on your project page
+            </Typography>
         </Stack>
     )
 }
