@@ -1,5 +1,5 @@
 import {useLabel} from "../hooks/useLabel";
-import {Link, Card, Divider, Stack, Typography} from "@mui/material";
+import {Card, Divider, Link, Stack, Typography} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
 
 export default function TermsPolicyPage() {
@@ -103,6 +103,7 @@ export default function TermsPolicyPage() {
                             <li>Mod version</li>
                             <li>Operation System <i style={{color: "gray"}}>(First letter)</i></li>
                             <li>Server online mode</li>
+                            <li>Is data come from server or client</li>
                         </ul>
                         This data is used to create charts and display it. It will be linked to your projects.
                     </Typography>
