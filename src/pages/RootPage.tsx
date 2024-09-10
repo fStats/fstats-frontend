@@ -59,8 +59,8 @@ export default function RootPage() {
             icon: <Home/>
         },
         {
-            label: "How to start",
-            route: "how-to-start",
+            label: "Getting started",
+            route: "getting-started",
             icon: <MenuBook/>
         },
         {

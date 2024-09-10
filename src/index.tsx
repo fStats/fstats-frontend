@@ -21,7 +21,7 @@ import {SnackbarProvider} from "notistack";
 import {AuthProvider} from "./hooks/useAuth";
 import RootPage from "./pages/RootPage";
 import HomePage from "./pages/HomePage";
-import HowToStartPage from "./pages/howtostart/HowToStartPage";
+import GettingStartedPage from "./pages/gettingstarted/GettingStartedPage.tsx";
 import NotFoundPage from "./pages/NotFoundPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import {LabelProvider} from "./hooks/useLabel";
@@ -84,7 +84,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                                         createRoutesFromElements(
                                             <Route path="/" element={<RootPage/>}>
                                                 <Route index element={<HomePage/>}/>
-                                                <Route path="how-to-start" element={<HowToStartPage/>}/>
+                                                <Route path="getting-started" element={<GettingStartedPage/>}/>
                                                 <Route path="faq" element={<FaqPage/>}/>
 
                                                 <Route path="login" element={<LoginPage/>}/>

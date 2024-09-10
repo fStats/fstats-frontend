@@ -3,14 +3,15 @@ import {useLabel} from "../../hooks/useLabel";
 import {Box, Card, Link as MUILink, Stack, Tab, Tabs, Typography} from "@mui/material";
 import {materialDark} from "react-syntax-highlighter/dist/esm/styles/prism";
 import {fabricJsonSetup, fabricJsonSuggests, javaGradleCode, kotlinGradleCode} from "./codes";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 
-export default function HowToStartPage() {
+export default function GettingStartedPage() {
 
-    useLabel()?.setLabel("How to start")
-
+    const {setLabel} = useLabel()
     const [page, setPage] = useState(0)
+
+    useEffect(() => setLabel("Getting started"), []);
 
     return (
         <Stack spacing={2}>

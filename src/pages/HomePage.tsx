@@ -12,7 +12,7 @@ export default function HomePage() {
 
             <Stack alignItems="center" spacing={8}>
                 <Typography variant="h3" textAlign="center">fStats - Fabric mods metric system</Typography>
-                <Button color="success" variant="contained" component={Link} to="how-to-start" endIcon={
+                <Button color="success" variant="contained" component={Link} to="getting-started" endIcon={
                     <ArrowForward/>
                 }>Getting start</Button>
             </Stack>
@@ -43,7 +43,7 @@ export default function HomePage() {
                 </Stack>
                 <Stack direction="row" spacing={2}>
                     <Card style={{flexBasis: "100%"}}>
-                        <CardActionArea component={Link} to="how-to-start">
+                        <CardActionArea component={Link} to="getting-started">
                             <CardContent>
                                 <Typography variant="h5" textAlign="center" paddingBottom={1}>Plug and Play</Typography>
                                 <Typography variant="body1">
