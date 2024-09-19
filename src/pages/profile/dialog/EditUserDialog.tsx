@@ -36,7 +36,7 @@ export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch
     return (
         <Dialog open={props.open} onClose={handleClose}>
             {patchUserMutation.isLoading ? <CircularProgress sx={{margin: 8}}/> : <>
-                <DialogTitle>Are you sure you want to delete the project?</DialogTitle>
+                <DialogTitle>Edit user</DialogTitle>
                 <DialogContent>
                     <Stack spacing={2} paddingY={1}>
                         <TextField variant="outlined" label="Username" value={username}
