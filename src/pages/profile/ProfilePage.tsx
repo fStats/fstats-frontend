@@ -54,7 +54,7 @@ export default function ProfilePage() {
         language, setLanguage
     } = useSettings()
 
-    const {data: projects, status, error} = useUserProjects(user.id!!)
+    const {data: projects, status, error} = useUserProjects(user.id || NaN)
 
     const [hidedProjectsCount, setHidedProjectsCount] = useState(0)
 
