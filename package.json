@@ -1,7 +1,7 @@
 {
   "name": "fstats-frontend",
   "private": false,
-  "version": "2022.12.1",
+  "version": "2024.9.1",
   "homepage": "https://fstats.dev/",
   "type": "module",
   "scripts": {
