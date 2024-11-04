@@ -26,10 +26,14 @@ import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
 import {useUserFavorites} from "../services/users";
 import {User} from "../services/types";
+import CenteredContainer from "../components/CenteredContainer.tsx";
 
 export const drawerWidth = 240;
 
 export default function RootPage() {
+
+    // @ts-ignore
+    const isShutdown: boolean = Boolean(import.meta.env.VITE_SHUTDOWN ?? false)
 
     const navigate = useNavigate()
 
@@ -116,6 +120,16 @@ export default function RootPage() {
             </List> : null}
         </div>
     );
+
+    if (isShutdown) {
+        return (
+            <CenteredContainer>
+                <CssBaseline/>
+                <Typography variant="h2">Service temporary shutdown</Typography>
+                <Typography variant="h4">Comeback January 2025</Typography>
+            </CenteredContainer>
+        )
+    }
 
     return (
         <Box sx={{display: 'flex'}}>

@@ -23,6 +23,7 @@
     "chartjs-plugin-datalabels": "^2.2.0",
     "chartjs-plugin-zoom": "^2.0.1",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.4.5",
     "notistack": "^3.0.1",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
