@@ -26,7 +26,7 @@ import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
 import {useUserFavorites} from "../services/users";
 import {User} from "../services/types";
-import CenteredContainer from "../components/CenteredContainer.tsx";
+import ShutdownPage from "./ShutdownPage.tsx";
 
 export const drawerWidth = 240;
 
@@ -123,11 +123,10 @@ export default function RootPage() {
 
     if (isShutdown) {
         return (
-            <CenteredContainer>
+            <Container>
                 <CssBaseline/>
-                <Typography variant="h2">Service temporary shutdown</Typography>
-                <Typography variant="h4">Comeback January 2025</Typography>
-            </CenteredContainer>
+                <ShutdownPage/>
+            </Container>
         )
     }
 
