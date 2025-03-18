@@ -26,14 +26,10 @@ import {useAuth} from "../hooks/useAuth";
 import {useSnackbar} from "notistack";
 import {useUserFavorites} from "../services/users";
 import {User} from "../services/types";
-import ShutdownPage from "./ShutdownPage.tsx";
 
 export const drawerWidth = 240;
 
 export default function RootPage() {
-
-    // @ts-ignore
-    const isShutdown: boolean = Boolean(import.meta.env.VITE_SHUTDOWN ?? false)
 
     const navigate = useNavigate()
 
@@ -120,15 +116,6 @@ export default function RootPage() {
             </List> : null}
         </div>
     );
-
-    if (isShutdown) {
-        return (
-            <Container>
-                <CssBaseline/>
-                <ShutdownPage/>
-            </Container>
-        )
-    }
 
     return (
         <Box sx={{display: 'flex'}}>
