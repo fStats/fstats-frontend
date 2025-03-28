@@ -95,17 +95,21 @@ export default function TermsPolicyPage() {
                         This data is used to identify you. It will be linked to your projects.
                     </Typography>
                     <Typography variant="body1">
-                        2. When you send data over mod we collect:
+                        2. When you send data via the mod, we collect the following anonymous metrics:
                         <ul>
                             <li>Country name <i style={{color: "gray"}}>(If allowed)</i></li>
                             <li>Fabric API version <i style={{color: "gray"}}>(If installed)</i></li>
                             <li>Minecraft version</li>
                             <li>Mod version</li>
-                            <li>Operation System <i style={{color: "gray"}}>(First letter)</i></li>
+                            <li>Operating System <i style={{color: "gray"}}>(First letter only)</i></li>
                             <li>Server online mode</li>
-                            <li>Is data come from server or client</li>
+                            <li>Data source <i style={{color: "gray"}}>(server or client)</i></li>
                         </ul>
-                        This data is used to create charts and display it. It will be linked to your projects.
+                        All collected data is anonymous and non-personally identifiable. It is used solely for
+                        statistical purposes to improve mod performance and usage insights.
+                        <br/>
+                        Data collection is enabled by default. You can disable it at any time by editing the
+                        configuration file located in the mod's configuration directory.
                     </Typography>
                 </Stack>
             </Card>
