@@ -19,7 +19,7 @@ export default function FaqPage() {
             question: "Where I can found SVG or PNG?",
             answer: <>
                 Image can be generated using <Link underline="none"
-                                                   href="https://img.fstats.dev/">microservice</Link>. <i
+                                                   href="https://fstats.github.io/fstats-image-generator-editor/">microservice</Link>. <i
                 style={{color: "gray"}}>(Currently support only timeline chart)</i>
             </>
         }
