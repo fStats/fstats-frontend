@@ -36,7 +36,7 @@ export default function ProjectsPage() {
         : data.filter((value) => value.is_visible)).sort((a, b) => {
         if (a.name === undefined) return 1;
         if (b.name === undefined) return -1;
-        return a.name.charCodeAt(0) - b.name.charCodeAt(0);
+        return a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0);
     }) : [], [data, searchFilter]);
 
     if (status === "loading") return <Loader/>
