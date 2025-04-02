@@ -78,7 +78,7 @@ export default function ProfilePage() {
         return a.id - b.id;
     }) : [], [projects]);
 
-    useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => !project.is_visible).length), [sortedProjects]);
+    useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => project.is_hidden).length), [sortedProjects]);
 
     useEffect(() => setLabel("Profile"), []);
 
@@ -217,10 +217,10 @@ export default function ProfilePage() {
                                                 {row.owner?.username}
                                             </TableCell>
                                             <TableCell sx={{paddingY: 0}} onClick={() => openProject(row.id!!)}>
-                                                {!row.is_visible &&
+                                                {row.is_hidden &&
                                                     <Alert color="warning" icon={false} variant="outlined"
                                                            sx={{justifyContent: "center", p: 0}}>
-                                                        Project hided
+                                                        {row.hiding_reason}
                                                     </Alert>}
                                             </TableCell>
                                             <TableCell align="right" sx={{width: 100}}>

@@ -32,8 +32,8 @@ export default function ProjectsPage() {
     useEffect(() => setLabel("Projects catalogue"), []);
 
     const filteredData = useMemo(() => data ? (searchFilter.length > 0
-        ? data.filter((value) => value.is_visible && value.name.toLowerCase().includes(searchFilter.toLowerCase()))
-        : data.filter((value) => value.is_visible)).sort((a, b) => {
+        ? data.filter((value) => !value.is_hidden && value.name.toLowerCase().includes(searchFilter.toLowerCase()))
+        : data.filter((value) => !value.is_hidden)).sort((a, b) => {
         if (a.name === undefined) return 1;
         if (b.name === undefined) return -1;
         return a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0);

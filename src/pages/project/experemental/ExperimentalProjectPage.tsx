@@ -87,9 +87,8 @@ export function ExperimentalProjectPage() {
 
     return (
         <Stack spacing={2}>
-            {projectData && !projectData.is_visible &&
-                <Alert variant="outlined" color="warning" icon={<Warning/>}>Your project is hidded. Please rename or
-                    delete project!</Alert>}
+            {projectData && projectData.is_hidden &&
+                <Alert variant="outlined" color="warning" icon={<Warning/>}>{projectData.hiding_reason}</Alert>}
             <Stack direction="row" spacing={2}>
                 <TimelineCard projectId={projectId}/>
                 <Stack spacing={2}>
