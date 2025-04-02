@@ -174,6 +174,9 @@ export default function ProfilePage() {
                                                             },
                                                             "& .MuiInputLabel-root": {
                                                                 color: value
+                                                            },
+                                                            "& .MuiInputLabel-root.Mui-focused": {
+                                                                color: value
                                                             }
                                                         }}/>
                                                 </Tooltip>
