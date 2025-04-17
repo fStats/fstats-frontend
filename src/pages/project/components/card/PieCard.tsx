@@ -24,6 +24,9 @@ export default function PieCard(props: CardProps) {
                 }} options={{
                     radius: "90%",
                     plugins: {
+                        legend: {
+                            display: false,
+                        },
                         datalabels: {
                             align: "start",
                             anchor: "center",

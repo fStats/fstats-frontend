@@ -9,6 +9,7 @@ import {
     CategoryScale,
     Chart,
     Colors,
+    Legend,
     LinearScale,
     LineElement,
     PointElement,
@@ -51,7 +52,8 @@ Chart.register(
     ColorScale,
     SizeScale,
     ProjectionScale,
-    BarElement
+    BarElement,
+    Legend
 );
 
 export const queryClient = new QueryClient({

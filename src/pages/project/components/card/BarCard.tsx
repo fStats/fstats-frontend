@@ -34,6 +34,9 @@ export function BarCard(props: CardProps) {
                     }))
                 }} options={{
                     plugins: {
+                        legend: {
+                            display: false,
+                        },
                         datalabels: {
                             display: false
                         },

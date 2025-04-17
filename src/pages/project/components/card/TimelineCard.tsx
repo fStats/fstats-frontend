@@ -104,6 +104,14 @@ export default function TimelineCard(props: TimelineCardProps) {
                         intersect: false
                     },
                     plugins: {
+                        legend: {
+                            display: true,
+                            position: "bottom",
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: "circle",
+                            }
+                        },
                         decimation: {
                             enabled: true
                         },
