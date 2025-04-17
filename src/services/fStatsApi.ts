@@ -1,6 +1,6 @@
 import {ApiMessage, AuthToken, LineMetric, PieMetric, Project, User} from "./types";
 
-const hostUrl: string = "https://api.fstats.dev/v3"
+const hostUrl: string = import.meta.env.VITE_API_URL ?? "https://api.fstats.dev/v3"
 
 /*   USERS   */
 export const getUser = async (id: number): Promise<User> => {
