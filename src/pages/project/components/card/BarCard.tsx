@@ -4,17 +4,24 @@ import {GroupedDataValue} from "../../experemental/types.ts";
 import {mergeClientAndServerData} from "../../../../mics/merge.ts";
 import {CardProps} from "./types.ts";
 import {useSettings} from "../../../../hooks/useSettings.tsx";
+import {compareVersionsDesc} from "../../../../mics/comparator/version.ts";
 
 export function BarCard(props: CardProps) {
 
     const {colors} = useSettings()
 
-    const groupedData: GroupedDataValue = Object.entries(mergeClientAndServerData(props.clientMetric, props.serverMetric) ?? []).sort().reduce((acc, [key, value]) => {
-        const groupKey = key.split('.').slice(0, 2).join('.');
-        if (!acc[groupKey]) acc[groupKey] = {};
-        acc[groupKey][key] = value;
-        return acc;
-    }, {} as GroupedDataValue)
+    const groupedData: GroupedDataValue = Object
+        .entries(mergeClientAndServerData(props.clientMetric, props.serverMetric) ?? [])
+        .sort(([a], [b]) => compareVersionsDesc(
+            a.split('.').slice(0, 2).join('.'),
+            b.split('.').slice(0, 2).join('.')
+        ))
+        .reduce((acc, [key, value]) => {
+            const groupKey = key.split('.').slice(0, 2).join('.');
+            if (!acc[groupKey]) acc[groupKey] = {};
+            acc[groupKey][key] = value;
+            return acc;
+        }, {} as GroupedDataValue);
 
     const labels = Object.keys(groupedData);
     const versionKeys = new Set<string>();
