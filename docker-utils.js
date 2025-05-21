@@ -2,6 +2,7 @@ import fs from 'fs';
 import {execSync} from 'child_process';
 import path from 'path';
 import dotenv from 'dotenv';
+import {spawnSync} from "node:child_process";
 
 dotenv.config();
 
@@ -39,10 +40,17 @@ async function main() {
         process.exit(1);
     }
     console.log(`Logging in to docker registry at ${hostname}`);
-    execSync(`docker login ${hostname} -u ${username} -p ${password}`, {stdio: 'inherit'});
+    const login = spawnSync(
+        'docker',
+        ['login', hostname, '-u', username, '--password-stdin'],
+        {input: password, stdio: ['pipe', 'inherit', 'inherit']}
+    );
+    if (login.status !== 0) {
+        console.error('docker login failed');
+        process.exit(1);
+    }
 
     const remoteImageBase = `${hostname}/${namespace}/${project}`;
-
     for (const tag of tags) {
         const remoteTag = `${remoteImageBase}:${tag}`;
         console.log(`Tagging ${localImageName}:${tag} as ${remoteTag}`);
