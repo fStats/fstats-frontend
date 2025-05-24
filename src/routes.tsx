@@ -10,31 +10,33 @@ import {ExperimentalProjectPage} from "@pages/project/experemental/ExperimentalP
 import ProjectsPage from "@pages/ProjectsPage";
 import RegisterPage from "@pages/RegisterPage";
 import RootPage from "@pages/RootPage";
+import ShutdownPage from "@pages/ShutdownPage";
 import TermsPolicyPage from "@pages/TermsPolicyPage";
 import {ProtectedRoute} from "@routes/protected";
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
-        <Route path="/" element={<RootPage/>}>
-            <Route index element={<HomePage/>}/>
-            <Route path="getting-started" element={<GettingStartedPage/>}/>
-            <Route path="faq" element={<FaqPage/>}/>
+        import.meta.env.VITE_SHUTDOWN ? <Route path="*" element={<ShutdownPage/>}/> :
+            <Route path="/" element={<RootPage/>}>
+                <Route index element={<HomePage/>}/>
+                <Route path="getting-started" element={<GettingStartedPage/>}/>
+                <Route path="faq" element={<FaqPage/>}/>
 
-            <Route path="login" element={<LoginPage/>}/>
-            <Route path="register" element={<RegisterPage/>}/>
+                <Route path="login" element={<LoginPage/>}/>
+                <Route path="register" element={<RegisterPage/>}/>
 
-            <Route path="projects">
-                <Route index element={<ProjectsPage/>}/>
-                <Route path=":id" element={<ExperimentalProjectPage/>}/>
+                <Route path="projects">
+                    <Route index element={<ProjectsPage/>}/>
+                    <Route path=":id" element={<ExperimentalProjectPage/>}/>
+                </Route>
+
+                <Route path="profile" element={
+                    <ProtectedRoute children={<ProfilePage/>}/>
+                }/>
+
+                <Route path="terms-policy" element={<TermsPolicyPage/>}/>
+
+                <Route path="*" element={<NotFoundPage/>}/>
             </Route>
-
-            <Route path="profile" element={
-                <ProtectedRoute children={<ProfilePage/>}/>
-            }/>
-
-            <Route path="terms-policy" element={<TermsPolicyPage/>}/>
-
-            <Route path="*" element={<NotFoundPage/>}/>
-        </Route>
     )
 )
