@@ -26,7 +26,7 @@ export function LoginPage() {
 
     useLabel()?.setLabel("Authorization")
 
-    if (status === "loading" && user) return (<Loader/>)
+    if (status === "pending" && user) return (<Loader/>)
 
     if (status === "error" && user) {
         enqueueSnackbar(error?.message, {variant: "error"})

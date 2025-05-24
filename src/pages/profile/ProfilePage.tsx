@@ -89,7 +89,7 @@ export default function ProfilePage() {
         colors: colors
     })), [language, colors]);
 
-    if (status === "loading") return <Loader/>
+    if (status === "pending") return <Loader/>
 
     if (status === "error") {
         enqueueSnackbar(error?.message, {variant: "error"})

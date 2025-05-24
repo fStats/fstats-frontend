@@ -29,7 +29,7 @@ export default function CreateProjectDialog(props: { open: boolean, setOpen: Dis
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
-            {createProjectMutation.isLoading ? <CircularProgress sx={{margin: 8}}/> : <>
+            {createProjectMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
                 <DialogTitle>Create new project</DialogTitle>
                 <DialogContent>
                     <TextField sx={{width: "100%"}} inputMode="text" placeholder="New project name" onChange={

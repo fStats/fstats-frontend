@@ -39,7 +39,7 @@ export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispat
 
     return (
         <Dialog open={props.open}>
-            {deleteUserMutation.isLoading ? <CircularProgress sx={{margin: 8}}/> : <>
+            {deleteUserMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
                 <DialogTitle>Are you sure you want to delete the project?</DialogTitle>
                 <DialogContent>
                     <Stack spacing={2} paddingY={1}>

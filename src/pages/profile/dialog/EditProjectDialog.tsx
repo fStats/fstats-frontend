@@ -29,7 +29,7 @@ export default function EditProjectDialog(props: { projectId: number, open: bool
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
-            {editProjectMutation.isLoading ? <CircularProgress sx={{margin: 8}}/> : <>
+            {editProjectMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
                 <DialogTitle>Edit project</DialogTitle>
                 <DialogContent>
                     <TextField sx={{width: "100%"}} inputMode="text" placeholder="New project name" onChange={

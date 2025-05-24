@@ -38,7 +38,7 @@ export default function RegisterPage() {
 
     useLabel()?.setLabel("Registration")
 
-    if (status === "loading" && user) return (<Loader/>)
+    if (status === "pending" && user) return (<Loader/>)
 
     if (status === "error" && user) {
         enqueueSnackbar(error?.message, {variant: "error"})

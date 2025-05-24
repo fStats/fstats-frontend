@@ -18,7 +18,7 @@ export default function DeleteProjectDialog(props: { projectId: number, open: bo
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
-            {deleteProjectMutation.isLoading ? <CircularProgress sx={{margin: 8}}/> : <>
+            {deleteProjectMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
                 <DialogTitle>Are you sure you want to delete the project?</DialogTitle>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>

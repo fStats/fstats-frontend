@@ -74,7 +74,7 @@ export function ExperimentalProjectPage() {
         return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId))
     }, [userFavoriteData, projectId]);
 
-    if (serverStatus === "loading" || clientStatus === "loading" || serverPieStatus === "loading" || clientPieStatus === "loading") return (
+    if (serverStatus === "pending" || clientStatus === "pending" || serverPieStatus === "pending" || clientPieStatus === "pending") return (
         <Loader/>)
 
     if (serverStatus === "error" || clientStatus === "error" || serverPieStatus === "error" || clientPieStatus === "error") {
@@ -155,7 +155,7 @@ export function ExperimentalProjectPage() {
                     onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)),
                     onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
                 })}>
-                {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?
+                {(addProjectToFavorite.isPending || removeProjectFromFavorite.isPending) ?
                     <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
             </Fab>}
         </Stack>

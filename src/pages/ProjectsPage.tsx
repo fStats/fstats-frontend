@@ -40,7 +40,7 @@ export default function ProjectsPage() {
         return a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0);
     }) : [], [data, searchFilter]);
 
-    if (status === "loading") return <Loader/>
+    if (status === "pending") return <Loader/>
 
     if (status === "error") {
         enqueueSnackbar(error?.message, {variant: "error"})
