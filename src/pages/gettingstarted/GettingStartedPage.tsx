@@ -1,10 +1,12 @@
-import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
-import {useLabel} from "../../hooks/useLabel";
 import {Box, Card, Link as MUILink, Stack, Tab, Tabs, Typography} from "@mui/material";
-import {materialDark} from "react-syntax-highlighter/dist/esm/styles/prism";
-import {fabricJsonFull, fabricJsonMinimal, javaGradleCode, kotlinGradleCode} from "./codes";
 import {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
+import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
+import {materialDark} from "react-syntax-highlighter/dist/esm/styles/prism";
+
+import {useLabel} from "@hooks/useLabel";
+
+import {fabricJsonFull, fabricJsonMinimal, javaGradleCode, kotlinGradleCode} from "./codes";
 
 export default function GettingStartedPage() {
 
@@ -12,7 +14,7 @@ export default function GettingStartedPage() {
     const [lang, setLang] = useState(0)
     const [size, setSize] = useState(0)
 
-    useEffect(() => setLabel("Getting started"), []);
+    useEffect(() => setLabel("Getting started"), [setLabel]);
 
     return (
         <Stack spacing={2}>
@@ -29,7 +31,7 @@ export default function GettingStartedPage() {
                 3. Add library to your project gradle
             </Typography>
             <Card>
-                <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                     <Tabs value={lang} onChange={(_, newPage) => setLang(newPage)}>
                         <Tab label="Kotlin"/>
                         <Tab label="Java"/>
@@ -53,7 +55,7 @@ export default function GettingStartedPage() {
                 4. Added mod as dependency and projectId to your fabric.mod.json
             </Typography>
             <Card>
-                <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+                <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                     <Tabs value={size} onChange={(_, newPage) => setSize(newPage)}>
                         <Tab label="Minimal"/>
                         <Tab label="Full"/>

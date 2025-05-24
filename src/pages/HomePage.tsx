@@ -1,7 +1,8 @@
-import {useLabel} from "../hooks/useLabel.tsx";
+import {ArrowForward} from "@mui/icons-material";
 import {Button, Card, CardActionArea, CardContent, Stack, Typography} from "@mui/material";
 import {Link} from "react-router-dom";
-import {ArrowForward} from "@mui/icons-material";
+
+import {useLabel} from "@hooks/useLabel";
 
 export default function HomePage() {
 

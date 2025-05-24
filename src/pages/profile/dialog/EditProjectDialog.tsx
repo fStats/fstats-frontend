@@ -8,9 +8,10 @@ import {
     DialogTitle,
     TextField
 } from "@mui/material";
-import {Dispatch, useState} from "react";
 import {useSnackbar} from "notistack";
-import {useEditProject} from "../../../services/projects.ts";
+import {Dispatch, useState} from "react";
+
+import {useEditProject} from "@services/projects";
 
 export default function EditProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
 

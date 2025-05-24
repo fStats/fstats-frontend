@@ -1,11 +1,13 @@
 import {Stack} from "@mui/material";
-import {WorldMapCard} from "../components/card/WorldMapCard.tsx";
-import PieCard from "../components/card/PieCard.tsx";
-import {ChartsTabProps, MetricTab} from "./types.ts";
-import {formatOnlineMode} from "../../../mics/formatter/onlineMode.ts";
-import {formatOperationSystem} from "../../../mics/formatter/operationSystem.ts";
-import {BarCard} from "../components/card/BarCard.tsx";
-import {DataValue} from "../../../services/types.ts";
+
+import {BarCard} from "@pages/project/components/card/BarCard";
+import PieCard from "@pages/project/components/card/PieCard";
+import {WorldMapCard} from "@pages/project/components/card/WorldMapCard";
+import {DataValue} from "@services/types";
+import {formatOnlineMode} from "@utils/formatters/onlineMode";
+import {formatOperationSystem} from "@utils/formatters/operationSystem";
+
+import {ChartsTabProps, MetricTab} from "./types";
 
 export function ChartsTab(props: ChartsTabProps) {
 

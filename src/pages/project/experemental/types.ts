@@ -1,13 +1,13 @@
-import {DataValue, PieMetric} from "../../../services/types.ts";
+import {DataValue, PieMetric} from "@services/types";
+
+export interface ChartsTabProps {
+    clientPieData?: PieMetric
+    serverPieData?: PieMetric
+    value: number
+}
 
 export interface GroupedDataValue {
     [group: string]: DataValue;
-}
-
-export interface ChartsTabProps {
-    value: number
-    clientPieData?: PieMetric
-    serverPieData?: PieMetric
 }
 
 export interface TimelineData {

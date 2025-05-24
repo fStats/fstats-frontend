@@ -1,6 +1,4 @@
-import {useLabel} from "../../hooks/useLabel";
-import {useAuth} from "../../hooks/useAuth";
-import {Project, User} from "../../services/types";
+import {Add, Delete, Edit} from "@mui/icons-material";
 import {
     Alert,
     Box,
@@ -26,20 +24,24 @@ import {
     Tooltip,
     Typography
 } from "@mui/material";
-import {useNavigate} from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
-import {Loader} from "../../components/Loader";
-import {useUserProjects} from "../../services/users";
-import {Add, Delete, Edit} from "@mui/icons-material";
-import IconButton from "@mui/material/IconButton";
-import DeleteProjectDialog from "./dialog/DeleteProjectDialog.tsx";
-import CreateProjectDialog from "./dialog/CreateProjectDialog.tsx";
-import {useSettings} from "../../hooks/useSettings.tsx";
-import EditUserDialog from "./dialog/EditUserDialog.tsx";
-import DeleteUserDialog from "./dialog/DeleteUserDialog.tsx";
-import {getUserFromJWT} from "../../mics/decoder/jwt.ts";
-import EditProjectDialog from "./dialog/EditProjectDialog.tsx";
+import {useNavigate} from "react-router-dom";
+
+import {Loader} from "@components/Loader";
+import {useAuth} from "@hooks/useAuth";
+import {useLabel} from "@hooks/useLabel";
+import {useSettings} from "@hooks/useSettings";
+import {Project, User} from "@services/types";
+import {useUserProjects} from "@services/users";
+import {getUserFromJWT} from "@utils/decoders/jwt";
+
+import CreateProjectDialog from "./dialog/CreateProjectDialog";
+import DeleteProjectDialog from "./dialog/DeleteProjectDialog";
+import DeleteUserDialog from "./dialog/DeleteUserDialog";
+import EditProjectDialog from "./dialog/EditProjectDialog";
+import EditUserDialog from "./dialog/EditUserDialog";
 
 export default function ProfilePage() {
 
@@ -80,7 +82,7 @@ export default function ProfilePage() {
 
     useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => project.is_hidden).length), [sortedProjects]);
 
-    useEffect(() => setLabel("Profile"), []);
+    useEffect(() => setLabel("Profile"), [setLabel]);
 
     useEffect(() => localStorage.setItem("settings", JSON.stringify({
         language: language,
@@ -205,18 +207,19 @@ export default function ProfilePage() {
                                     {sortedProjects.slice(page * 10, page * 10 + 10).map((row: Project) =>
                                         <TableRow hover tabIndex={-1} key={row.id}>
                                             <TableCell onClick={() => {
-                                                navigator.clipboard.writeText(row.id!!.toString())
-                                                enqueueSnackbar("Project ID copied to clipboard", {variant: "info"})
+                                                navigator.clipboard.writeText(row.id!.toString()).then(() =>
+                                                    enqueueSnackbar("Project ID copied to clipboard", {variant: "info"})
+                                                )
                                             }}>
                                                 {row.id}
                                             </TableCell>
-                                            <TableCell onClick={() => openProject(row.id!!)}>
+                                            <TableCell onClick={() => openProject(row.id!)}>
                                                 {row.name}
                                             </TableCell>
-                                            <TableCell onClick={() => openProject(row.id!!)}>
+                                            <TableCell onClick={() => openProject(row.id!)}>
                                                 {row.owner?.username}
                                             </TableCell>
-                                            <TableCell sx={{paddingY: 0}} onClick={() => openProject(row.id!!)}>
+                                            <TableCell sx={{paddingY: 0}} onClick={() => openProject(row.id!)}>
                                                 {row.is_hidden &&
                                                     <Alert color="warning" icon={false} variant="outlined"
                                                            sx={{justifyContent: "center", p: 0}}>
@@ -226,13 +229,13 @@ export default function ProfilePage() {
                                             <TableCell align="right" sx={{width: 100}}>
                                                 <Stack direction="row" spacing={2}>
                                                     <IconButton sx={{padding: 0}} onClick={() => {
-                                                        setSelectedProject(row.id!!)
+                                                        setSelectedProject(row.id!)
                                                         setEditOpen(true)
                                                     }}>
                                                         <Edit/>
                                                     </IconButton>
                                                     <IconButton sx={{padding: 0}} onClick={() => {
-                                                        setSelectedProject(row.id!!)
+                                                        setSelectedProject(row.id!)
                                                         setDeleteOpen(true)
                                                     }}>
                                                         <Delete color="error"/>

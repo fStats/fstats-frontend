@@ -1,27 +1,30 @@
-import {useEffect, useState} from "react";
-import {Alert, Box, Card, CardContent, CircularProgress, Fab, Stack, Tab, Tabs, Typography} from "@mui/material";
-import TimelineCard from "../components/card/TimelineCard.tsx";
-import {useNavigate, useParams} from "react-router-dom";
-import {useLineMetricMutation, usePieMetric} from "../../../services/metrics.ts";
-import {useSnackbar} from "notistack";
-import {decodeLineMetric} from "../../../mics/decoder/line.ts";
-import {Loader} from "../../../components/Loader.tsx";
-import {mergeData} from "../../../mics/merge.ts";
-import {ChartsTab} from "./ChartsTab.tsx";
-import {MetricTab, TimelineData} from "./types.ts";
-import {useLabel} from "../../../hooks/useLabel.tsx";
-import {useAddProjectToFavorite, useProject, useRemoveProjectFromFavorite} from "../../../services/projects.ts";
 import {Favorite, Remove, Warning} from "@mui/icons-material";
-import {useAuth} from "../../../hooks/useAuth.tsx";
-import {useUserFavorites} from "../../../services/users.ts";
-import {getUserFromJWT} from "../../../mics/decoder/jwt.ts";
-import {User} from "../../../services/types.ts";
+import {Alert, Box, Card, CardContent, CircularProgress, Fab, Stack, Tab, Tabs, Typography} from "@mui/material";
+import {useSnackbar} from "notistack";
+import {useEffect, useMemo, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
+
+import {Loader} from "@components/Loader";
+import {useAuth} from "@hooks/useAuth";
+import {useLabel} from "@hooks/useLabel";
+import TimelineCard from "@pages/project/components/card/TimelineCard";
+import {useLineMetricMutation, usePieMetric} from "@services/metrics";
+import {useAddProjectToFavorite, useProject, useRemoveProjectFromFavorite} from "@services/projects";
+import {User} from "@services/types";
+import {useUserFavorites} from "@services/users";
+import {getUserFromJWT} from "@utils/decoders/jwt";
+import {decodeLineMetric} from "@utils/decoders/line";
+import {mergeData} from "@utils/merge";
+
+import {ChartsTab} from "./ChartsTab";
+import {MetricTab, TimelineData} from "./types";
 
 export function ExperimentalProjectPage() {
 
-    const projectId = Number.parseInt(useParams().id!!)
-
     const navigate = useNavigate()
+    const id = useParams().id!
+
+    const projectId = Number.parseInt(id ?? navigate("projects"))
     const {enqueueSnackbar} = useSnackbar();
 
     const {isAuthorized, token} = useAuth()
@@ -40,7 +43,9 @@ export function ExperimentalProjectPage() {
     } = useLineMetricMutation(projectId, 0, "all", false)
     const {data: serverPieData, status: serverPieStatus, error: serverPieError} = usePieMetric(projectId, true)
     const {data: clientPieData, status: clientPieStatus, error: clientPieError} = usePieMetric(projectId, false)
-    const {data: userFavoriteData} = useUserFavorites(user.id || NaN, token)
+
+    const {data: rawUserFavorites} = useUserFavorites(user.id || NaN, token);
+    const userFavoriteData = useMemo(() => rawUserFavorites ?? [], [rawUserFavorites]);
 
     const addProjectToFavorite = useAddProjectToFavorite()
     const removeProjectFromFavorite = useRemoveProjectFromFavorite()
@@ -54,26 +59,30 @@ export function ExperimentalProjectPage() {
     const {setLabel} = useLabel()
 
     useEffect(() => {
+        if (projectId <= 0) return navigate("projects")
+    }, [navigate, projectId]);
+
+    useEffect(() => {
         if (clientNotExist && serverNotExist) setTab(MetricTab.Mixed)
         else if (clientNotExist) setTab(MetricTab.Server)
         else if (serverNotExist) setTab(MetricTab.Client)
         setLabel(projectData?.name ?? "")
-    }, [projectId, clientNotExist, serverNotExist]);
+    }, [projectId, clientNotExist, serverNotExist, setLabel, projectData?.name]);
 
     useEffect(() => {
-        setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
-        return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!)
+        setProjectFavorite(userFavoriteData?.some(project => project.id === projectId))
+        return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId))
     }, [userFavoriteData, projectId]);
 
     if (serverStatus === "loading" || clientStatus === "loading" || serverPieStatus === "loading" || clientPieStatus === "loading") return (
         <Loader/>)
 
     if (serverStatus === "error" || clientStatus === "error" || serverPieStatus === "error" || clientPieStatus === "error") {
-        serverError && enqueueSnackbar(serverError?.message, {variant: "error"})
-        clientError && enqueueSnackbar(clientError?.message, {variant: "error"})
-        serverPieError && enqueueSnackbar(serverPieError?.message, {variant: "error"})
-        clientPieError && enqueueSnackbar(clientPieError?.message, {variant: "error"})
-        navigate('/not-found')
+        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"})
+        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"})
+        if (serverPieError) enqueueSnackbar(serverPieError?.message, {variant: "error"})
+        if (clientPieError) enqueueSnackbar(clientPieError?.message, {variant: "error"})
+        navigate("/not-found")
         return <></>
     }
 
@@ -130,7 +139,7 @@ export function ExperimentalProjectPage() {
                     </Card>
                 </Stack>
             </Stack>
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+            <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                 <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} variant="fullWidth">
                     <Tab label="Client" disabled={clientNotExist}/>
                     <Tab label="Mixed"/>
@@ -138,12 +147,12 @@ export function ExperimentalProjectPage() {
                 </Tabs>
             </Box>
             <ChartsTab value={tab} clientPieData={clientPieData} serverPieData={serverPieData}/>
-            {isAuthorized && <Fab color="primary" sx={{position: 'fixed', bottom: 16, right: 16}} onClick={() =>
+            {isAuthorized && <Fab color="primary" sx={{position: "fixed", bottom: 16, right: 16}} onClick={() =>
                 isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
-                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)),
                     onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
                 }) : addProjectToFavorite.mutate((projectId), {
-                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)!!),
+                    onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)),
                     onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
                 })}>
                 {(addProjectToFavorite.isLoading || removeProjectFromFavorite.isLoading) ?

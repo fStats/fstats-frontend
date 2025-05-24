@@ -1,9 +1,9 @@
-import {DataValue} from "../../../../services/types.ts";
+import {DataValue} from "@services/types";
 
 export interface CardProps {
-    readonly title: string
-    readonly serverMetric: DataValue
     readonly clientMetric: DataValue
+    readonly serverMetric: DataValue
+    readonly title: string
 }
 
 export interface TimelineCardProps {

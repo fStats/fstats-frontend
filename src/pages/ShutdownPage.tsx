@@ -1,15 +1,16 @@
 import {
+    TimelineOppositeContent as BaseTimelineOppositeContent,
     Timeline,
     TimelineConnector,
     TimelineContent,
     TimelineDot,
     TimelineItem,
-    TimelineOppositeContent as BaseTimelineOppositeContent,
     TimelineSeparator
 } from "@mui/lab";
 import {Box, styled, Typography} from "@mui/material";
 import {useQuery} from "@tanstack/react-query";
-import {News} from "./types.ts";
+
+import {News} from "./types";
 
 export default function ShutdownPage() {
     const {data} = useQuery<News[], Error>({

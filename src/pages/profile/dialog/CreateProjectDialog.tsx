@@ -8,9 +8,10 @@ import {
     DialogTitle,
     TextField
 } from "@mui/material";
-import {Dispatch, useState} from "react";
-import {useCreateProject} from "../../../services/projects.ts";
 import {useSnackbar} from "notistack";
+import {Dispatch, useState} from "react";
+
+import {useCreateProject} from "@services/projects";
 
 export default function CreateProjectDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 

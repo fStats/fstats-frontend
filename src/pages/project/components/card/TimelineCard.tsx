@@ -8,16 +8,19 @@ import {
     SelectChangeEvent,
     Typography
 } from "@mui/material";
-import {Line} from "react-chartjs-2";
-import {useLineMetricMutation} from "../../../../services/metrics.ts";
-import {useNavigate} from "react-router-dom";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
-import {decodeLineMetric} from "../../../../mics/decoder/line.ts";
-import {TimelineCardProps} from "./types.ts";
+import {Line} from "react-chartjs-2";
+import {useNavigate} from "react-router-dom";
+
+import {useSettings} from "@hooks/useSettings";
+import {useLineMetricMutation} from "@services/metrics";
+import {decodeLineMetric} from "@utils/decoders/line";
+import {mergeData} from "@utils/merge";
+
+import {TimelineCardProps} from "./types";
+
 import "chartjs-adapter-date-fns";
-import {mergeData} from "../../../../mics/merge.ts";
-import {useSettings} from "../../../../hooks/useSettings.tsx";
 
 export type Mode = "week" | "month" | "quarter" | "all";
 
@@ -46,9 +49,9 @@ export default function TimelineCard(props: TimelineCardProps) {
     const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData)
 
     if (serverStatus === "error" || clientStatus === "error") {
-        serverError && enqueueSnackbar(serverError?.message, {variant: "error"})
-        clientError && enqueueSnackbar(clientError?.message, {variant: "error"})
-        navigate('/not-found')
+        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"})
+        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"})
+        navigate("/not-found")
         return <></>
     }
 
@@ -144,7 +147,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                             max: Date.now(),
                         },
                         y: {
-                            type: 'linear',
+                            type: "linear",
                             ticks: {
                                 precision: 0
                             },

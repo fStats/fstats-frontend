@@ -10,12 +10,13 @@ import {
     TextField,
     Typography
 } from "@mui/material";
-import {useProjects} from "../services/projects"
-import {Loader} from "../components/Loader"
-import {useNavigate, useSearchParams} from "react-router-dom";
-import {useLabel} from "../hooks/useLabel";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
+import {useNavigate, useSearchParams} from "react-router-dom";
+
+import {Loader} from "@components/Loader"
+import {useLabel} from "@hooks/useLabel";
+import {useProjects} from "@services/projects"
 
 export default function ProjectsPage() {
 
@@ -27,9 +28,9 @@ export default function ProjectsPage() {
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
 
-    const page = Number.parseInt(searchParams.get('page') || "0") || 0;
+    const page = Number.parseInt(searchParams.get("page") || "0") || 0;
 
-    useEffect(() => setLabel("Projects catalogue"), []);
+    useEffect(() => setLabel("Projects catalogue"), [setLabel]);
 
     const filteredData = useMemo(() => data ? (searchFilter.length > 0
         ? data.filter((value) => !value.is_hidden && value.name.toLowerCase().includes(searchFilter.toLowerCase()))
@@ -43,7 +44,7 @@ export default function ProjectsPage() {
 
     if (status === "error") {
         enqueueSnackbar(error?.message, {variant: "error"})
-        navigate('/not-found')
+        navigate("/not-found")
         return <></>
     }
 
@@ -59,7 +60,7 @@ export default function ProjectsPage() {
                            searchParams.set("page", "0")
                        }}/>
             {data.length > 0 ?
-                <Paper sx={{width: '100%', overflow: 'hidden'}}>
+                <Paper sx={{width: "100%", overflow: "hidden"}}>
                     <TableContainer>
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
@@ -69,9 +70,9 @@ export default function ProjectsPage() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {(10 > 0 ? filteredData.slice(page * 10, page * 10 + 10) : filteredData).map((row) => (
+                                {filteredData.slice(page * 10, page * 10 + 10).map((row) => (
                                     <TableRow hover tabIndex={-1} key={row.id}
-                                              onClick={() => navigate(`/project/${row.id}`)}>
+                                              onClick={() => navigate(`/projects/${row.id}`)}>
                                         <TableCell>{row.name}</TableCell>
                                         <TableCell>{row.owner?.username}</TableCell>
                                     </TableRow>

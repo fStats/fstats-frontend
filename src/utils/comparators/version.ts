@@ -1,6 +1,6 @@
 export function compareVersionsDesc(a: string, b: string): number {
-    const aParts = a.split('.').map(Number);
-    const bParts = b.split('.').map(Number);
+    const aParts = a.split(".").map(Number);
+    const bParts = b.split(".").map(Number);
 
     for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
         const aVal = aParts[i] ?? 0;

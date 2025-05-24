@@ -1,5 +1,5 @@
-import {DataValue} from "../../services/types.ts";
-import {KeyValue} from "../convertor/types.ts";
+import {DataValue} from "@services/types";
+import {KeyValue} from "@utils/convertors/types";
 
 const onlineModeMap: KeyValue = {
     "true": "Online",

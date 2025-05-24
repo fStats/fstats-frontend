@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {AccountCircle, FormatListBulleted, Gavel, Home, MenuBook, QuestionAnswer, Star} from "@mui/icons-material";
 import {
     AppBar,
     Box,
@@ -18,14 +18,15 @@ import {
     MenuItem,
     Toolbar,
     Typography
-} from '@mui/material';
-import {Link, Outlet, useNavigate} from "react-router-dom";
-import {AccountCircle, FormatListBulleted, Gavel, Home, MenuBook, QuestionAnswer, Star} from "@mui/icons-material";
-import {useLabel} from "../hooks/useLabel";
-import {useAuth} from "../hooks/useAuth";
+} from "@mui/material";
 import {useSnackbar} from "notistack";
-import {useUserFavorites} from "../services/users";
-import {User} from "../services/types";
+import {useState} from "react";
+import {Link, Outlet, useNavigate} from "react-router-dom";
+
+import {useAuth} from "@hooks/useAuth";
+import {useLabel} from "@hooks/useLabel";
+import {User} from "@services/types";
+import {useUserFavorites} from "@services/users";
 
 export const drawerWidth = 240;
 
@@ -33,12 +34,12 @@ export default function RootPage() {
 
     const navigate = useNavigate()
 
-    const {isAuthorized, setToken, token} = useAuth()!!
+    const {isAuthorized, setToken, token} = useAuth()!
 
     let user: User
-    if (isAuthorized) user = JSON.parse(atob(token.split('.')[1]))
+    if (isAuthorized) user = JSON.parse(atob(token.split(".")[1]))
 
-    const id = (isAuthorized && user!!.id) || NaN
+    const id = (isAuthorized && user!.id) || NaN
 
     const {data} = useUserFavorites(id, token)
 
@@ -118,7 +119,7 @@ export default function RootPage() {
     );
 
     return (
-        <Box sx={{display: 'flex'}}>
+        <Box sx={{display: "flex"}}>
             <CssBaseline/>
             <AppBar position="fixed" sx={{width: {sm: `calc(100% - ${drawerWidth}px)`}}}>
                 <Toolbar>
@@ -131,9 +132,9 @@ export default function RootPage() {
                             <Menu
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
-                                anchorOrigin={{vertical: 'top', horizontal: 'right',}}
+                                anchorOrigin={{vertical: "top", horizontal: "right",}}
                                 keepMounted
-                                transformOrigin={{vertical: 'top', horizontal: 'right',}}
+                                transformOrigin={{vertical: "top", horizontal: "right",}}
                                 open={Boolean(anchorEl)}
                                 onClose={handleClose}
                             >
@@ -153,7 +154,7 @@ export default function RootPage() {
                 </Toolbar>
             </AppBar>
             <Box component="nav" sx={{width: {sm: drawerWidth}}}>
-                <Drawer variant="permanent" sx={{'& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth}}}>
+                <Drawer variant="permanent" sx={{"& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth}}}>
                     {drawer}
                 </Drawer>
             </Box>

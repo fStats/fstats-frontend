@@ -1,4 +1,4 @@
-import {KeyValue} from "./types.ts";
+import {KeyValue} from "./types";
 
 export const iso2name: KeyValue = {
     "ABW": "Aruba",

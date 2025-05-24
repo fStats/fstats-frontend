@@ -1,10 +1,12 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {Bar} from "react-chartjs-2";
-import {GroupedDataValue} from "../../experemental/types.ts";
-import {mergeClientAndServerData} from "../../../../mics/merge.ts";
-import {CardProps} from "./types.ts";
-import {useSettings} from "../../../../hooks/useSettings.tsx";
-import {compareVersionsDesc} from "../../../../mics/comparator/version.ts";
+
+import {useSettings} from "@hooks/useSettings";
+import {GroupedDataValue} from "@pages/project/experemental/types";
+import {compareVersionsDesc} from "@utils/comparators/version";
+import {mergeClientAndServerData} from "@utils/merge";
+
+import {CardProps} from "./types";
 
 export function BarCard(props: CardProps) {
 
@@ -13,11 +15,11 @@ export function BarCard(props: CardProps) {
     const groupedData: GroupedDataValue = Object
         .entries(mergeClientAndServerData(props.clientMetric, props.serverMetric) ?? [])
         .sort(([a], [b]) => compareVersionsDesc(
-            a.split('.').slice(0, 2).join('.'),
-            b.split('.').slice(0, 2).join('.')
+            a.split(".").slice(0, 2).join("."),
+            b.split(".").slice(0, 2).join(".")
         ))
         .reduce((acc, [key, value]) => {
-            const groupKey = key.split('.').slice(0, 2).join('.');
+            const groupKey = key.split(".").slice(0, 2).join(".");
             if (!acc[groupKey]) acc[groupKey] = {};
             acc[groupKey][key] = value;
             return acc;
@@ -59,7 +61,7 @@ export function BarCard(props: CardProps) {
                             }
                         }
                     },
-                    indexAxis: 'y',
+                    indexAxis: "y",
                     scales: {
                         x: {
                             stacked: true

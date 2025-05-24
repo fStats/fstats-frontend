@@ -1,11 +1,13 @@
 import {Container} from "@mui/material";
-import {CentredContainerProps} from "./types";
 import {CSSProperties} from "react";
+
+import {CentredContainerProps} from "./types";
 
 export default function CenteredContainer(props: CentredContainerProps) {
 
     const containerStyle: CSSProperties = {
-        /*
+
+        /**
          * First 64px is Appbar toolbar
          * Second 64px is spacing for other windows correction
          * */

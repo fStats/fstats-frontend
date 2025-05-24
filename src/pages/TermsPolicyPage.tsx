@@ -1,6 +1,8 @@
-import {useLabel} from "../hooks/useLabel";
-import {Card, Divider, Link, Stack, Typography} from "@mui/material";
 import {Mail, Person} from "@mui/icons-material";
+import {Card, Divider, Link, Stack, Typography} from "@mui/material";
+
+import {useLabel} from "@hooks/useLabel";
+
 
 export default function TermsPolicyPage() {
 

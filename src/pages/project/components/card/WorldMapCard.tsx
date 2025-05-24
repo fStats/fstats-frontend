@@ -1,5 +1,4 @@
-import {Chart} from 'react-chartjs-2';
-import {Feature} from "chartjs-chart-geo";
+import {FormatListBulleted, Map} from "@mui/icons-material";
 import {
     Avatar,
     Card,
@@ -12,13 +11,17 @@ import {
     Stack,
     Typography
 } from "@mui/material";
-import {DataValue} from "../../../../services/types.ts";
-import {useWorldMap} from "../../../../services/worldatlas/worldMap.ts";
-import {CardProps} from "./types.ts";
-import {code2shortIso, iso2code} from "../../../../mics/convertor/country.ts";
-import {mergeClientAndServerData} from "../../../../mics/merge.ts";
+import {Feature} from "chartjs-chart-geo";
 import {useState} from "react";
-import {FormatListBulleted, Map} from "@mui/icons-material";
+import {Chart} from "react-chartjs-2";
+
+import {DataValue} from "@services/types";
+import {useWorldMap} from "@services/worldatlas/worldMap";
+import {code2shortIso, iso2code} from "@utils/convertors/country";
+import {mergeClientAndServerData} from "@utils/merge";
+
+import {CardProps} from "./types";
+
 
 export function WorldMapCard(props: CardProps) {
 
@@ -51,34 +54,34 @@ export function WorldMapCard(props: CardProps) {
                 </Stack>
                 {listMode ?
                     <List sx={{
-                        overflow: 'auto',
+                        overflow: "auto",
                         maxHeight: 380,
-                        position: 'relative',
-                        '&::-webkit-scrollbar': {
+                        position: "relative",
+                        "&::-webkit-scrollbar": {
                             width: 8,
                         },
-                        '&::-webkit-scrollbar-track': {
-                            backgroundColor: 'transparent',
+                        "&::-webkit-scrollbar-track": {
+                            backgroundColor: "transparent",
                         },
-                        '&::-webkit-scrollbar-button': {
-                            display: 'none',
+                        "&::-webkit-scrollbar-button": {
+                            display: "none",
                             width: 0,
                             height: 0,
                         },
-                        '&::-webkit-scrollbar-thumb': {
+                        "&::-webkit-scrollbar-thumb": {
                             backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
+                                theme.palette.mode === "light"
                                     ? theme.palette.grey[400]
                                     : theme.palette.grey[700],
                             borderRadius: 4,
                         },
-                        '&::-webkit-scrollbar-thumb:hover': {
+                        "&::-webkit-scrollbar-thumb:hover": {
                             backgroundColor: (theme) =>
-                                theme.palette.mode === 'light'
+                                theme.palette.mode === "light"
                                     ? theme.palette.grey[500]
                                     : theme.palette.grey[600],
                         },
-                        scrollbarWidth: 'thin',
+                        scrollbarWidth: "thin",
                         scrollbarColor: (theme) => `${theme.palette.grey[500]} transparent`,
                     }}>
                         {(data as Feature[]).filter(d => metric[d.id])
@@ -100,7 +103,7 @@ export function WorldMapCard(props: CardProps) {
                             labels: (data as Feature[]).map(d => d.properties.name),
                             datasets: [{
                                 data: (data as Feature[]).map(d => ({feature: d, value: metric[d.id] ?? 0})),
-                                backgroundColor: (ctx, _) =>
+                                backgroundColor: (ctx) =>
                                     gradientColor((ctx.chart.data.datasets[0].data[ctx.dataIndex] as {
                                         value: number
                                     })?.value, false)
@@ -117,8 +120,8 @@ export function WorldMapCard(props: CardProps) {
                             },
                             scales: {
                                 projection: {
-                                    axis: 'x',
-                                    projection: 'equalEarth'
+                                    axis: "x",
+                                    projection: "equalEarth"
                                 },
                                 color: {
                                     interpolate: (v) => gradientColor(v, true),

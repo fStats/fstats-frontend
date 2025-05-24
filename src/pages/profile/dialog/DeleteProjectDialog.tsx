@@ -1,7 +1,8 @@
 import {Button, CircularProgress, Dialog, DialogActions, DialogTitle} from "@mui/material";
-import {Dispatch} from "react";
-import {useDeleteProject} from "../../../services/projects.ts";
 import {useSnackbar} from "notistack";
+import {Dispatch} from "react";
+
+import {useDeleteProject} from "@services/projects";
 
 export default function DeleteProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
 

@@ -1,8 +1,10 @@
 import {Card, CardContent, Typography} from "@mui/material";
 import {Pie} from "react-chartjs-2";
-import {mergeClientAndServerData} from "../../../../mics/merge.ts";
-import {CardProps} from "./types.ts";
-import {useSettings} from "../../../../hooks/useSettings.tsx";
+
+import {useSettings} from "@hooks/useSettings";
+import {mergeClientAndServerData} from "@utils/merge";
+
+import {CardProps} from "./types";
 
 export default function PieCard(props: CardProps) {
 
@@ -37,7 +39,7 @@ export default function PieCard(props: CardProps) {
                             borderColor: "white",
                             borderWidth: 2,
                             color: "white",
-                            "formatter": (_, context) => context.chart.data.labels!![context.dataIndex]
+                            "formatter": (_, context) => context.chart.data.labels![context.dataIndex]
                         }
                     }
                 }}/>

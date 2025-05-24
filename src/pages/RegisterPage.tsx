@@ -10,14 +10,15 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import {useSnackbar} from "notistack";
 import {useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {useRegistration} from "../services/auth";
-import {User} from "../services/types";
-import {useSnackbar} from "notistack";
-import {Loader} from "../components/Loader";
-import {useAuth} from "../hooks/useAuth";
-import {useLabel} from "../hooks/useLabel";
+
+import {Loader} from "@components/Loader";
+import {useAuth} from "@hooks/useAuth";
+import {useLabel} from "@hooks/useLabel";
+import {useRegistration} from "@services/auth";
+import {User} from "@services/types";
 
 export default function RegisterPage() {
     const navigate = useNavigate()
@@ -32,7 +33,7 @@ export default function RegisterPage() {
 
     const {data, status, error} = useRegistration(user)
 
-    const {isAuthorized} = useAuth()!!
+    const {isAuthorized} = useAuth()!
     if (isAuthorized) navigate("/profile")
 
     useLabel()?.setLabel("Registration")

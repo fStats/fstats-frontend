@@ -1,13 +1,14 @@
-import TextField from "@mui/material/TextField";
 import {Button, Card, Container, Divider, Stack, Typography} from "@mui/material";
+import TextField from "@mui/material/TextField";
+import {useSnackbar} from "notistack";
 import {useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {User} from "../services/types";
-import {useLogin} from "../services/auth";
-import {useAuth} from "../hooks/useAuth";
-import {Loader} from "../components/Loader";
-import {useSnackbar} from "notistack";
-import {useLabel} from "../hooks/useLabel";
+
+import {Loader} from "@components/Loader";
+import {useAuth} from "@hooks/useAuth";
+import {useLabel} from "@hooks/useLabel";
+import {useLogin} from "@services/auth";
+import {User} from "@services/types";
 
 export function LoginPage() {
     const navigate = useNavigate()

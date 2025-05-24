@@ -1,4 +1,8 @@
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+
+import {useAuth} from "@hooks/useAuth";
+import {getUserFromJWT} from "@utils/decoders/jwt";
+
 import {
     addProjectToFavorite,
     createProject,
@@ -9,8 +13,6 @@ import {
     removeProjectFromFavorite
 } from "./fStatsApi";
 import {ApiMessage, Project} from "./types";
-import {useAuth} from "../hooks/useAuth";
-import {getUserFromJWT} from "../mics/decoder/jwt.ts";
 
 export const useProjects = () => useQuery<Project[], Error>({
     queryKey: ["projects"],
@@ -24,63 +26,63 @@ export const useProject = (projectId: number) => useQuery<Project, Error>({
 
 export const useCreateProject = () => {
     const queryClient = useQueryClient()
-    const {token} = useAuth()!!
+    const {token} = useAuth()!
     return useMutation<ApiMessage, Error, Project>({
         mutationFn: (project) => createProject(project, token).then(data => data),
-        onSettled: () => {
+        onSettled: async () => {
             const userId = getUserFromJWT(token).id
-            queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
-            return queryClient.invalidateQueries({queryKey: ["projects"]});
+            await queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
+            await queryClient.invalidateQueries({queryKey: ["projects"]});
         }
     });
 }
 
 export const useDeleteProject = () => {
     const queryClient = useQueryClient()
-    const {token} = useAuth()!!
+    const {token} = useAuth()!
     return useMutation<ApiMessage, Error, number>({
         mutationFn: (projectId) => deleteProject(projectId, token).then(data => data),
-        onSettled: () => {
+        onSettled: async () => {
             const userId = getUserFromJWT(token).id
-            queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
-            return queryClient.invalidateQueries({queryKey: ["projects"]});
+            await queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
+            await queryClient.invalidateQueries({queryKey: ["projects"]});
         }
     });
 }
 
 export const useEditProject = (projectId: number) => {
     const queryClient = useQueryClient()
-    const {token} = useAuth()!!
+    const {token} = useAuth()!
     return useMutation<ApiMessage, Error, Project>({
         mutationFn: (project) => patchProject(projectId, project, token).then(data => data),
-        onSettled: () => {
+        onSettled: async () => {
             const userId = getUserFromJWT(token).id
-            queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
-            return queryClient.invalidateQueries({queryKey: ["projects"]});
+            await queryClient.invalidateQueries({queryKey: [`userProjects_${userId}`]});
+            await queryClient.invalidateQueries({queryKey: ["projects"]});
         }
     });
 }
 
 export const useAddProjectToFavorite = () => {
     const queryClient = useQueryClient()
-    const {token} = useAuth()!!
+    const {token} = useAuth()!
     return useMutation<ApiMessage, Error, number>({
         mutationFn: (projectId) => addProjectToFavorite(projectId, token).then(data => data),
-        onSettled: () => {
+        onSettled: async () => {
             const userId = getUserFromJWT(token).id
-            return queryClient.invalidateQueries({queryKey: [`userFavorites_${userId}`]});
+            await queryClient.invalidateQueries({queryKey: [`userFavorites_${userId}`]});
         }
     });
 }
 
 export const useRemoveProjectFromFavorite = () => {
     const queryClient = useQueryClient()
-    const {token} = useAuth()!!
+    const {token} = useAuth()!
     return useMutation<ApiMessage, Error, number>({
         mutationFn: (projectId) => removeProjectFromFavorite(projectId, token).then(data => data),
-        onSettled: () => {
+        onSettled: async () => {
             const userId = getUserFromJWT(token).id
-            return queryClient.invalidateQueries({queryKey: [`userFavorites_${userId}`]});
+            await queryClient.invalidateQueries({queryKey: [`userFavorites_${userId}`]});
         }
     });
 }

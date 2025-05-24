@@ -1,6 +1,8 @@
-import {useLabel} from "../hooks/useLabel";
-import {Accordion, AccordionDetails, AccordionSummary, Card, Link, Stack, Typography} from "@mui/material";
 import {ExpandMore, Forum} from "@mui/icons-material";
+import {Accordion, AccordionDetails, AccordionSummary, Card, Link as MUILink, Stack, Typography} from "@mui/material";
+import { Link } from "react-router-dom";
+
+import {useLabel} from "@hooks/useLabel";
 
 export default function FaqPage() {
 
@@ -9,7 +11,7 @@ export default function FaqPage() {
     const faq = [
         {
             question: "What data is collected from the user?",
-            answer: <Link underline="none" href="/terms-policy">Terms & Policy</Link>
+            answer: <MUILink underline="none" component={Link} to="/terms-policy">Terms & Policy</MUILink>
         },
         {
             question: "How to change or reset password?",
@@ -18,8 +20,8 @@ export default function FaqPage() {
         {
             question: "Where I can found SVG or PNG?",
             answer: <>
-                Image can be generated using <Link underline="none"
-                                                   href="https://fstats.github.io/fstats-image-generator-editor/">microservice</Link>. <i
+                Image can be generated using <MUILink underline="none"
+                                                   href="https://fstats.github.io/fstats-image-generator-editor/">microservice</MUILink>. <i
                 style={{color: "gray"}}>(Currently support only timeline chart)</i>
             </>
         }

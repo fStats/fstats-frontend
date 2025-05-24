@@ -1,41 +1,41 @@
-export interface AuthToken {
-    token: string;
-}
-
 export interface ApiMessage {
     code: number;
     message: string;
 }
 
-export interface User {
-    id?: number;
-    username: string;
-    password: string;
-}
-
-export interface Project {
-    id?: number;
-    name: string;
-    is_hidden?: boolean;
-    hiding_reason?: string;
-    owner?: User;
-}
-
-export interface PieMetric {
-    minecraft_version: DataValue;
-    online_mode: DataValue;
-    mod_version: DataValue;
-    os: DataValue;
-    location: DataValue;
-    fabric_api_version: DataValue;
-    server_side: DataValue;
-}
-
-export interface LineMetric {
-    timestamps: number[];
-    counts: number[];
+export interface AuthToken {
+    token: string;
 }
 
 export interface DataValue {
     [value: string]: number;
+}
+
+export interface LineMetric {
+    counts: number[];
+    timestamps: number[];
+}
+
+export interface PieMetric {
+    fabric_api_version: DataValue;
+    location: DataValue;
+    minecraft_version: DataValue;
+    mod_version: DataValue;
+    online_mode: DataValue;
+    os: DataValue;
+    server_side: DataValue;
+}
+
+export interface Project {
+    hiding_reason?: string;
+    id?: number;
+    is_hidden?: boolean;
+    name: string;
+    owner?: User;
+}
+
+export interface User {
+    id?: number;
+    password: string;
+    username: string;
 }

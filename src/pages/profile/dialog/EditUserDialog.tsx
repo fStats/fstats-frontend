@@ -8,10 +8,11 @@ import {
     Stack,
     TextField
 } from "@mui/material";
-import {Dispatch, useState} from "react";
 import {useSnackbar} from "notistack";
-import {useUserPatch} from "../../../services/users.ts";
-import {useAuth} from "../../../hooks/useAuth.tsx";
+import {Dispatch, useState} from "react";
+
+import {useAuth} from "@hooks/useAuth";
+import {useUserPatch} from "@services/users";
 
 export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 
