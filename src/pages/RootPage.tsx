@@ -103,7 +103,7 @@ export default function RootPage() {
             {isAuthorized && data && data.length > 0 ? <List subheader={<ListSubheader>Favorites</ListSubheader>}>
                 {data.map(project =>
                     <ListItem disablePadding key={project.id}>
-                        <ListItemButton component={Link} to={`project/${project.id}`}>
+                        <ListItemButton component={Link} to={`projects/${project.id}`}>
                             <ListItemIcon>
                                 <Star/>
                             </ListItemIcon>
