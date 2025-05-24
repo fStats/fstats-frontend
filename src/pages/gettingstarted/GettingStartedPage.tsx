@@ -62,11 +62,9 @@ export default function GettingStartedPage() {
                     </Tabs>
                 </Box>
                 <Typography variant="h6" padding={2}>fabric.mod.json</Typography>
-                {size === 0 && <>
-                    <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
-                        {fabricJsonMinimal}
-                    </SyntaxHighlighter>
-                </>}
+                {size === 0 && <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
+                    {fabricJsonMinimal}
+                </SyntaxHighlighter>}
                 {size === 1 && <SyntaxHighlighter customStyle={{margin: 0}} language="json" style={materialDark}>
                     {fabricJsonFull}
                 </SyntaxHighlighter>}
