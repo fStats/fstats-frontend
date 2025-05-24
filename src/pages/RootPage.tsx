@@ -130,6 +130,7 @@ export default function RootPage() {
                                 <AccountCircle/>
                             </IconButton>
                             <Menu
+                                disableScrollLock
                                 id="menu-appbar"
                                 anchorEl={anchorEl}
                                 anchorOrigin={{vertical: "top", horizontal: "right",}}
