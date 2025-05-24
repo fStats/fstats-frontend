@@ -7,5 +7,5 @@ import {getWorldMap} from "./worldAtlasApi";
 export const useWorldMap = () => useQuery<Feature[], Error>({
     queryKey: ["worldMap"],
     queryFn: () => getWorldMap().then(data => (topojson.feature(data, data.objects.countries) as FeatureCollection).features),
-    cacheTime: 31556952000
+    gcTime: 31556952000
 })
