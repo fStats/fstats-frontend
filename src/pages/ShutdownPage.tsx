@@ -8,15 +8,13 @@ import {
     TimelineSeparator
 } from "@mui/lab";
 import {Box, styled, Typography} from "@mui/material";
-import {useQuery} from "@tanstack/react-query";
 
-import {News} from "./types";
+import {Loader} from "@components/Loader";
+import {useNews} from "@services/news/news";
 
 export default function ShutdownPage() {
-    const {data} = useQuery<News[], Error>({
-        queryFn: () => fetch("https://raw.githubusercontent.com/fStats/.github/refs/heads/main/news_updates.json").then((response) => response.json()),
-        queryKey: ["news"]
-    })
+
+    const {data, status, error} = useNews()
 
     const TimelineOppositeContent = styled(BaseTimelineOppositeContent)({
         flex: 0.1,
@@ -27,6 +25,8 @@ export default function ShutdownPage() {
             <Typography variant="h2">Service temporary shutdown</Typography>
             <Typography variant="h4" paddingTop={2}>News / Updates</Typography>
         </Box>
+        {status && <Loader/>}
+        {error && <Typography variant="body2" paddingTop={2}>{error.message}</Typography>}
         {data && <Timeline>
             {data.map((item, index) =>
                 <TimelineItem id={String(index)}>
