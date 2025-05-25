@@ -11,7 +11,7 @@ import ProfilePage from "@pages/profile/ProfilePage";
 import {ExperimentalProjectPage} from "@pages/project/experemental/ExperimentalProjectPage";
 import ProjectsPage from "@pages/ProjectsPage";
 import RegisterPage from "@pages/RegisterPage";
-import RootPage from "@pages/RootPage";
+import RootPage from "@pages/root/RootPage";
 import ShutdownPage from "@pages/ShutdownPage";
 import TermsPolicyPage from "@pages/TermsPolicyPage";
 

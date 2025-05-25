@@ -10,7 +10,7 @@ import {LabelProvider} from "@hooks/provides/LabelProvider";
 import {SettingsProvider} from "@hooks/provides/SettingsProvider";
 import {theme} from "@init/muitheme";
 import {queryClient} from "@init/reactquary";
-import {routes} from "@routes";
+import {routes} from "@init/routes";
 
 import "@init/chartjs"
 

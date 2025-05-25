@@ -8,7 +8,7 @@ export default function CenteredContainer(props: CentredContainerProps) {
     const containerStyle: CSSProperties = {
 
         /**
-         * First 64px is Appbar toolbar
+         * First 64px is RootAppBar toolbar
          * Second 64px is spacing for other windows correction
          * */
         height: "calc(100svh - 64px - 64px)",
