@@ -11,7 +11,7 @@ import {
 import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
 
-import {useEditProject} from "@services/projects";
+import {useEditProject} from "@services/fstats/projects";
 
 export default function EditProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
 

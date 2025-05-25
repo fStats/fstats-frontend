@@ -14,7 +14,7 @@ import {Line} from "react-chartjs-2";
 import {useNavigate} from "react-router-dom";
 
 import {useSettings} from "@hooks/useSettings";
-import {useLineMetricMutation} from "@services/metrics";
+import {useLineMetricMutation} from "@services/fstats/metrics";
 import {decodeLineMetric} from "@utils/decoders/line";
 import {mergeData} from "@utils/merge";
 

@@ -16,7 +16,7 @@ import {useNavigate, useSearchParams} from "react-router-dom";
 
 import {Loader} from "@components/Loader"
 import {useLabel} from "@hooks/useLabel";
-import {useProjects} from "@services/projects"
+import {useProjects} from "@services/fstats/projects"
 
 export default function ProjectsPage() {
 

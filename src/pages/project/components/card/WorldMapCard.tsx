@@ -15,7 +15,7 @@ import {Feature} from "chartjs-chart-geo";
 import {useState} from "react";
 import {Chart} from "react-chartjs-2";
 
-import {DataValue} from "@services/types";
+import {DataValue} from "@services/fstats/types";
 import {useWorldMap} from "@services/worldatlas/worldMap";
 import {code2shortIso, iso2code} from "@utils/convertors/country";
 import {mergeClientAndServerData} from "@utils/merge";

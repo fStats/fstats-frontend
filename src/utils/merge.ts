@@ -1,5 +1,5 @@
 import {TimelineData} from "@pages/project/experemental/types";
-import {DataValue} from "@services/types";
+import {DataValue} from "@services/fstats/types";
 
 export function mergeClientAndServerData(clientData: DataValue, serverData: DataValue): DataValue {
     const combinedData: DataValue = {...clientData}

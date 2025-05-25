@@ -7,8 +7,8 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
-import {useLogin} from "@services/auth";
-import {User} from "@services/types";
+import {useLogin} from "@services/fstats/auth";
+import {User} from "@services/fstats/types";
 
 export function LoginPage() {
     const navigate = useNavigate()

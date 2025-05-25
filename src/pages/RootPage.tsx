@@ -25,8 +25,8 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
-import {User} from "@services/types";
-import {useUserFavorites} from "@services/users";
+import {User} from "@services/fstats/types";
+import {useUserFavorites} from "@services/fstats/users";
 
 export const drawerWidth = 240;
 

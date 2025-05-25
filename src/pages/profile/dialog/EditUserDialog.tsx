@@ -12,7 +12,7 @@ import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
 
 import {useAuth} from "@hooks/useAuth";
-import {useUserPatch} from "@services/users";
+import {useUserPatch} from "@services/fstats/users";
 
 export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 

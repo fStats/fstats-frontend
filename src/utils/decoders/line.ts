@@ -1,5 +1,5 @@
 import {TimelineData} from "@pages/project/experemental/types";
-import {LineMetric} from "@services/types";
+import {LineMetric} from "@services/fstats/types";
 
 export function decodeLineMetric(data: LineMetric | undefined): TimelineData[] {
     if (data === undefined) return []

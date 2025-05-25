@@ -13,8 +13,8 @@ import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
 
 import {useAuth} from "@hooks/useAuth";
-import {User} from "@services/types";
-import {useUserDelete} from "@services/users";
+import {User} from "@services/fstats/types";
+import {useUserDelete} from "@services/fstats/users";
 import {getUserFromJWT} from "@utils/decoders/jwt";
 
 export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {

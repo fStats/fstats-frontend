@@ -33,8 +33,8 @@ import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
 import {useSettings} from "@hooks/useSettings";
-import {Project, User} from "@services/types";
-import {useUserProjects} from "@services/users";
+import {Project, User} from "@services/fstats/types";
+import {useUserProjects} from "@services/fstats/users";
 import {getUserFromJWT} from "@utils/decoders/jwt";
 
 import CreateProjectDialog from "./dialog/CreateProjectDialog";

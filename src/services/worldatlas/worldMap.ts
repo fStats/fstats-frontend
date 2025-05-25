@@ -2,7 +2,7 @@ import {useQuery} from "@tanstack/react-query";
 import {Feature, topojson} from "chartjs-chart-geo";
 import {FeatureCollection} from "geojson";
 
-import {getWorldMap} from "./worldAtlasApi";
+import {getWorldMap} from "./api";
 
 export const useWorldMap = () => useQuery<Feature[], Error>({
     queryKey: ["worldMap"],

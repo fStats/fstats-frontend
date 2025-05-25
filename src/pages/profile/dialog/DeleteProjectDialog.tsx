@@ -2,7 +2,7 @@ import {Button, CircularProgress, Dialog, DialogActions, DialogTitle} from "@mui
 import {useSnackbar} from "notistack";
 import {Dispatch} from "react";
 
-import {useDeleteProject} from "@services/projects";
+import {useDeleteProject} from "@services/fstats/projects";
 
 export default function DeleteProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
 

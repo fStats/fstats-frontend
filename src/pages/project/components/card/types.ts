@@ -1,4 +1,4 @@
-import {DataValue} from "@services/types";
+import {DataValue} from "@services/fstats/types";
 
 export interface CardProps {
     readonly clientMetric: DataValue

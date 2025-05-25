@@ -1,4 +1,4 @@
-import {User} from "@services/types";
+import {User} from "@services/fstats/types";
 
 export const getUserFromJWT = (token: string | undefined) => {
     if (token === undefined || token.length <= 0) return {

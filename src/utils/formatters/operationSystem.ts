@@ -1,4 +1,4 @@
-import {DataValue} from "@services/types";
+import {DataValue} from "@services/fstats/types";
 import {KeyValue} from "@utils/convertors/types";
 
 const osMap: KeyValue = {

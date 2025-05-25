@@ -1,5 +1,6 @@
 import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
 
+import {isShutdown} from "@init/env";
 import FaqPage from "@pages/FaqPage";
 import GettingStartedPage from "@pages/gettingstarted/GettingStartedPage";
 import HomePage from "@pages/HomePage";
@@ -16,7 +17,7 @@ import {ProtectedRoute} from "@routes/protected";
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
-        import.meta.env.VITE_SHUTDOWN ? <Route path="*" element={<ShutdownPage/>}/> :
+        isShutdown ? <Route path="*" element={<ShutdownPage/>}/> :
             <Route path="/" element={<RootPage/>}>
                 <Route index element={<HomePage/>}/>
                 <Route path="getting-started" element={<GettingStartedPage/>}/>

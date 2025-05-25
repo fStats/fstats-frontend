@@ -1,4 +1,4 @@
-import {DataValue, PieMetric} from "@services/types";
+import {DataValue, PieMetric} from "@services/fstats/types";
 
 export interface ChartsTabProps {
     clientPieData?: PieMetric

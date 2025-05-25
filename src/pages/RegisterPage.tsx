@@ -17,8 +17,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
-import {useRegistration} from "@services/auth";
-import {User} from "@services/types";
+import {useRegistration} from "@services/fstats/auth";
+import {User} from "@services/fstats/types";
 
 export default function RegisterPage() {
     const navigate = useNavigate()

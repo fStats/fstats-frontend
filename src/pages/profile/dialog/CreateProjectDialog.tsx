@@ -11,7 +11,7 @@ import {
 import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
 
-import {useCreateProject} from "@services/projects";
+import {useCreateProject} from "@services/fstats/projects";
 
 export default function CreateProjectDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 

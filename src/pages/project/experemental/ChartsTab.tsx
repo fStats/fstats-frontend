@@ -3,7 +3,7 @@ import {Stack} from "@mui/material";
 import {BarCard} from "@pages/project/components/card/BarCard";
 import PieCard from "@pages/project/components/card/PieCard";
 import {WorldMapCard} from "@pages/project/components/card/WorldMapCard";
-import {DataValue} from "@services/types";
+import {DataValue} from "@services/fstats/types";
 import {formatOnlineMode} from "@utils/formatters/onlineMode";
 import {formatOperationSystem} from "@utils/formatters/operationSystem";
 
