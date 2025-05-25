@@ -1,5 +1,6 @@
 import {createBrowserRouter, createRoutesFromElements, Route} from "react-router-dom";
 
+import {ProtectedRoute} from "@components/ProtectedRoute";
 import {isShutdown} from "@init/env";
 import FaqPage from "@pages/FaqPage";
 import GettingStartedPage from "@pages/gettingstarted/GettingStartedPage";
@@ -13,7 +14,6 @@ import RegisterPage from "@pages/RegisterPage";
 import RootPage from "@pages/RootPage";
 import ShutdownPage from "@pages/ShutdownPage";
 import TermsPolicyPage from "@pages/TermsPolicyPage";
-import {ProtectedRoute} from "@routes/protected";
 
 export const routes = createBrowserRouter(
     createRoutesFromElements(
