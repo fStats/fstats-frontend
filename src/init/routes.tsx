@@ -8,7 +8,7 @@ import HomePage from "@pages/HomePage";
 import {LoginPage} from "@pages/LoginPage";
 import NotFoundPage from "@pages/NotFoundPage";
 import ProfilePage from "@pages/profile/ProfilePage";
-import {ExperimentalProjectPage} from "@pages/project/experemental/ExperimentalProjectPage";
+import {ProjectPage} from "@pages/project/ProjectPage";
 import ProjectsPage from "@pages/ProjectsPage";
 import RegisterPage from "@pages/RegisterPage";
 import RootPage from "@pages/root/RootPage";
@@ -28,7 +28,7 @@ export const routes = createBrowserRouter(
 
                 <Route path="projects">
                     <Route index element={<ProjectsPage/>}/>
-                    <Route path=":id" element={<ExperimentalProjectPage/>}/>
+                    <Route path=":id" element={<ProjectPage/>}/>
                 </Route>
 
                 <Route path="profile" element={

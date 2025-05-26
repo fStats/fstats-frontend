@@ -16,10 +16,10 @@ import {getUserFromJWT} from "@utils/decoders/jwt";
 import {decodeLineMetric} from "@utils/decoders/line";
 import {mergeData} from "@utils/merge";
 
-import {ChartsTab} from "./ChartsTab";
-import {MetricTab, TimelineData} from "./types";
+import {ChartsTab} from "./components/ChartsTab";
+import {MetricTab, TimelineData} from "./components/types";
 
-export function ExperimentalProjectPage() {
+export function ProjectPage() {
 
     const navigate = useNavigate()
     const id = useParams().id!

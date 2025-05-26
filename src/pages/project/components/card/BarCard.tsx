@@ -2,7 +2,7 @@ import {Card, CardContent, Typography} from "@mui/material";
 import {Bar} from "react-chartjs-2";
 
 import {useSettings} from "@hooks/useSettings";
-import {GroupedDataValue} from "@pages/project/experemental/types";
+import {GroupedDataValue} from "@pages/project/components/types";
 import {compareVersionsDesc} from "@utils/comparators/version";
 import {mergeClientAndServerData} from "@utils/merge";
 
