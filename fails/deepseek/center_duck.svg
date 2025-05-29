@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" style="background: linear-gradient(135deg, #121212 0%, #1e1e1e 100%);">
+    <!-- Card container with Material Design shadow -->
+    <defs>
+        <filter id="cardShadow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="10"/>
+            <feOffset dx="0" dy="10"/>
+            <feComposite in2="SourceAlpha" operator="out"/>
+            <feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.24 0"/>
+            <feBlend in="SourceGraphic" mode="normal"/>
+        </filter>
+
+        <linearGradient id="btnGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#6200ea"/>
+            <stop offset="100%" stop-color="#bb86fc"/>
+        </linearGradient>
+    </defs>
+
+    <!-- Card -->
+    <rect x="100" y="50" width="600" height="500" rx="24" fill="#1e1e1e" filter="url(#cardShadow)"/>
+
+    <!-- Card top accent -->
+    <rect x="100" y="50" width="600" height="6" fill="url(#btnGradient)" rx="3"/>
+
+    <!-- Duck mascot -->
+    <g transform="translate(400, 200)">
+        <!-- Duck body -->
+        <ellipse cx="0" cy="20" rx="60" ry="40" fill="#FFC107"/>
+
+        <!-- Duck head -->
+        <circle cx="50" cy="-10" r="30" fill="#FFC107"/>
+
+        <!-- Eye -->
+        <circle cx="60" cy="-20" r="5" fill="#212121"/>
+        <circle cx="60" cy="-20" r="2" fill="#FFFFFF"/>
+
+        <!-- Beak -->
+        <path d="M70,-10 L90,-10 L80,0 Z" fill="#FF9800"/>
+
+        <!-- Wing -->
+        <path d="M-50,20 Q-30,0 -10,20 Q0,40 -30,30 Z" fill="#FFA000"/>
+
+        <!-- Water ripples -->
+        <path d="M-60,60 Q-40,50 -20,60 Q0,70 20,60 Q40,50 60,60" stroke="#03DAC6" stroke-width="3" fill="none" stroke-linecap="round"/>
+    </g>
+
+    <!-- 404 text -->
+    <text x="400" y="350" text-anchor="middle" font-family="Roboto, sans-serif" font-size="100" font-weight="700" fill="url(#btnGradient)">
+        404
+    </text>
+
+    <!-- NOT FOUND text -->
+    <text x="400" y="410" text-anchor="middle" font-family="Roboto, sans-serif" font-size="42" font-weight="500" fill="#E0E0E0">
+        NOT FOUND
+    </text>
+
+    <!-- Description -->
+    <text x="400" y="450" text-anchor="middle" font-family="Roboto, sans-serif" font-size="20" fill="#9e9e9e" style="letter-spacing:0.5px;">
+        The page you are looking for doesn't exist or has been moved
+    </text>
+
+    <!-- Buttons -->
+    <g transform="translate(400, 520)">
+        <!-- Home button -->
+        <g transform="translate(-120, 0)" cursor="pointer">
+            <rect x="-70" y="-25" width="140" height="50" rx="25" fill="url(#btnGradient)"/>
+            <text x="0" y="0" text-anchor="middle" font-family="Roboto, sans-serif" font-size="18" fill="white" dy="6">
+                RETURN HOME
+            </text>
+            <path d="M-45,-5 L-55,-10 L-45,-15 M-45,-5 L-35,-10 L-45,-15" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- Try again button -->
+        <g transform="translate(120, 0)" cursor="pointer">
+            <rect x="-70" y="-25" width="140" height="50" rx="25" fill="transparent" stroke="#BB86FC" stroke-width="2"/>
+            <text x="0" y="0" text-anchor="middle" font-family="Roboto, sans-serif" font-size="18" fill="#BB86FC" dy="6">
+                TRY AGAIN
+            </text>
+            <path d="M25,-5 L35,0 L25,5 M35,0 L-35,0" stroke="#BB86FC" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </g>
+    </g>
+
+    <!-- Footer links -->
+    <g font-family="Roboto, sans-serif" font-size="16" fill="#9e9e9e">
+        <text x="400" y="580" text-anchor="middle">
+            <tspan x="400" dy="0">Help Center</tspan>
+            <tspan x="400" dy="0" dx="80">Support</tspan>
+            <tspan x="400" dy="0" dx="80">Privacy Policy</tspan>
+            <tspan x="400" dy="0" dx="80">Terms of Service</tspan>
+        </text>
+    </g>
+
+    <!-- Animation for the duck -->
+    <animateTransform
+            attributeName="transform"
+            attributeType="XML"
+            type="translate"
+            values="0,0; 0,-5; 0,0"
+            dur="3s"
+            repeatCount="indefinite"
+            begin="0s"
+            additive="sum"
+            calcMode="spline"
+            keyTimes="0; 0.5; 1"
+            keySplines="0.42 0 0.58 1; 0.42 0 0.58 1"
+    />
+</svg>

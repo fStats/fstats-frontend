@@ -1,0 +1,32 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="dropShadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="#000000" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+    <!-- Text Section -->
+    <g id="text-section">
+        <text x="50" y="100" font-family="Roboto, sans-serif" font-size="100" fill="#212121">404</text>
+        <text x="50" y="150" font-family="Roboto, sans-serif" font-size="40" fill="#757575">Oops...</text>
+        <text x="50" y="200" font-family="Roboto, sans-serif" font-size="30" fill="#757575">page not found</text>
+    </g>
+    <!-- Duck Illustration -->
+    <g id="duck" filter="url(#dropShadow)">
+        <!-- Body -->
+        <ellipse cx="600" cy="250" rx="100" ry="50" fill="#FBC02D"/>
+        <!-- Head -->
+        <ellipse cx="450" cy="230" rx="40" ry="30" fill="#FBC02D"/>
+        <!-- Tuft of Feathers -->
+        <ellipse cx="440" cy="210" rx="10" ry="5" fill="#FBC02D"/>
+        <!-- Beak -->
+        <path d="M410 230 L390 220 L390 240 Z" fill="#FF5722"/>
+        <!-- Eye -->
+        <circle cx="460" cy="225" r="5" fill="black"/>
+        <!-- Wing -->
+        <ellipse cx="550" cy="200" rx="30" ry="10" fill="#FBC02D" transform="rotate(-30 550 200)"/>
+        <!-- Question Marks -->
+        <text x="420" y="180" font-family="Roboto, sans-serif" font-size="20" fill="black">?</text>
+        <text x="440" y="180" font-family="Roboto, sans-serif" font-size="20" fill="black">?</text>
+        <text x="460" y="180" font-family="Roboto, sans-serif" font-size="20" fill="black">?</text>
+    </g>
+</svg>

@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300">
+    <defs>
+        <style>
+            .text {
+            font-family: 'Roboto', sans-serif;
+            font-size: 32px;
+            fill: #FFFFFF;
+            }
+        </style>
+    </defs>
+    <!-- Background -->
+    <rect width="400" height="300" fill="#121212" />
+
+    <!-- Duck body -->
+    <g transform="translate(170, 80)">
+        <!-- Body -->
+        <ellipse cx="30" cy="40" rx="30" ry="20" fill="#A1887F"/>
+        <!-- Wing -->
+        <ellipse cx="40" cy="40" rx="15" ry="12" fill="#8D6E63"/>
+        <!-- Head -->
+        <circle cx="15" cy="20" r="15" fill="#43A047"/>
+        <!-- Beak -->
+        <path d="M0 20 Q-10 18 -10 25 Q-10 32 0 30 Z" fill="#FFB300"/>
+        <!-- Eye -->
+        <circle cx="10" cy="15" r="2" fill="#FFFFFF"/>
+        <!-- Legs -->
+        <path d="M25 58 L25 68 L30 68 L30 58 Z" fill="#FB8C00"/>
+        <path d="M35 58 L35 68 L40 68 L40 58 Z" fill="#FB8C00"/>
+    </g>
+
+    <!-- Text -->
+    <text x="200" y="230" class="text" text-anchor="middle">NOT FOUND</text>
+</svg>

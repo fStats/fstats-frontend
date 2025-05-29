@@ -1,0 +1,53 @@
+<svg width="800" height="600" viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" font-family="Roboto, Arial, sans-serif">
+    <title>404 Page Not Found Illustration</title>
+    <desc>A cartoon duck looking confused, with 404 error text and question marks. Material Design style.</desc>
+
+    <defs>
+        <filter id="md-shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feOffset dx="0" dy="4" in="SourceAlpha" result="shadowOffsetOuter1" />
+            <feGaussianBlur stdDeviation="4" in="shadowOffsetOuter1" result="shadowBlurOuter1" />
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1" />
+
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter2" />
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter2" result="shadowBlurOuter2" />
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.10 0" type="matrix" in="shadowBlurOuter2" result="shadowMatrixOuter2" />
+
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter2"/> <feMergeNode in="shadowMatrixOuter1"/> <feMergeNode in="SourceGraphic"/>     </feMerge>
+        </filter>
+    </defs>
+
+    <rect width="100%" height="100%" fill="#FFFFFF"/>
+
+    <g id="text-group" text-anchor="middle">
+        <text x="250" y="200" font-size="150" font-weight="bold" fill="#37474F" dominant-baseline="middle">404</text>
+        <text x="250" y="285" font-size="32" fill="#546E7A" dominant-baseline="middle">Oops...</text>
+        <text x="250" y="325" font-size="32" fill="#546E7A" dominant-baseline="middle">page not found</text>
+    </g>
+
+    <g id="duck-character" transform="translate(600, 400)" filter="url(#md-shadow)">
+        <path d="M -60,0
+             L -60,-180
+             Q -60,-230 0,-230  Q  60,-230 60,-180  L  60,0
+             L -60,0 Z"          fill="#FFCA28"/>
+
+        <path d="M-60,-170
+             C -105,-175 -130,-165 -130,-145
+             C -130,-125 -105,-115 -60,-120
+             L -60,-170 Z"
+              fill="#FFA000"/>
+
+        <circle cx="-15" cy="-185" r="10" fill="#FFFFFF"/> <circle cx="-15" cy="-185" r="6" fill="#424242"/>  <circle cx="25" cy="-185" r="10" fill="#FFFFFF"/> <circle cx="25" cy="-185" r="6" fill="#424242"/>  <g stroke="#A1887F" stroke-width="7" fill="none" stroke-linecap="round">
+        <path d="M-20,-230 Q -10,-250 5,-232"/>    <path d="M0,-235 Q 15,-255 25,-230"/>     <path d="M10,-240 Q 20,-260 35,-235"/>    </g>
+
+        <ellipse cx="45" cy="-205" rx="22" ry="12" fill="#FFB300" transform="rotate(-35, 45, -205)"/>
+
+        <g stroke="#D4A017" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.7" transform="translate(-35, -100)"> <path d="M0,0 Q 5,-2 2,-5"/>
+            <path d="M-2,-3 Q 3,-5 0,-8"/>
+        </g>
+    </g>
+
+    <g id="question-marks" font-family="Roboto, Arial, sans-serif" font-weight="bold" fill="#90A4AE">
+        <text x="540" y="165" font-size="45" transform="rotate(-20, 540, 165)">?</text> <text x="670" y="155" font-size="60" transform="rotate(15, 670, 155)">?</text> <text x="600" y="125" font-size="40" transform="rotate(-5, 600, 125)">?</text> </g>
+
+</svg>

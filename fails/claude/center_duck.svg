@@ -1,0 +1,43 @@
+<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+    <!-- Dark Background -->
+    <rect width="400" height="300" fill="#2D2D2D"/>
+
+    <!-- Duck Character - Material Design Style -->
+    <g transform="translate(200, 120)">
+        <!-- Duck Body -->
+        <ellipse cx="0" cy="15" rx="35" ry="28" fill="#8D6E63"/>
+        <!-- Duck Body Highlight -->
+        <ellipse cx="-8" cy="8" rx="25" ry="20" fill="#A1887F" opacity="0.7"/>
+
+        <!-- Duck Head -->
+        <circle cx="0" cy="-15" r="25" fill="#4CAF50"/>
+        <!-- Head Highlight -->
+        <circle cx="-6" cy="-20" r="18" fill="#66BB6A" opacity="0.8"/>
+
+        <!-- Duck Bill -->
+        <ellipse cx="-18" cy="-8" rx="12" ry="6" fill="#FFC107"/>
+        <!-- Bill Shadow -->
+        <ellipse cx="-16" cy="-6" rx="10" ry="4" fill="#FFB300" opacity="0.6"/>
+
+        <!-- Duck Eye -->
+        <circle cx="-5" cy="-18" r="4" fill="#FFFFFF"/>
+        <circle cx="-3" cy="-18" r="2.5" fill="#212121"/>
+        <circle cx="-2.5" cy="-19" r="1" fill="#FFFFFF"/>
+
+        <!-- Wing Detail -->
+        <ellipse cx="10" cy="8" rx="15" ry="22" fill="#795548" opacity="0.8"/>
+
+        <!-- Feet -->
+        <ellipse cx="-12" cy="45" rx="6" ry="4" fill="#FF5722"/>
+        <ellipse cx="12" cy="45" rx="6" ry="4" fill="#FF5722"/>
+        <!-- Foot Details -->
+        <path d="M -18 47 L -15 50 M -12 47 L -9 50 M -6 47 L -3 50" stroke="#E64A19" stroke-width="1.5" stroke-linecap="round"/>
+        <path d="M 6 47 L 9 50 M 12 47 L 15 50 M 18 47 L 21 50" stroke="#E64A19" stroke-width="1.5" stroke-linecap="round"/>
+    </g>
+
+    <!-- NOT FOUND Text -->
+    <text x="200" y="220" font-family="Roboto, -apple-system, BlinkMacSystemFont, sans-serif" font-size="28" font-weight="300" fill="#FFFFFF" text-anchor="middle" letter-spacing="2px">NOT FOUND</text>
+
+    <!-- Subtle floating animation for the duck -->
+    <animateTransform attributeName="transform" type="translate" values="0,0; 0,-2; 0,0" dur="3s" repeatCount="indefinite" begin="0s"/>
+</svg>
