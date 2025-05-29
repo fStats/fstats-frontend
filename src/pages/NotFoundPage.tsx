@@ -9,8 +9,8 @@ export default function NotFoundPage() {
 
     return (
         <CenteredContainer>
-            <Typography variant="h1">404</Typography>
-            <Typography variant="h3">🦆 not found</Typography>
+            <Typography variant="h1" paddingBottom={2}>🦆</Typography>
+            <Typography variant="h2">NOT FOUND</Typography>
         </CenteredContainer>
     )
 }
