@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "build:analyze": "tsc && vite build --mode analyze",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "docker:build": "node docker-utils.js"
@@ -50,6 +51,7 @@
     "eslint-plugin-react-refresh": "^0.4.20",
     "eslint-plugin-unused-imports": "^4.1.4",
     "rollup": "^4.41.1",
+    "rollup-plugin-visualizer": "^6.0.1",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vite-tsconfig-paths": "^5.1.4"
