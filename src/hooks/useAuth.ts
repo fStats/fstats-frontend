@@ -1,7 +1,7 @@
 import {createGenericContext} from "./createGenericContext";
 import {AuthContent} from "./types";
 
-const defaultSettings: AuthContent = {
+export const defaultSettings: AuthContent = {
     token: "",
     setToken: () => {
     },

@@ -12,6 +12,11 @@ export interface AuthContent {
     token: string
 }
 
+export interface ColorSettings {
+    color: string
+    index: number
+}
+
 export interface DefaultProvidersProps {
     children: ReactNode
 }
@@ -28,8 +33,8 @@ export interface LabelContent {
 }
 
 export interface SettingsContent {
-    colors: string[]
+    colors: ColorSettings[]
     language: string
-    setColors: Dispatch<SetStateAction<string[]>>
+    setColors: Dispatch<SetStateAction<ColorSettings[]>>
     setLanguage: Dispatch<SetStateAction<string>>
 }

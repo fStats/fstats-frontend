@@ -1,7 +1,7 @@
 import {createGenericContext} from "./createGenericContext";
 import {LabelContent} from "./types";
 
-const defaultSettings: LabelContent = {
+export const defaultSettings: LabelContent = {
     label: "",
     setLabel: () => {
     },
