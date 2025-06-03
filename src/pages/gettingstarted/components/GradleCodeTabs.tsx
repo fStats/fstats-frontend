@@ -1,6 +1,6 @@
 import {Box, Card, Tab, Tabs, Typography} from "@mui/material";
 import {SyntheticEvent, useState} from "react";
-import {Prism as SyntaxHighlighter} from "react-syntax-highlighter"
+import {PrismLight as SyntaxHighlighter} from "react-syntax-highlighter";
 import {materialDark} from "react-syntax-highlighter/dist/esm/styles/prism";
 
 import {javaGradleCode, kotlinGradleCode} from "./codes";
