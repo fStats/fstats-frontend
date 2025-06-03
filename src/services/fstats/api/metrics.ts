@@ -2,7 +2,6 @@ import {apiUrl} from "@init/env";
 import {ApiMessage, LineMetric, PieMetric} from "@services/fstats/types";
 
 export const getLineMetric = async (projectId: number, from: number, serverSide: boolean): Promise<LineMetric> => {
-    console.log(from)
     const response = await fetch(`${apiUrl}/metrics/${projectId}/line?server_side=${serverSide}${(from !== undefined && from > 0) ? `&from=${from / 1000}` : ""}`)
 
     if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
