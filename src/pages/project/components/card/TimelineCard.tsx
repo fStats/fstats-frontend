@@ -75,8 +75,8 @@ export default function TimelineCard(props: TimelineCardProps) {
                         {
                             data: serverDecodedData,
                             label: "Server",
-                            borderColor: colors[0],
-                            backgroundColor: colors[0],
+                            borderColor: colors[0].color,
+                            backgroundColor: colors[0].color,
                             pointStyle: false,
                             spanGaps: 1800000,
                             parsing: false
@@ -84,8 +84,8 @@ export default function TimelineCard(props: TimelineCardProps) {
                         {
                             data: clientDecodedData,
                             label: "Client",
-                            borderColor: colors[1],
-                            backgroundColor: colors[1],
+                            borderColor: colors[1].color,
+                            backgroundColor: colors[1].color,
                             pointStyle: false,
                             spanGaps: 1800000,
                             parsing: false
@@ -93,8 +93,8 @@ export default function TimelineCard(props: TimelineCardProps) {
                         {
                             data: mergedDecodedData,
                             label: "Mixed",
-                            borderColor: colors[2],
-                            backgroundColor: colors[2],
+                            borderColor: colors[2].color,
+                            backgroundColor: colors[2].color,
                             pointStyle: false,
                             spanGaps: 1800000,
                             parsing: false

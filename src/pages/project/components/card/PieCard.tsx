@@ -20,7 +20,7 @@ export default function PieCard(props: CardProps) {
                         label: "Count",
                         data: Object.values(metric) as number[],
                         borderWidth: 1,
-                        backgroundColor: colors,
+                        backgroundColor: colors.map(({color}) => color),
                     }],
                     labels: Object.keys(metric) as string[],
                 }} options={{
@@ -34,7 +34,7 @@ export default function PieCard(props: CardProps) {
                             anchor: "center",
                             textAlign: "center",
                             offset: -40,
-                            backgroundColor: colors,
+                            backgroundColor: colors.map(({color}) => color),
                             borderRadius: 8,
                             borderColor: "white",
                             borderWidth: 2,
