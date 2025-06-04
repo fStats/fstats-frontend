@@ -1,17 +1,11 @@
 import {Add, Delete, Edit} from "@mui/icons-material";
 import {
     Alert,
-    Box,
     Button,
     Card,
     CardContent,
     Fab,
-    FormControl,
-    Icon,
-    InputLabel,
-    MenuItem,
     Paper,
-    Select,
     Stack,
     Table,
     TableBody,
@@ -20,8 +14,6 @@ import {
     TableHead,
     TablePagination,
     TableRow,
-    TextField,
-    Tooltip,
     Typography
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
@@ -32,7 +24,6 @@ import {useNavigate} from "react-router-dom";
 import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
-import {useSettings} from "@hooks/useSettings";
 import {Project, User} from "@services/fstats/types";
 import {useUserProjects} from "@services/fstats/users";
 import {getUserFromJWT} from "@utils/decoders/jwt";
@@ -50,11 +41,6 @@ export default function ProfilePage() {
     const user: User = getUserFromJWT(token)
 
     const {setLabel} = useLabel()
-
-    const {
-        colors, setColors,
-        language, setLanguage
-    } = useSettings()
 
     const {data: projects, status, error} = useUserProjects(user.id || NaN)
 
@@ -84,11 +70,6 @@ export default function ProfilePage() {
 
     useEffect(() => setLabel("Profile"), [setLabel]);
 
-    useEffect(() => localStorage.setItem("settings", JSON.stringify({
-        language: language,
-        colors: colors
-    })), [language, colors]);
-
     if (status === "pending") return <Loader/>
 
     if (status === "error") {
@@ -97,7 +78,7 @@ export default function ProfilePage() {
         return <></>
     }
 
-    const openProject = (id: number) => navigate(`/project/${id}`);
+    const openProject = (id: number) => navigate(`/projects/${id}`);
 
     return (
         <>
@@ -112,78 +93,22 @@ export default function ProfilePage() {
                         <CardContent>
                             <Stack spacing={2}>
                                 <Stack spacing={2} direction="row">
-                                    <Stack flexGrow={1}>
-                                        <Typography variant="h5">Info</Typography>
+                                    <Stack>
                                         <Typography variant="h6"><b>{user.username}</b></Typography>
                                         <Typography><b>{projects.length}</b> projects</Typography>
                                         {hidedProjectsCount > 0 && <Typography color="#ffb74d">
                                             <b>{hidedProjectsCount}</b> hided projects
                                         </Typography>}
                                     </Stack>
-                                </Stack>
-                                <Stack spacing={2} direction="row">
-                                    <Button sx={{flexGrow: 1}} variant="contained" startIcon={<Edit/>}
-                                            onClick={() => setEditUserOpen(true)}>
-                                        <Typography>Edit</Typography>
-                                    </Button>
-                                    <Button variant="contained" color="error" startIcon={<Delete/>}
-                                            onClick={() => setRemoveUserOpen(true)}>
-                                        <Typography>Delete</Typography>
-                                    </Button>
-                                </Stack>
-                            </Stack>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardContent>
-                            <Stack spacing={2} direction="row" alignItems="center">
-                                <Stack spacing={2}>
-                                    <Typography variant="h5">Settings</Typography>
-                                    <Stack direction="row">
-                                        <FormControl fullWidth>
-                                            <InputLabel>Language</InputLabel>
-                                            <Select disabled value={language} label="Language" variant="outlined"
-                                                    onChange={event => setLanguage(event.target.value)}>
-                                                <MenuItem value="en">
-                                                    English (Additional languages will be available later)
-                                                </MenuItem>
-                                            </Select>
-                                        </FormControl>
-                                    </Stack>
-                                    <Stack direction="row" spacing={2}>
-                                        {colors.map((value, index) =>
-                                            <Box sx={{display: "flex", alignItems: "flex-end"}} key={index}>
-                                                <Icon sx={{mr: 1, my: 0.5, backgroundColor: value}}/>
-                                                <Tooltip title="RGBA Hex">
-                                                    <TextField
-                                                        fullWidth
-                                                        label={`Color ${index + 1}`}
-                                                        variant="standard"
-                                                        value={value}
-                                                        onChange={event =>
-                                                            setColors(prevState => prevState.map(
-                                                                (color, i) => i === index ? event.target.value : color
-                                                            ))}
-                                                        sx={{
-                                                            "& .MuiInput-underline:before": {
-                                                                borderBottomColor: value
-                                                            },
-                                                            "& .MuiInput-underline:hover:before": {
-                                                                borderBottomColor: value
-                                                            },
-                                                            "& .MuiInput-underline:after": {
-                                                                borderBottomColor: value
-                                                            },
-                                                            "& .MuiInputLabel-root": {
-                                                                color: value
-                                                            },
-                                                            "& .MuiInputLabel-root.Mui-focused": {
-                                                                color: value
-                                                            }
-                                                        }}/>
-                                                </Tooltip>
-                                            </Box>
-                                        )}
+                                    <Stack spacing={2} direction="row">
+                                        <Button variant="contained" startIcon={<Edit/>}
+                                                onClick={() => setEditUserOpen(true)}>
+                                            <Typography>Edit</Typography>
+                                        </Button>
+                                        <Button variant="contained" color="error" startIcon={<Delete/>}
+                                                onClick={() => setRemoveUserOpen(true)}>
+                                            <Typography>Delete</Typography>
+                                        </Button>
                                     </Stack>
                                 </Stack>
                             </Stack>
