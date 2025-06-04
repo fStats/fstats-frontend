@@ -1,7 +1,7 @@
 import {TimelineData} from "@pages/project/components/types";
-import {DataValue} from "@services/fstats/types"
 import {iso2code} from "@utils/convertors/country"
 import {getRandomEntries} from "@utils/random"
+import {PreviewData} from "@utils/types";
 
 const versions = [
     "1.18", "21w37a", "21w38a", "21w39a", "21w40a", "21w41a",
@@ -39,11 +39,7 @@ const fabricApiVersion = [
     "0.97.8+1.20.5",
 ]
 
-export const piePreviewData = (count: number = 10): {
-    fabric_api_version: DataValue,
-    minecraft_version: DataValue;
-    location: DataValue
-} => ({
+export const piePreviewData = (count: number = 10): PreviewData => ({
     fabric_api_version: getRandomEntries(fabricApiVersion, count),
     minecraft_version: getRandomEntries(versions, count),
     location: getRandomEntries(Object.keys(iso2code), count, 5, 15)
