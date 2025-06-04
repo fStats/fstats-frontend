@@ -31,6 +31,7 @@ export function ProjectPage() {
     const user: User = getUserFromJWT(token)
 
     const {data: projectData} = useProject(projectId)
+
     const {
         data: serverData,
         status: serverStatus,
@@ -41,6 +42,7 @@ export function ProjectPage() {
         status: clientStatus,
         error: clientError
     } = useLineMetricMutation(projectId, 0, "all", false)
+
     const {data: serverPieData, status: serverPieStatus, error: serverPieError} = usePieMetric(projectId, true)
     const {data: clientPieData, status: clientPieStatus, error: clientPieError} = usePieMetric(projectId, false)
 
