@@ -2,9 +2,8 @@ import {Card, CardContent, Typography} from "@mui/material";
 import {Bar} from "react-chartjs-2";
 
 import {useSettings} from "@hooks/useSettings";
-import {GroupedDataValue} from "@pages/project/components/types";
-import {compareVersionsDesc} from "@utils/comparators/version";
-import {mergeClientAndServerData} from "@utils/merge";
+import {groupDataValues} from "@utils/group";
+import {GroupedDataValue} from "@utils/types";
 
 import {CardProps} from "./types";
 
@@ -12,18 +11,7 @@ export function BarCard(props: CardProps) {
 
     const {colors} = useSettings()
 
-    const groupedData: GroupedDataValue = Object
-        .entries(mergeClientAndServerData(props.clientMetric, props.serverMetric) ?? [])
-        .sort(([a], [b]) => compareVersionsDesc(
-            a.split(".").slice(0, 2).join("."),
-            b.split(".").slice(0, 2).join(".")
-        ))
-        .reduce((acc, [key, value]) => {
-            const groupKey = key.split(".").slice(0, 2).join(".");
-            if (!acc[groupKey]) acc[groupKey] = {};
-            acc[groupKey][key] = value;
-            return acc;
-        }, {} as GroupedDataValue);
+    const groupedData: GroupedDataValue = groupDataValues(props.clientMetric, props.serverMetric);
 
     const labels = Object.keys(groupedData);
     const versionKeys = new Set<string>();
@@ -39,7 +27,7 @@ export function BarCard(props: CardProps) {
                     datasets: Array.from(versionKeys).map((version, index) => ({
                         label: version,
                         data: labels.map(label => groupedData[label][version] ?? 0),
-                        backgroundColor: colors[index % colors.length]
+                        backgroundColor: colors.map(({color}) => color)[index % colors.length]
                     }))
                 }} options={{
                     plugins: {
