@@ -1,13 +1,9 @@
-import {DataValue, PieMetric} from "@services/fstats/types";
+import {PieMetric} from "@services/fstats/types";
 
 export interface ChartsTabProps {
     clientPieData?: PieMetric
     serverPieData?: PieMetric
     value: number
-}
-
-export interface GroupedDataValue {
-    [group: string]: DataValue;
 }
 
 export interface TimelineData {
