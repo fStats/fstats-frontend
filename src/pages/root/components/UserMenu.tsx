@@ -45,6 +45,12 @@ export default function UserMenu() {
                 }}>
                     Profile
                 </MenuItem>
+                <MenuItem onClick={() => {
+                    handleClose()
+                    navigate("/settings")
+                }}>
+                    Settings
+                </MenuItem>
                 <MenuItem onClick={logout}>
                     Logout
                 </MenuItem>

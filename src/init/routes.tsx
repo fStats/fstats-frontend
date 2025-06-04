@@ -12,6 +12,7 @@ import {ProjectPage} from "@pages/project/ProjectPage";
 import ProjectsPage from "@pages/ProjectsPage";
 import RegisterPage from "@pages/RegisterPage";
 import RootPage from "@pages/root/RootPage";
+import {SettingsPage} from "@pages/settings/SettingsPage";
 import ShutdownPage from "@pages/ShutdownPage";
 import TermsPolicyPage from "@pages/TermsPolicyPage";
 
@@ -33,6 +34,10 @@ export const routes = createBrowserRouter(
 
                 <Route path="profile" element={
                     <ProtectedRoute children={<ProfilePage/>}/>
+                }/>
+
+                <Route path="settings" element={
+                    <ProtectedRoute children={<SettingsPage/>}/>
                 }/>
 
                 <Route path="terms-policy" element={<TermsPolicyPage/>}/>
