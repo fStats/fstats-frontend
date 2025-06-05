@@ -4,8 +4,9 @@ import {Link} from "react-router-dom";
 
 import {useAuth} from "@hooks/useAuth";
 import {useUserFavorites} from "@services/fstats/users";
+import {DrawerCloseProps} from "@pages/root/components/types";
 
-export default function FavoritesList() {
+export default function FavoritesList(props: DrawerCloseProps) {
 
     const {isAuthorized, token} = useAuth()
 
@@ -19,7 +20,7 @@ export default function FavoritesList() {
         isAuthorized && favorites && favorites.length > 0 && <List subheader={<ListSubheader>Favorites</ListSubheader>}>
             {favorites.map(project =>
                 <ListItem disablePadding key={project.id}>
-                    <ListItemButton component={Link} to={`projects/${project.id}`}>
+                    <ListItemButton component={Link} to={`projects/${project.id}`} onClick={props.handleDrawerClose}>
                         <ListItemIcon>
                             <Star/>
                         </ListItemIcon>
