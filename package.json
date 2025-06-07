@@ -59,7 +59,7 @@
   },
   "overrides": {
     "refractor": {
-      "prismjs": "^1.29.0"
+      "prismjs": "^1.30.0"
     }
   }
 }
