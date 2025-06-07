@@ -11,46 +11,46 @@ import {useLogin} from "@services/fstats/auth";
 import {User} from "@services/fstats/types";
 
 export function LoginPage() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    const {state} = useLocation()
-    const {enqueueSnackbar} = useSnackbar()
-    const {setToken, isAuthorized} = useAuth()!
-    if (isAuthorized) navigate("/profile")
+    const {state} = useLocation();
+    const {enqueueSnackbar} = useSnackbar();
+    const {setToken, isAuthorized} = useAuth()!;
+    if (isAuthorized) navigate("/profile");
 
-    const [username, setUsername] = useState<string>(state?.username || "")
-    const [password, setPassword] = useState<string>("")
-    const [user, setUser] = useState<User>()
+    const [username, setUsername] = useState<string>(state?.username || "");
+    const [password, setPassword] = useState<string>("");
+    const [user, setUser] = useState<User>();
 
-    const {data, status, error} = useLogin(user)
+    const {data, status, error} = useLogin(user);
 
-    useLabel()?.setLabel("Authorization")
+    useLabel()?.setLabel("Authorization");
 
-    if (status === "pending" && user) return (<Loader/>)
+    if (status === "pending" && user) return (<Loader/>);
 
     if (status === "error" && user) {
-        enqueueSnackbar(error?.message, {variant: "error"})
-        setUser(undefined)
+        enqueueSnackbar(error?.message, {variant: "error"});
+        setUser(undefined);
     }
 
     if (status === "success" && user) {
-        setToken(data.token)
+        setToken(data.token);
         localStorage.setItem("token", data.token);
-        setUser(undefined)
-        enqueueSnackbar(`Welcome back ${user.username}`, {variant: "info"})
-        navigate("/profile")
+        setUser(undefined);
+        enqueueSnackbar(`Welcome back ${user.username}`, {variant: "info"});
+        navigate("/profile");
     }
 
     function loginUser(username: string, password: string) {
         if (username.trim() === "" || password.trim() === "") {
-            enqueueSnackbar("Some fields is empty", {variant: "warning"})
-            return
+            enqueueSnackbar("Some fields is empty", {variant: "warning"});
+            return;
         }
 
         setUser({
             username: username,
             password: password
-        })
+        });
     }
 
     return (
@@ -71,5 +71,5 @@ export function LoginPage() {
                 </Stack>
             </Card>
         </Container>
-    )
+    );
 }

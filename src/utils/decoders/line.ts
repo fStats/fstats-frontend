@@ -2,7 +2,7 @@ import {TimelineData} from "@pages/project/components/types";
 import {LineMetric} from "@services/fstats/types";
 
 export function decodeLineMetric(data: LineMetric | undefined): TimelineData[] {
-    if (data === undefined) return []
+    if (data === undefined) return [];
 
     let prevTimestamp = 0;
     let prevCount = 0;

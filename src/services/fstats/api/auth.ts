@@ -6,21 +6,21 @@ export const registration = async (user: User): Promise<ApiMessage> => {
         method: "POST", headers: {
             "Content-Type": "application/json"
         }, body: JSON.stringify(user)
-    })
+    });
 
-    if (response.status !== 201) throw new Error((await response.json() as ApiMessage).message)
+    if (response.status !== 201) throw new Error((await response.json() as ApiMessage).message);
 
-    return await response.json() as ApiMessage
-}
+    return await response.json() as ApiMessage;
+};
 
 export const login = async (user: User): Promise<AuthToken> => {
     const response = await fetch(`${apiUrl}/auth/login`, {
         method: "POST", headers: {
             "Content-Type": "application/json"
         }, body: JSON.stringify(user)
-    })
+    });
 
-    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message)
+    if (response.status !== 200) throw new Error((await response.json() as ApiMessage).message);
 
-    return await response.json() as AuthToken
-}
+    return await response.json() as AuthToken;
+};

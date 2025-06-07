@@ -12,8 +12,8 @@ import {theme} from "@init/muitheme";
 import {queryClient} from "@init/reactquary";
 import {routes} from "@init/routes";
 
-import "@init/chartjs"
-import "@init/syntaxhighlighter"
+import "@init/chartjs";
+import "@init/syntaxhighlighter";
 
 createRoot(document.getElementById("root")!).render(
     <StrictMode>

@@ -17,21 +17,21 @@ import {useUserPatch} from "@services/fstats/users";
 export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 
     const {enqueueSnackbar} = useSnackbar();
-    const {token, setToken} = useAuth()
+    const {token, setToken} = useAuth();
 
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
-    const patchUserMutation = useUserPatch(token)
+    const patchUserMutation = useUserPatch(token);
 
     const handleClose = () => {
-        setUsername("")
-        setPassword("")
+        setUsername("");
+        setPassword("");
         props.setOpen(false);
     };
 
     if (patchUserMutation.isError) {
-        enqueueSnackbar(patchUserMutation.error?.message, {variant: "error"})
+        enqueueSnackbar(patchUserMutation.error?.message, {variant: "error"});
     }
 
     return (
@@ -51,23 +51,23 @@ export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch
                     <Button variant="contained" disabled={username.trim().length <= 0 && password.trim().length <= 0}
                             onClick={() => {
                                 if (username.trim().length <= 0 && password.trim().length <= 0) {
-                                    enqueueSnackbar("At least one field should be filled", {variant: "warning"})
-                                    return
+                                    enqueueSnackbar("At least one field should be filled", {variant: "warning"});
+                                    return;
                                 }
                                 patchUserMutation.mutate({
                                     username: username,
                                     password: password
                                 }, {
                                     onSuccess: () => {
-                                        setToken("")
-                                        localStorage.removeItem("token")
+                                        setToken("");
+                                        localStorage.removeItem("token");
                                         return enqueueSnackbar("User data updated, please re-login", {variant: "success"});
                                     },
                                     onSettled: () => handleClose()
-                                })
+                                });
                             }} autoFocus>Edit</Button>
                 </DialogActions>
             </>}
         </Dialog>
-    )
+    );
 }

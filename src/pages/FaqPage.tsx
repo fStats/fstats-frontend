@@ -6,7 +6,7 @@ import {useLabel} from "@hooks/useLabel";
 
 export default function FaqPage() {
 
-    useLabel()?.setLabel("Frequently asked questions")
+    useLabel()?.setLabel("Frequently asked questions");
 
     const faq = [
         {
@@ -25,7 +25,7 @@ export default function FaqPage() {
                 style={{color: "gray"}}>(Currently support only timeline chart)</i>
             </>
         }
-    ]
+    ];
 
     return (
         <Stack spacing={2}>
@@ -47,5 +47,5 @@ export default function FaqPage() {
                 </Card>
             )}
         </Stack>
-    )
+    );
 }

@@ -29,5 +29,5 @@ export function LanguagePanel() {
                 </IconButton>
             </Grid>
         </Grid>
-    )
+    );
 }

@@ -8,8 +8,8 @@ import {CardProps} from "./types";
 
 export default function PieCard(props: CardProps) {
 
-    const {colors} = useSettings()
-    const metric = mergeClientAndServerData(props.clientMetric, props.serverMetric)
+    const {colors} = useSettings();
+    const metric = mergeClientAndServerData(props.clientMetric, props.serverMetric);
 
     return (
         <Card>
@@ -45,5 +45,5 @@ export default function PieCard(props: CardProps) {
                 }}/>
             </CardContent>
         </Card>
-    )
+    );
 }

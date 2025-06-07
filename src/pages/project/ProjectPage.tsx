@@ -33,87 +33,87 @@ import {MetricTab, TimelineData} from "./components/types";
 
 export function ProjectPage() {
 
-    const navigate = useNavigate()
-    const id = useParams().id!
+    const navigate = useNavigate();
+    const id = useParams().id!;
 
-    const projectId = Number.parseInt(id ?? navigate("projects"))
+    const projectId = Number.parseInt(id ?? navigate("projects"));
     const {enqueueSnackbar} = useSnackbar();
 
-    const {isAuthorized, token} = useAuth()
-    const user: User = getUserFromJWT(token)
+    const {isAuthorized, token} = useAuth();
+    const user: User = getUserFromJWT(token);
 
-    const {data: projectData} = useProject(projectId)
+    const {data: projectData} = useProject(projectId);
 
     const {
         data: serverData,
         status: serverStatus,
         error: serverError
-    } = useLineMetricMutation(projectId, 0, "all", true)
+    } = useLineMetricMutation(projectId, 0, "all", true);
     const {
         data: clientData,
         status: clientStatus,
         error: clientError
-    } = useLineMetricMutation(projectId, 0, "all", false)
+    } = useLineMetricMutation(projectId, 0, "all", false);
 
-    const {data: serverPieData, status: serverPieStatus, error: serverPieError} = usePieMetric(projectId, true)
-    const {data: clientPieData, status: clientPieStatus, error: clientPieError} = usePieMetric(projectId, false)
+    const {data: serverPieData, status: serverPieStatus, error: serverPieError} = usePieMetric(projectId, true);
+    const {data: clientPieData, status: clientPieStatus, error: clientPieError} = usePieMetric(projectId, false);
 
     const {data: rawUserFavorites} = useUserFavorites(user.id || NaN, token);
     const userFavoriteData = useMemo(() => rawUserFavorites ?? [], [rawUserFavorites]);
 
-    const addProjectToFavorite = useAddProjectToFavorite()
-    const removeProjectFromFavorite = useRemoveProjectFromFavorite()
+    const addProjectToFavorite = useAddProjectToFavorite();
+    const removeProjectFromFavorite = useRemoveProjectFromFavorite();
 
-    const [isProjectFavorite, setProjectFavorite] = useState(false)
-    const [tab, setTab] = useState(MetricTab.Mixed)
+    const [isProjectFavorite, setProjectFavorite] = useState(false);
+    const [tab, setTab] = useState(MetricTab.Mixed);
 
-    const clientNotExist = Object.entries(clientPieData?.mod_version ?? 0).length <= 0
-    const serverNotExist = Object.entries(serverPieData?.mod_version ?? 0).length <= 0
+    const clientNotExist = Object.entries(clientPieData?.mod_version ?? 0).length <= 0;
+    const serverNotExist = Object.entries(serverPieData?.mod_version ?? 0).length <= 0;
 
-    const {setLabel} = useLabel()
-    const {colors} = useSettings()
+    const {setLabel} = useLabel();
+    const {colors} = useSettings();
 
     useEffect(() => {
-        if (projectId <= 0) return navigate("projects")
+        if (projectId <= 0) return navigate("projects");
     }, [navigate, projectId]);
 
     useEffect(() => {
-        if (clientNotExist && serverNotExist) setTab(MetricTab.Mixed)
-        else if (clientNotExist) setTab(MetricTab.Server)
-        else if (serverNotExist) setTab(MetricTab.Client)
-        setLabel(projectData?.name ?? "")
+        if (clientNotExist && serverNotExist) setTab(MetricTab.Mixed);
+        else if (clientNotExist) setTab(MetricTab.Server);
+        else if (serverNotExist) setTab(MetricTab.Client);
+        setLabel(projectData?.name ?? "");
     }, [projectId, clientNotExist, serverNotExist, setLabel, projectData?.name]);
 
     useEffect(() => {
-        setProjectFavorite(userFavoriteData?.some(project => project.id === projectId))
-        return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId))
+        setProjectFavorite(userFavoriteData?.some(project => project.id === projectId));
+        return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId));
     }, [userFavoriteData, projectId]);
 
     if (serverStatus === "pending" || clientStatus === "pending" || serverPieStatus === "pending" || clientPieStatus === "pending")
-        return (<Loader/>)
+        return (<Loader/>);
 
     if (serverStatus === "error" || clientStatus === "error" || serverPieStatus === "error" || clientPieStatus === "error") {
-        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"})
-        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"})
-        if (serverPieError) enqueueSnackbar(serverPieError?.message, {variant: "error"})
-        if (clientPieError) enqueueSnackbar(clientPieError?.message, {variant: "error"})
-        navigate("/not-found")
-        return <></>
+        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"});
+        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"});
+        if (serverPieError) enqueueSnackbar(serverPieError?.message, {variant: "error"});
+        if (clientPieError) enqueueSnackbar(clientPieError?.message, {variant: "error"});
+        navigate("/not-found");
+        return <></>;
     }
 
-    const serverDecodedData = decodeLineMetric(serverData)
-    const clientDecodedData = decodeLineMetric(clientData)
-    const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData)
+    const serverDecodedData = decodeLineMetric(serverData);
+    const clientDecodedData = decodeLineMetric(clientData);
+    const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData);
 
     const findMaxClientX = (): TimelineData => clientDecodedData
         .slice(1)
-        .reduce((max, item) => (item.y > max.y ? item : max), clientDecodedData[0])
+        .reduce((max, item) => (item.y > max.y ? item : max), clientDecodedData[0]);
     const findMaxServerX = (): TimelineData => serverDecodedData
         .slice(1)
-        .reduce((max, item) => (item.y > max.y ? item : max), serverDecodedData[0])
+        .reduce((max, item) => (item.y > max.y ? item : max), serverDecodedData[0]);
     const findMaxMixedX = (): TimelineData => mergedDecodedData
         .slice(1)
-        .reduce((max, item) => (item.y > max.y ? item : max), mergedDecodedData[0])
+        .reduce((max, item) => (item.y > max.y ? item : max), mergedDecodedData[0]);
 
     return (
         <Stack spacing={2}>
@@ -188,5 +188,5 @@ export function ProjectPage() {
                     <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}
             </Fab>}
         </Stack>
-    )
+    );
 }

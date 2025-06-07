@@ -1,5 +1,5 @@
 import {Add, Delete} from "@mui/icons-material";
-import {Box, ClickAwayListener, Divider, Grid, IconButton, Paper, Popper, Stack, TextField, useTheme} from "@mui/material"
+import {Box, ClickAwayListener, Divider, Grid, IconButton, Paper, Popper, Stack, TextField, useTheme} from "@mui/material";
 import {MouseEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {HexAlphaColorPicker} from "react-colorful";
 
@@ -35,7 +35,7 @@ const useGridItemHeight = () => {
 
 export function ChartPanel() {
 
-    const theme = useTheme()
+    const theme = useTheme();
     const {colors, setColors} = useSettings();
 
     const previewData = useMemo(() => piePreviewData(colors.length), [colors]);
@@ -165,5 +165,5 @@ export function ChartPanel() {
                 )}
             </Popper>
         </Stack>
-    )
+    );
 }

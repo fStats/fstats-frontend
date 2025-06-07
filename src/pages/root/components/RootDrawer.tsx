@@ -3,7 +3,7 @@ import {Box, Drawer} from "@mui/material";
 import {DrawerContent} from "./DrawerContent";
 import {DrawerStateProps} from "./types";
 
-export const drawerWidth = 240
+export const drawerWidth = 240;
 
 export default function RootDrawer(props: DrawerStateProps) {
 
@@ -49,5 +49,5 @@ export default function RootDrawer(props: DrawerStateProps) {
                 <DrawerContent handleDrawerClose={handleDrawerClose}/>
             </Drawer>
         </Box>
-    )
+    );
 }

@@ -11,8 +11,8 @@ import {DrawerStateProps} from "./types";
 
 export default function RootAppBar(props: DrawerStateProps) {
 
-    const {isAuthorized} = useAuth()
-    const {label} = useLabel()
+    const {isAuthorized} = useAuth();
+    const {label} = useLabel();
 
     const handleDrawerToggle = () => {
         if (!props.isClosing) {
@@ -39,5 +39,5 @@ export default function RootAppBar(props: DrawerStateProps) {
                 {isAuthorized ? <UserMenu/> : <Button color="inherit" component={Link} to="login">Login</Button>}
             </Toolbar>
         </AppBar>
-    )
+    );
 } 

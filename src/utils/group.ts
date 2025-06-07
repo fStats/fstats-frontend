@@ -15,4 +15,4 @@ export const groupDataValues = (clientMetric: DataValue, serverMetric: DataValue
         if (!acc[groupKey]) acc[groupKey] = {};
         acc[groupKey][key] = value;
         return acc;
-    }, {} as GroupedDataValue)
+    }, {} as GroupedDataValue);

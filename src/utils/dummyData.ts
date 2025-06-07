@@ -1,6 +1,6 @@
 import {TimelineData} from "@pages/project/components/types";
-import {iso2code} from "@utils/convertors/country"
-import {getRandomEntries} from "@utils/random"
+import {iso2code} from "@utils/convertors/country";
+import {getRandomEntries} from "@utils/random";
 import {PreviewData} from "@utils/types";
 
 const versions = [
@@ -9,7 +9,7 @@ const versions = [
     "1.20", "23w03a", "23w04a", "23w05a", "23w06a", "23w07a", "23w08a", "23w09a", "23w10a", "23w11a", "23w12a", "23w13a", "23w14a", "23w15a", "23w16a", "23w17a", "23w18a", "23w19a",
     "1.21", "24w03a", "24w04a", "24w05a", "24w06a", "24w07a", "24w08a", "24w09a", "24w10a", "24w11a", "24w12a", "24w13a", "24w14a", "24w15a", "24w16a", "24w17a", "24w18a", "24w19a", "24w20a", "24w21a", "24w22a", "24w23a", "24w24a", "24w25a",
     "1.21.1", "1.21.2", "1.21.3", "1.21.4", "1.21.5"
-]
+];
 
 const fabricApiVersion = [
     "0.100.8+1.20.6",
@@ -37,13 +37,13 @@ const fabricApiVersion = [
     "0.92.6+1.20.1",
     "0.97.2+1.20.4",
     "0.97.8+1.20.5",
-]
+];
 
 export const piePreviewData = (count: number = 10): PreviewData => ({
     fabric_api_version: getRandomEntries(fabricApiVersion, count),
     minecraft_version: getRandomEntries(versions, count),
     location: getRandomEntries(Object.keys(iso2code), count, 5, 15)
-})
+});
 
 export const linePreviewData = (
     stepMs = 30 * 60 * 1000,

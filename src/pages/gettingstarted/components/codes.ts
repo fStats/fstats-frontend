@@ -8,7 +8,7 @@ dependencies {
     
     // Option 2: Depend on fStats API, but require that users install it manually
     modImplementation("maven.modrinth", "fstats", "<version>")
-}`
+}`;
 
 export const javaGradleCode: string = `repositories {
     maven {
@@ -22,7 +22,7 @@ dependencies {
     
     // Option 2: Depend on fStats API, but require that users install it manually
     modImplementation "maven.modrinth:fstats:<version>"
-}`
+}`;
 
 export const fabricJsonMinimal: string = `// Add fstats projectId as custom data
 "custom": {
@@ -32,7 +32,7 @@ export const fabricJsonMinimal: string = `// Add fstats projectId as custom data
 // Add library to suggested mods
 "suggests": {
     "fstats-api": "*"
-}`
+}`;
 
 export const fabricJsonFull: string = `{
   "id": "modid",
@@ -78,4 +78,4 @@ export const fabricJsonFull: string = `{
     // Add library to suggested mods
     "fstats-api": "*"
   }
-}`
+}`;

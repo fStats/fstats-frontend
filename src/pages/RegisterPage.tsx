@@ -21,55 +21,55 @@ import {useRegistration} from "@services/fstats/auth";
 import {User} from "@services/fstats/types";
 
 export default function RegisterPage() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const {enqueueSnackbar} = useSnackbar();
 
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
-    const [passwordRepeat, setPasswordRepeat] = useState("")
-    const [acceptTermsAndPolicy, setAcceptTermsAndPolicy] = useState(false)
-    const [user, setUser] = useState<User>()
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordRepeat, setPasswordRepeat] = useState("");
+    const [acceptTermsAndPolicy, setAcceptTermsAndPolicy] = useState(false);
+    const [user, setUser] = useState<User>();
 
-    const {data, status, error} = useRegistration(user)
+    const {data, status, error} = useRegistration(user);
 
-    const {isAuthorized} = useAuth()!
-    if (isAuthorized) navigate("/profile")
+    const {isAuthorized} = useAuth()!;
+    if (isAuthorized) navigate("/profile");
 
-    useLabel()?.setLabel("Registration")
+    useLabel()?.setLabel("Registration");
 
-    if (status === "pending" && user) return (<Loader/>)
+    if (status === "pending" && user) return (<Loader/>);
 
     if (status === "error" && user) {
-        enqueueSnackbar(error?.message, {variant: "error"})
-        setUser(undefined)
+        enqueueSnackbar(error?.message, {variant: "error"});
+        setUser(undefined);
     }
 
     if (status === "success" && user) {
         if (data.code !== 201) {
             enqueueSnackbar(data.message, {variant: "warning"});
         } else {
-            enqueueSnackbar(data.message, {variant: "success"})
-            navigate("/login", {state: {username: username}})
+            enqueueSnackbar(data.message, {variant: "success"});
+            navigate("/login", {state: {username: username}});
         }
-        setUser(undefined)
+        setUser(undefined);
     }
 
     function registerUser(username: string, password: string, passwordRepeat: string) {
         if (username.trim() === "" || password.trim() === "") {
-            enqueueSnackbar("Some fields is empty", {variant: "warning"})
-            return
+            enqueueSnackbar("Some fields is empty", {variant: "warning"});
+            return;
         }
 
         if (password !== passwordRepeat) {
-            enqueueSnackbar("Password doesn't match", {variant: "warning"})
-            return
+            enqueueSnackbar("Password doesn't match", {variant: "warning"});
+            return;
         }
 
         setUser({
             username: username,
             password: password
-        })
+        });
     }
 
     return (
@@ -98,5 +98,5 @@ export default function RegisterPage() {
                 </Stack>
             </Card>
         </Container>
-    )
+    );
 }

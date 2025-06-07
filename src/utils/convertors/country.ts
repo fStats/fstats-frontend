@@ -251,7 +251,7 @@ export const iso2name: KeyValue = {
     "ZAF": "South Africa",
     "ZMB": "Zambia",
     "ZWE": "Zimbabwe"
-}
+};
 
 export const iso2code: KeyValue = {
     "ABW": "533",
@@ -504,7 +504,7 @@ export const iso2code: KeyValue = {
     "ZAF": "710",
     "ZMB": "894",
     "ZWE": "716"
-}
+};
 
 export const code2shortIso: KeyValue = {
     "533": "AW",
@@ -757,4 +757,4 @@ export const code2shortIso: KeyValue = {
     "710": "ZA",
     "894": "ZM",
     "716": "ZW"
-}
+};

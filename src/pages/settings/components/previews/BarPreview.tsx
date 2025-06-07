@@ -8,9 +8,9 @@ import {PreviewProps} from "./types";
 
 export function BarPreview({previewData}: PreviewProps) {
 
-    const {colors} = useSettings()
+    const {colors} = useSettings();
 
-    const groupedData: GroupedDataValue = groupDataValues(previewData, {})
+    const groupedData: GroupedDataValue = groupDataValues(previewData, {});
 
     const labels = Object.keys(groupedData);
     const versionKeys = new Set<string>();
@@ -59,5 +59,5 @@ export function BarPreview({previewData}: PreviewProps) {
                     }
                 }
             }}/>
-    )
+    );
 }

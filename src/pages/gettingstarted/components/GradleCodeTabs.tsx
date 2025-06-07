@@ -7,9 +7,9 @@ import {javaGradleCode, kotlinGradleCode} from "./codes";
 
 export default function GradleCodeTabs() {
 
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(0);
 
-    const changePage = (_: SyntheticEvent<Element, Event>, newPage: number) => setPage(newPage)
+    const changePage = (_: SyntheticEvent<Element, Event>, newPage: number) => setPage(newPage);
 
     return (
         <Card>

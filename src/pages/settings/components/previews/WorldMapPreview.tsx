@@ -11,11 +11,11 @@ import {PreviewProps} from "./types";
 
 export function WorldMapPreview({previewData}: PreviewProps) {
 
-    const {data, status} = useWorldMap()
+    const {data, status} = useWorldMap();
 
     const metric = Object.fromEntries(Object.entries(
         mergeClientAndServerData(previewData, {})
-    ).map(([value, count]) => [iso2code[value], count])) as DataValue
+    ).map(([value, count]) => [iso2code[value], count])) as DataValue;
 
     const values = Object.values(metric);
     const minValue = Math.min(...values);
@@ -65,5 +65,5 @@ export function WorldMapPreview({previewData}: PreviewProps) {
                 }
             }}
         />
-    )
+    );
 }

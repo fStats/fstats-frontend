@@ -8,11 +8,11 @@ export const useRegistration = (user: User | undefined) => useQuery<ApiMessage, 
     queryKey: ["registration", user],
     queryFn: () => registration(user!),
     enabled: (!!user?.username && !!user?.password)
-})
+});
 
 
 export const useLogin = (user: User | undefined) => useQuery<AuthToken, Error>({
     queryKey: ["login"],
     queryFn: () => login(user!),
     enabled: (!!user?.username && !!user?.password)
-})
+});

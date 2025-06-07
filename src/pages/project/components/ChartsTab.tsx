@@ -10,8 +10,8 @@ import {ChartsTabProps, MetricTab} from "./types";
 
 export function ChartsTab(props: ChartsTabProps) {
 
-    const clientPieData = props.value === MetricTab.Client || props.value === MetricTab.Mixed ? props.clientPieData : undefined
-    const serverPieData = props.value === MetricTab.Server || props.value === MetricTab.Mixed ? props.serverPieData : undefined
+    const clientPieData = props.value === MetricTab.Client || props.value === MetricTab.Mixed ? props.clientPieData : undefined;
+    const serverPieData = props.value === MetricTab.Server || props.value === MetricTab.Mixed ? props.serverPieData : undefined;
 
     return (
         <Grid container spacing={2}>
@@ -64,5 +64,5 @@ export function ChartsTab(props: ChartsTabProps) {
                 </Grid>
             </Grid>
         </Grid>
-    )
+    );
 }

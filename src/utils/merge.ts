@@ -2,9 +2,9 @@ import {TimelineData} from "@pages/project/components/types";
 import {DataValue} from "@services/fstats/types";
 
 export function mergeClientAndServerData(clientData: DataValue, serverData: DataValue): DataValue {
-    const combinedData: DataValue = {...clientData}
-    Object.entries(serverData).forEach(([key, value]) => combinedData[key] = (combinedData[key] || 0) + value)
-    return combinedData
+    const combinedData: DataValue = {...clientData};
+    Object.entries(serverData).forEach(([key, value]) => combinedData[key] = (combinedData[key] || 0) + value);
+    return combinedData;
 }
 
 export function mergeData(clientData: TimelineData[], serverData: TimelineData[]): TimelineData[] {

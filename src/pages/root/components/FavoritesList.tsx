@@ -8,7 +8,7 @@ import {useUserFavorites} from "@services/fstats/users";
 
 export default function FavoritesList(props: DrawerCloseProps) {
 
-    const {isAuthorized, token} = useAuth()
+    const {isAuthorized, token} = useAuth();
 
     const userId = isAuthorized
         ? JSON.parse(atob(token.split(".")[1])).id
@@ -32,5 +32,5 @@ export default function FavoritesList(props: DrawerCloseProps) {
                     </ListItemButton>
                 </ListItem>)}
         </List>
-    )
+    );
 }

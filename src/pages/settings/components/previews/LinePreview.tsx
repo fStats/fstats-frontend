@@ -6,11 +6,11 @@ import {mergeData} from "@utils/merge";
 
 export function LinePreview() {
 
-    const {colors} = useSettings()
+    const {colors} = useSettings();
 
-    const clientPreviewData = linePreviewData()
-    const serverPreviewData = linePreviewData()
-    const mergedPreviewData = mergeData(clientPreviewData, serverPreviewData)
+    const clientPreviewData = linePreviewData();
+    const serverPreviewData = linePreviewData();
+    const mergedPreviewData = mergeData(clientPreviewData, serverPreviewData);
 
     return (
         <Line
@@ -109,5 +109,5 @@ export function LinePreview() {
                     }
                 }
             }}/>
-    )
+    );
 }

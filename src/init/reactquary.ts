@@ -9,4 +9,4 @@ export const queryClient = new QueryClient({
             staleTime: 1800000
         }
     }
-})
+});

@@ -18,11 +18,11 @@ export default function CenteredContainer(props: CentredContainerProps) {
         alignContent: "center",
         justifyContent: "center",
         alignItems: "center"
-    }
+    };
 
     return (
         <Container style={containerStyle}>
             {props.children}
         </Container>
-    )
+    );
 }

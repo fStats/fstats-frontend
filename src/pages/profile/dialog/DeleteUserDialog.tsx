@@ -20,21 +20,21 @@ import {getUserFromJWT} from "@utils/decoders/jwt";
 export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 
     const {enqueueSnackbar} = useSnackbar();
-    const {token, setToken} = useAuth()
+    const {token, setToken} = useAuth();
 
-    const user: User = getUserFromJWT(token)
+    const user: User = getUserFromJWT(token);
 
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState("");
 
-    const deleteUserMutation = useUserDelete(token)
+    const deleteUserMutation = useUserDelete(token);
 
     const handleClose = () => {
-        setUsername("")
+        setUsername("");
         props.setOpen(false);
     };
 
     if (deleteUserMutation.isError) {
-        enqueueSnackbar(deleteUserMutation.error?.message, {variant: "error"})
+        enqueueSnackbar(deleteUserMutation.error?.message, {variant: "error"});
     }
 
     return (
@@ -55,20 +55,20 @@ export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispat
                     <Button disabled={username !== user.username} variant="contained"
                             onClick={() => {
                                 if (username.trim().length <= 0) {
-                                    enqueueSnackbar("Both field required", {variant: "warning"})
-                                    return
+                                    enqueueSnackbar("Both field required", {variant: "warning"});
+                                    return;
                                 }
                                 deleteUserMutation.mutate(undefined, {
                                     onSuccess: () => {
-                                        setToken("")
-                                        localStorage.removeItem("token")
+                                        setToken("");
+                                        localStorage.removeItem("token");
                                         return enqueueSnackbar("User and projects deleted. Thanks for using fStats", {variant: "success"});
                                     },
                                     onSettled: () => handleClose()
-                                })
+                                });
                             }} autoFocus>Delete user and projects</Button>
                 </DialogActions>
             </>}
         </Dialog>
-    )
+    );
 }

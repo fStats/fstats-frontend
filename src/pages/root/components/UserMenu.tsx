@@ -8,9 +8,9 @@ import {useAuth} from "@hooks/useAuth";
 
 export default function UserMenu() {
 
-    const {setToken} = useAuth()
-    const {enqueueSnackbar} = useSnackbar()
-    const navigate = useNavigate()
+    const {setToken} = useAuth();
+    const {enqueueSnackbar} = useSnackbar();
+    const navigate = useNavigate();
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
@@ -40,14 +40,14 @@ export default function UserMenu() {
                 onClose={handleClose}
             >
                 <MenuItem onClick={() => {
-                    handleClose()
-                    navigate("/profile")
+                    handleClose();
+                    navigate("/profile");
                 }}>
                     Profile
                 </MenuItem>
                 <MenuItem onClick={() => {
-                    handleClose()
-                    navigate("/settings")
+                    handleClose();
+                    navigate("/settings");
                 }}>
                     Settings
                 </MenuItem>
@@ -56,5 +56,5 @@ export default function UserMenu() {
                 </MenuItem>
             </Menu>
         </>
-    )
+    );
 }

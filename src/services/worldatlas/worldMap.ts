@@ -8,4 +8,4 @@ export const useWorldMap = () => useQuery<Feature[], Error>({
     queryKey: ["worldMap"],
     queryFn: () => getWorldMap().then(data => (topojson.feature(data, data.objects.countries) as FeatureCollection).features),
     gcTime: 31556952000
-})
+});

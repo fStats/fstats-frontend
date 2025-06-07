@@ -14,18 +14,18 @@ import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
-import {Loader} from "@components/Loader"
+import {Loader} from "@components/Loader";
 import {useLabel} from "@hooks/useLabel";
-import {useProjects} from "@services/fstats/projects"
+import {useProjects} from "@services/fstats/projects";
 
 export default function ProjectsPage() {
 
-    const {setLabel} = useLabel()
+    const {setLabel} = useLabel();
 
     const [searchParams, setSearchParams] = useSearchParams();
-    const [searchFilter, setSearchFilter] = useState("")
-    const {data, status, error} = useProjects()
-    const navigate = useNavigate()
+    const [searchFilter, setSearchFilter] = useState("");
+    const {data, status, error} = useProjects();
+    const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar();
 
     const page = Number.parseInt(searchParams.get("page") || "0") || 0;
@@ -40,12 +40,12 @@ export default function ProjectsPage() {
         return a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0);
     }) : [], [data, searchFilter]);
 
-    if (status === "pending") return <Loader/>
+    if (status === "pending") return <Loader/>;
 
     if (status === "error") {
-        enqueueSnackbar(error?.message, {variant: "error"})
-        navigate("/not-found")
-        return <></>
+        enqueueSnackbar(error?.message, {variant: "error"});
+        navigate("/not-found");
+        return <></>;
     }
 
     const emptyRows = page > 0 ? Math.max(0, (1 + page) * 10 - (filteredData.length ?? 0)) : 0;
@@ -57,7 +57,7 @@ export default function ProjectsPage() {
                        value={searchFilter}
                        onChange={event => {
                            setSearchFilter(event.target.value);
-                           searchParams.set("page", "0")
+                           searchParams.set("page", "0");
                        }}/>
             {data.length > 0 ?
                 <Paper sx={{width: "100%", overflow: "hidden"}}>
@@ -95,5 +95,5 @@ export default function ProjectsPage() {
                     />
                 </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
         </>
-    )
+    );
 }

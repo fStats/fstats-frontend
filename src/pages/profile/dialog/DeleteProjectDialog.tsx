@@ -6,14 +6,14 @@ import {useDeleteProject} from "@services/fstats/projects";
 
 export default function DeleteProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
 
-    const deleteProjectMutation = useDeleteProject()
+    const deleteProjectMutation = useDeleteProject();
 
     const {enqueueSnackbar} = useSnackbar();
 
     const handleClose = () => props.setOpen(false);
 
     if (deleteProjectMutation.isError) {
-        enqueueSnackbar(deleteProjectMutation.error?.message, {variant: "error"})
+        enqueueSnackbar(deleteProjectMutation.error?.message, {variant: "error"});
     }
 
     return (
@@ -26,10 +26,10 @@ export default function DeleteProjectDialog(props: { projectId: number, open: bo
                         deleteProjectMutation.mutate((props.projectId), {
                             onSuccess: () => enqueueSnackbar("Project deleted", {variant: "success"}),
                             onSettled: () => handleClose()
-                        })
+                        });
                     }} autoFocus>Delete</Button>
                 </DialogActions>
             </>}
         </Dialog>
-    )
+    );
 }

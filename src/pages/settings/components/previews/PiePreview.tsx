@@ -6,7 +6,7 @@ import {PreviewProps} from "./types";
 
 export function PiePreview({previewData}: PreviewProps) {
 
-    const {colors} = useSettings()
+    const {colors} = useSettings();
 
     return (
         <Pie
@@ -40,5 +40,5 @@ export function PiePreview({previewData}: PreviewProps) {
                     }
                 }
             }}/>
-    )
+    );
 }

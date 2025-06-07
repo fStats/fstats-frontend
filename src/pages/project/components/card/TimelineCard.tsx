@@ -25,37 +25,37 @@ import "chartjs-adapter-date-fns";
 
 export default function TimelineCard(props: TimelineCardProps) {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar();
-    const {colors} = useSettings()
+    const {colors} = useSettings();
 
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
     const aspectRatio = isSmallScreen ? 2 : 4;
 
-    const [mode, setMode] = useState<Mode>("month")
+    const [mode, setMode] = useState<Mode>("month");
 
     const {
         data: serverData,
         status: serverStatus,
         error: serverError
-    } = useLineMetricMutation(props.projectId, getTimestamp(mode), mode, true)
+    } = useLineMetricMutation(props.projectId, getTimestamp(mode), mode, true);
     const {
         data: clientData,
         status: clientStatus,
         error: clientError
-    } = useLineMetricMutation(props.projectId, getTimestamp(mode), mode, false)
+    } = useLineMetricMutation(props.projectId, getTimestamp(mode), mode, false);
 
-    const serverDecodedData = decodeLineMetric(serverData)
-    const clientDecodedData = decodeLineMetric(clientData)
+    const serverDecodedData = decodeLineMetric(serverData);
+    const clientDecodedData = decodeLineMetric(clientData);
 
-    const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData)
+    const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData);
 
     if (serverStatus === "error" || clientStatus === "error") {
-        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"})
-        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"})
-        navigate("/not-found")
-        return <></>
+        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"});
+        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"});
+        navigate("/not-found");
+        return <></>;
     }
 
     return (
@@ -160,5 +160,5 @@ export default function TimelineCard(props: TimelineCardProps) {
                 }}/>
             </CardContent>
         </Card>
-    )
+    );
 }

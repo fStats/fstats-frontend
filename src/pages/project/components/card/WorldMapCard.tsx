@@ -28,11 +28,11 @@ export function WorldMapCard(props: CardProps) {
 
     const [listMode, setListMode] = useState(false);
 
-    const {data, status} = useWorldMap()
+    const {data, status} = useWorldMap();
 
     const metric = Object.fromEntries(Object.entries(
         mergeClientAndServerData(props.clientMetric, props.serverMetric)
-    ).map(([value, count]) => [iso2code[value], count])) as DataValue
+    ).map(([value, count]) => [iso2code[value], count])) as DataValue;
 
     const values = Object.values(metric);
     const minValue = Math.min(...values);
@@ -133,5 +133,5 @@ export function WorldMapCard(props: CardProps) {
                     />}
             </CardContent>
         </Card>
-    )
+    );
 }

@@ -9,7 +9,7 @@ import {CardProps} from "./types";
 
 export function BarCard(props: CardProps) {
 
-    const {colors} = useSettings()
+    const {colors} = useSettings();
 
     const groupedData: GroupedDataValue = groupDataValues(props.clientMetric, props.serverMetric);
 
@@ -61,5 +61,5 @@ export function BarCard(props: CardProps) {
                 }}/>
             </CardContent>
         </Card>
-    )
+    );
 }

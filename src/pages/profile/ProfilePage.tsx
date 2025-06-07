@@ -36,17 +36,17 @@ import EditUserDialog from "./dialog/EditUserDialog";
 
 export default function ProfilePage() {
 
-    const {token} = useAuth()
+    const {token} = useAuth();
 
-    const user: User = getUserFromJWT(token)
+    const user: User = getUserFromJWT(token);
 
-    const {setLabel} = useLabel()
+    const {setLabel} = useLabel();
 
-    const {data: projects, status, error} = useUserProjects(user.id || NaN)
+    const {data: projects, status, error} = useUserProjects(user.id || NaN);
 
-    const [hidedProjectsCount, setHidedProjectsCount] = useState(0)
+    const [hidedProjectsCount, setHidedProjectsCount] = useState(0);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const {enqueueSnackbar} = useSnackbar();
 
@@ -58,7 +58,7 @@ export default function ProfilePage() {
     const [editUserOpen, setEditUserOpen] = useState(false);
     const [removeUserOpen, setRemoveUserOpen] = useState(false);
 
-    const [selectedProject, setSelectedProject] = useState<number>(0)
+    const [selectedProject, setSelectedProject] = useState<number>(0);
 
     const sortedProjects = useMemo(() => projects ? [...projects].sort((a, b) => {
         if (a.id === undefined) return 1;
@@ -70,12 +70,12 @@ export default function ProfilePage() {
 
     useEffect(() => setLabel("Profile"), [setLabel]);
 
-    if (status === "pending") return <Loader/>
+    if (status === "pending") return <Loader/>;
 
     if (status === "error") {
-        enqueueSnackbar(error?.message, {variant: "error"})
-        navigate("/not-found")
-        return <></>
+        enqueueSnackbar(error?.message, {variant: "error"});
+        navigate("/not-found");
+        return <></>;
     }
 
     const openProject = (id: number) => navigate(`/projects/${id}`);
@@ -134,7 +134,7 @@ export default function ProfilePage() {
                                             <TableCell onClick={() => {
                                                 navigator.clipboard.writeText(row.id!.toString()).then(() =>
                                                     enqueueSnackbar("Project ID copied to clipboard", {variant: "info"})
-                                                )
+                                                );
                                             }}>
                                                 {row.id}
                                             </TableCell>
@@ -154,14 +154,14 @@ export default function ProfilePage() {
                                             <TableCell align="right" sx={{width: 100}}>
                                                 <Stack direction="row" spacing={2}>
                                                     <IconButton sx={{padding: 0}} onClick={() => {
-                                                        setSelectedProject(row.id!)
-                                                        setEditOpen(true)
+                                                        setSelectedProject(row.id!);
+                                                        setEditOpen(true);
                                                     }}>
                                                         <Edit/>
                                                     </IconButton>
                                                     <IconButton sx={{padding: 0}} onClick={() => {
-                                                        setSelectedProject(row.id!)
-                                                        setDeleteOpen(true)
+                                                        setSelectedProject(row.id!);
+                                                        setDeleteOpen(true);
                                                     }}>
                                                         <Delete color="error"/>
                                                     </IconButton>
@@ -186,5 +186,5 @@ export default function ProfilePage() {
                 <Add/>
             </Fab>
         </>
-    )
+    );
 }

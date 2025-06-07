@@ -6,4 +6,4 @@ import {getNews} from "@services/news/api";
 export const useNews = () => useQuery<News[], Error>({
     queryFn: () => getNews(),
     queryKey: ["news"]
-})
+});

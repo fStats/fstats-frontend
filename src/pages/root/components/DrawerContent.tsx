@@ -14,4 +14,4 @@ export const DrawerContent = (props: DrawerCloseProps) => {
         <Divider/>
         <FavoritesList handleDrawerClose={props.handleDrawerClose}/>
     </div>;
-}
+};

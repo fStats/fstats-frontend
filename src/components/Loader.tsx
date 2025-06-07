@@ -7,5 +7,5 @@ export function Loader() {
         <CenteredContainer>
             <CircularProgress/>
         </CenteredContainer>
-    )
+    );
 }

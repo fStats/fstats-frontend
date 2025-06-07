@@ -7,9 +7,9 @@ import {fabricJsonFull, fabricJsonMinimal} from "./codes";
 
 export default function FabricJsonTabs() {
 
-    const [page, setPage] = useState(0)
+    const [page, setPage] = useState(0);
 
-    const changeSize = (_: SyntheticEvent<Element, Event>, newSize: number) => setPage(newSize)
+    const changeSize = (_: SyntheticEvent<Element, Event>, newSize: number) => setPage(newSize);
 
     return (
         <Card>
@@ -28,5 +28,5 @@ export default function FabricJsonTabs() {
                 {page === 0 ? fabricJsonMinimal : fabricJsonFull}
             </SyntaxHighlighter>
         </Card>
-    )
+    );
 }

@@ -6,7 +6,7 @@ import {useLabel} from "@hooks/useLabel";
 
 export default function TermsPolicyPage() {
 
-    useLabel()?.setLabel("Terms & Policy")
+    useLabel()?.setLabel("Terms & Policy");
 
     return (
         <Stack spacing={2}>
@@ -141,5 +141,5 @@ export default function TermsPolicyPage() {
                 </Stack>
             </Card>
         </Stack>
-    )
+    );
 }

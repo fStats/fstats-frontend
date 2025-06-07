@@ -8,7 +8,7 @@ import GradleCodeTabs from "@pages/gettingstarted/components/GradleCodeTabs";
 
 export default function GettingStartedPage() {
 
-    const {setLabel} = useLabel()
+    const {setLabel} = useLabel();
 
     useEffect(() => setLabel("Getting started"), [setLabel]);
 
@@ -36,5 +36,5 @@ export default function GettingStartedPage() {
                 5. When data come you can see it on your project page
             </Typography>
         </Stack>
-    )
+    );
 }

@@ -15,16 +15,16 @@ import {useCreateProject} from "@services/fstats/projects";
 
 export default function CreateProjectDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
 
-    const createProjectMutation = useCreateProject()
+    const createProjectMutation = useCreateProject();
 
-    const [name, setName] = useState("")
+    const [name, setName] = useState("");
 
     const {enqueueSnackbar} = useSnackbar();
 
     const handleClose = () => props.setOpen(false);
 
     if (createProjectMutation.isError) {
-        enqueueSnackbar(createProjectMutation.error?.message, {variant: "error"})
+        enqueueSnackbar(createProjectMutation.error?.message, {variant: "error"});
     }
 
     return (
@@ -43,17 +43,17 @@ export default function CreateProjectDialog(props: { open: boolean, setOpen: Dis
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button variant="contained" onClick={() => {
                         if (name.trim().length <= 0) {
-                            enqueueSnackbar("Project name can't be blank", {variant: "warning"})
-                            return
+                            enqueueSnackbar("Project name can't be blank", {variant: "warning"});
+                            return;
                         }
 
                         createProjectMutation.mutate({name: name,}, {
                             onSuccess: () => enqueueSnackbar("Project created", {variant: "success"}),
                             onSettled: () => handleClose()
-                        })
+                        });
                     }} autoFocus>Create</Button>
                 </DialogActions>
             </>}
         </Dialog>
-    )
+    );
 }

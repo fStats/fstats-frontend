@@ -1,4 +1,4 @@
-import {DataValue} from "@services/fstats/types"
+import {DataValue} from "@services/fstats/types";
 
 export const getRandomEntries = (keys: string[], count: number, min = 1, max = 20): DataValue => Object.fromEntries(
     keys.sort(() => 0.5 - Math.random())

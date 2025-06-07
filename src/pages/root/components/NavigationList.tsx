@@ -18,5 +18,5 @@ export default function NavigationList(props: DrawerCloseProps) {
                 </ListItem>
             )}
         </List>
-    )
+    );
 }

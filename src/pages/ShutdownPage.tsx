@@ -14,7 +14,7 @@ import {useNews} from "@services/news/news";
 
 export default function ShutdownPage() {
 
-    const {data, status, error} = useNews()
+    const {data, status, error} = useNews();
 
     return (
         <Box padding={4}>
@@ -42,5 +42,5 @@ export default function ShutdownPage() {
                 )}
             </Timeline>}
         </Box>
-    )
+    );
 }

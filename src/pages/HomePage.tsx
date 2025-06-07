@@ -6,7 +6,7 @@ import {useLabel} from "@hooks/useLabel";
 
 export default function HomePage() {
 
-    useLabel()?.setLabel("Home")
+    useLabel()?.setLabel("Home");
 
     return (
         <Stack spacing={8} paddingTop={8} paddingX={16}>
@@ -81,5 +81,5 @@ export default function HomePage() {
                 </Stack>
             </Stack>
         </Stack>
-    )
+    );
 }

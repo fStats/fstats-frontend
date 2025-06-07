@@ -15,16 +15,16 @@ import {useEditProject} from "@services/fstats/projects";
 
 export default function EditProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
 
-    const editProjectMutation = useEditProject(props.projectId)
+    const editProjectMutation = useEditProject(props.projectId);
 
-    const [name, setName] = useState("")
+    const [name, setName] = useState("");
 
     const {enqueueSnackbar} = useSnackbar();
 
     const handleClose = () => props.setOpen(false);
 
     if (editProjectMutation.isError) {
-        enqueueSnackbar(editProjectMutation.error?.message, {variant: "error"})
+        enqueueSnackbar(editProjectMutation.error?.message, {variant: "error"});
     }
 
     return (
@@ -43,17 +43,17 @@ export default function EditProjectDialog(props: { projectId: number, open: bool
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button disabled={name.trim().length <= 0} variant="contained" onClick={() => {
                         if (name.trim().length <= 0) {
-                            enqueueSnackbar("Project name can't be blank", {variant: "warning"})
-                            return
+                            enqueueSnackbar("Project name can't be blank", {variant: "warning"});
+                            return;
                         }
 
                         editProjectMutation.mutate({name: name,}, {
                             onSuccess: () => enqueueSnackbar("Project created", {variant: "success"}),
                             onSettled: () => handleClose()
-                        })
+                        });
                     }} autoFocus>Rename</Button>
                 </DialogActions>
             </>}
         </Dialog>
-    )
+    );
 }

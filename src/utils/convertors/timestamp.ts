@@ -15,6 +15,6 @@ export const getTimestamp = (mode: Mode): number => {
             now.setMonth(now.getMonth() - 3);
             return now.getTime();
         case "all":
-            return 0
+            return 0;
     }
-}
+};

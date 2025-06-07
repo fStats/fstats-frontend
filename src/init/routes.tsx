@@ -45,4 +45,4 @@ export const routes = createBrowserRouter(
                 <Route path="*" element={<NotFoundPage/>}/>
             </Route>
     )
-)
+);
