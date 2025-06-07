@@ -1,6 +1,7 @@
 import {Add, Delete} from "@mui/icons-material";
-import {Box, Divider, Grid, IconButton, Paper, Stack, TextField, useTheme} from "@mui/material"
-import {useEffect, useRef, useState} from "react";
+import {Box, ClickAwayListener, Divider, Grid, IconButton, Paper, Popper, Stack, TextField, useTheme} from "@mui/material"
+import {MouseEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {HexAlphaColorPicker} from "react-colorful";
 
 import {useSettings} from "@hooks/useSettings";
 import {BarPreview} from "@pages/settings/components/previews/BarPreview";
@@ -36,14 +37,30 @@ export function ChartPanel() {
 
     const theme = useTheme()
     const {colors, setColors} = useSettings();
-    const previewData = piePreviewData(colors.length)
-    const {firstItemRef, itemHeight} = useGridItemHeight();
 
-    const handleColorChange = (colorId: number, value: string) => {
-        setColors(prev => prev.map(c =>
-            c.index === colorId ? {...c, ["color"]: value} : c
-        ));
+    const previewData = useMemo(() => piePreviewData(colors.length), [colors]);
+
+    const {firstItemRef, itemHeight} = useGridItemHeight();
+    const [pickerAnchor, setPickerAnchor] = useState<null | HTMLElement>(null);
+    const [activeColorIndex, setActiveColorIndex] = useState<number | null>(null);
+
+    const handleClick = (event: MouseEvent<HTMLElement>, index: number) => {
+        setPickerAnchor(event.currentTarget);
+        setActiveColorIndex(index);
     };
+
+    const handleClose = () => {
+        setPickerAnchor(null);
+        setActiveColorIndex(null);
+    };
+
+    const handleColorChange = useCallback((colorId: number, value: string) => {
+        setColors(prev => {
+            const current = prev.find(c => c.index === colorId);
+            if (!current || current.color === value) return prev; // avoid unnecessary update
+            return prev.map(c => c.index === colorId ? {...c, color: value} : c);
+        });
+    }, [setColors]);
 
     const addNewColor = () => setColors(prev => [...prev, {
         index: colors[colors.length - 1].index + 1,
@@ -79,6 +96,7 @@ export function ChartPanel() {
                                             border: "2px solid",
                                             borderColor: "divider",
                                         }}
+                                        onClick={(e) => handleClick(e, index)}
                                     />
                                 </Box>
                                 <TextField
@@ -134,6 +152,18 @@ export function ChartPanel() {
                     <WorldMapPreview previewData={previewData.location}/>
                 </Grid>
             </Grid>
+            <Popper open={Boolean(pickerAnchor)} anchorEl={pickerAnchor} placement="bottom-start">
+                {activeColorIndex !== null && (
+                    <ClickAwayListener onClickAway={handleClose}>
+                        <Box sx={{p: 1, bgcolor: "background.paper", borderRadius: 1, boxShadow: 3}}>
+                            <HexAlphaColorPicker
+                                color={colors[activeColorIndex].color}
+                                onChange={(newColor) => handleColorChange(colors[activeColorIndex].index, newColor)}
+                            />
+                        </Box>
+                    </ClickAwayListener>
+                )}
+            </Popper>
         </Stack>
     )
 }
