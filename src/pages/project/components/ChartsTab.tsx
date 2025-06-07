@@ -1,9 +1,8 @@
-import {Stack} from "@mui/material";
+import {Grid} from "@mui/material";
 
 import {BarCard} from "@pages/project/components/card/BarCard";
 import PieCard from "@pages/project/components/card/PieCard";
 import {WorldMapCard} from "@pages/project/components/card/WorldMapCard";
-import {DataValue} from "@services/fstats/types";
 import {formatOnlineMode} from "@utils/formatters/onlineMode";
 import {formatOperationSystem} from "@utils/formatters/operationSystem";
 
@@ -15,33 +14,55 @@ export function ChartsTab(props: ChartsTabProps) {
     const serverPieData = props.value === MetricTab.Server || props.value === MetricTab.Mixed ? props.serverPieData : undefined
 
     return (
-        <Stack direction="row" spacing={2}>
-            <Stack sx={{flexGrow: 1}} spacing={2}>
-                <BarCard title="FabricAPI"
-                         clientMetric={clientPieData?.fabric_api_version ?? [] as unknown as DataValue}
-                         serverMetric={serverPieData?.fabric_api_version ?? [] as unknown as DataValue}/>
-                <WorldMapCard title="Location"
-                              clientMetric={clientPieData?.location ?? [] as unknown as DataValue}
-                              serverMetric={serverPieData?.location ?? [] as unknown as DataValue}/>
-            </Stack>
-            <Stack spacing={2}>
-                <Stack direction="row" spacing={2}>
-                    <PieCard title="Minecraft Version"
-                             clientMetric={clientPieData?.minecraft_version ?? [] as unknown as DataValue}
-                             serverMetric={serverPieData?.minecraft_version ?? [] as unknown as DataValue}/>
-                    <PieCard title="Online Mode"
-                             clientMetric={formatOnlineMode(clientPieData?.online_mode ?? [] as unknown as DataValue)}
-                             serverMetric={formatOnlineMode(serverPieData?.online_mode ?? [] as unknown as DataValue)}/>
-                </Stack>
-                <Stack direction="row" spacing={2}>
-                    <PieCard title="Mod Version"
-                             clientMetric={clientPieData?.mod_version ?? [] as unknown as DataValue}
-                             serverMetric={serverPieData?.mod_version ?? [] as unknown as DataValue}/>
-                    <PieCard title="Operation System"
-                             clientMetric={formatOperationSystem(clientPieData?.os ?? [] as unknown as DataValue)}
-                             serverMetric={formatOperationSystem(serverPieData?.os ?? [] as unknown as DataValue)}/>
-                </Stack>
-            </Stack>
-        </Stack>
+        <Grid container spacing={2}>
+            <Grid size={{xs:12, md:6}} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <BarCard
+                    title="FabricAPI"
+                    clientMetric={clientPieData?.fabric_api_version ?? {}}
+                    serverMetric={serverPieData?.fabric_api_version ?? {}}
+                />
+                <WorldMapCard
+                    title="Location"
+                    clientMetric={clientPieData?.location ?? {}}
+                    serverMetric={serverPieData?.location ?? {}}
+                />
+            </Grid>
+
+            <Grid size={{xs:12, md:6}} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+                <Grid container spacing={2}>
+                    <Grid size={{xs:12, sm:6}}>
+                        <PieCard
+                            title="Minecraft Version"
+                            clientMetric={clientPieData?.minecraft_version ?? {}}
+                            serverMetric={serverPieData?.minecraft_version ?? {}}
+                        />
+                    </Grid>
+                    <Grid size={{xs:12, sm:6}}>
+                        <PieCard
+                            title="Online Mode"
+                            clientMetric={formatOnlineMode(clientPieData?.online_mode ?? {})}
+                            serverMetric={formatOnlineMode(serverPieData?.online_mode ?? {})}
+                        />
+                    </Grid>
+                </Grid>
+
+                <Grid container spacing={2}>
+                    <Grid size={{xs:12, sm:6}}>
+                        <PieCard
+                            title="Mod Version"
+                            clientMetric={clientPieData?.mod_version ?? {}}
+                            serverMetric={serverPieData?.mod_version ?? {}}
+                        />
+                    </Grid>
+                    <Grid size={{xs:12, sm:6}}>
+                        <PieCard
+                            title="Operation System"
+                            clientMetric={formatOperationSystem(clientPieData?.os ?? {})}
+                            serverMetric={formatOperationSystem(serverPieData?.os ?? {})}
+                        />
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
     )
 }

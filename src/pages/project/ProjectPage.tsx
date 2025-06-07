@@ -1,5 +1,16 @@
 import {Favorite, Remove, Warning} from "@mui/icons-material";
-import {Alert, Box, Card, CardContent, CircularProgress, Fab, Stack, Tab, Tabs, Typography} from "@mui/material";
+import {
+    Alert,
+    Box,
+    CircularProgress,
+    Fab,
+    Grid,
+    Stack,
+    Tab,
+    Tabs,
+    Tooltip,
+    Typography
+} from "@mui/material";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
@@ -7,7 +18,9 @@ import {useNavigate, useParams} from "react-router-dom";
 import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
+import {useSettings} from "@hooks/useSettings";
 import TimelineCard from "@pages/project/components/card/TimelineCard";
+import {ChartsTab} from "@pages/project/components/ChartsTab";
 import {useLineMetricMutation, usePieMetric} from "@services/fstats/metrics";
 import {useAddProjectToFavorite, useProject, useRemoveProjectFromFavorite} from "@services/fstats/projects";
 import {User} from "@services/fstats/types";
@@ -16,7 +29,6 @@ import {getUserFromJWT} from "@utils/decoders/jwt";
 import {decodeLineMetric} from "@utils/decoders/line";
 import {mergeData} from "@utils/merge";
 
-import {ChartsTab} from "./components/ChartsTab";
 import {MetricTab, TimelineData} from "./components/types";
 
 export function ProjectPage() {
@@ -59,6 +71,7 @@ export function ProjectPage() {
     const serverNotExist = Object.entries(serverPieData?.mod_version ?? 0).length <= 0
 
     const {setLabel} = useLabel()
+    const {colors} = useSettings()
 
     useEffect(() => {
         if (projectId <= 0) return navigate("projects")
@@ -76,8 +89,8 @@ export function ProjectPage() {
         return () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId))
     }, [userFavoriteData, projectId]);
 
-    if (serverStatus === "pending" || clientStatus === "pending" || serverPieStatus === "pending" || clientPieStatus === "pending") return (
-        <Loader/>)
+    if (serverStatus === "pending" || clientStatus === "pending" || serverPieStatus === "pending" || clientPieStatus === "pending")
+        return (<Loader/>)
 
     if (serverStatus === "error" || clientStatus === "error" || serverPieStatus === "error" || clientPieStatus === "error") {
         if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"})
@@ -92,55 +105,69 @@ export function ProjectPage() {
     const clientDecodedData = decodeLineMetric(clientData)
     const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData)
 
-    const findMaxClientX = (): TimelineData => clientDecodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), clientDecodedData[0])
-    const findMaxServerX = (): TimelineData => serverDecodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), serverDecodedData[0])
-    const findMaxMixedX = (): TimelineData => mergedDecodedData.slice(1).reduce((max, item) => (item.y > max.y ? item : max), mergedDecodedData[0])
+    const findMaxClientX = (): TimelineData => clientDecodedData
+        .slice(1)
+        .reduce((max, item) => (item.y > max.y ? item : max), clientDecodedData[0])
+    const findMaxServerX = (): TimelineData => serverDecodedData
+        .slice(1)
+        .reduce((max, item) => (item.y > max.y ? item : max), serverDecodedData[0])
+    const findMaxMixedX = (): TimelineData => mergedDecodedData
+        .slice(1)
+        .reduce((max, item) => (item.y > max.y ? item : max), mergedDecodedData[0])
 
     return (
         <Stack spacing={2}>
-            {projectData && projectData.is_hidden &&
-                <Alert variant="outlined" color="warning" icon={<Warning/>}>{projectData.hiding_reason}</Alert>}
-            <Stack direction="row" spacing={2}>
-                <TimelineCard projectId={projectId}/>
-                <Stack spacing={2}>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" align="center" fontWeight="bold">Client</Typography>
-                            <Typography variant="h6">Last
-                                Count: {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0}</Typography>
-                            <Typography variant="h6">Last
-                                Date: {new Date(clientDecodedData[clientDecodedData.length - 1]?.x).toLocaleString()}</Typography>
-                            <Typography variant="h6">Peak Count: {findMaxClientX()?.y ?? 0}</Typography>
-                            <Typography variant="h6">Peak
-                                Date: {new Date(findMaxClientX()?.x).toLocaleString()}</Typography>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" align="center" fontWeight="bold">Server</Typography>
-                            <Typography variant="h6">Last
-                                Count: {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0}</Typography>
-                            <Typography variant="h6">Last
-                                Date: {new Date(serverDecodedData[serverDecodedData.length - 1]?.x).toLocaleString()}</Typography>
-                            <Typography variant="h6">Peak Count: {findMaxServerX()?.y ?? 0}</Typography>
-                            <Typography variant="h6">Peak
-                                Date: {new Date(findMaxServerX()?.x).toLocaleString()}</Typography>
-                        </CardContent>
-                    </Card>
-                    <Card>
-                        <CardContent>
-                            <Typography variant="h5" align="center" fontWeight="bold">Mixed</Typography>
-                            <Typography variant="h6">Last
-                                Count: {mergedDecodedData[mergedDecodedData.length - 1]?.y ?? 0}</Typography>
-                            <Typography variant="h6">Last
-                                Date: {new Date(mergedDecodedData[mergedDecodedData.length - 1]?.x).toLocaleString()}</Typography>
-                            <Typography variant="h6">Peak Count: {findMaxMixedX()?.y ?? 0}</Typography>
-                            <Typography variant="h6">Peak
-                                Date: {new Date(findMaxMixedX()?.x).toLocaleString()}</Typography>
-                        </CardContent>
-                    </Card>
-                </Stack>
-            </Stack>
+            {projectData && projectData.is_hidden && <Alert variant="outlined" color="warning" icon={<Warning/>}>
+                {projectData.hiding_reason}
+            </Alert>}
+            <Grid container spacing={2} direction="row" justifyContent="space-evenly">
+                <Tooltip title={`Peak: ${new Date(findMaxClientX()?.x).toLocaleString()}`}>
+                    <Stack direction="row" spacing={1}>
+                        <Box sx={{
+                            backgroundColor: colors[1].color,
+                            height: 24,
+                            width: 24,
+                            borderRadius: 1,
+                            border: 1,
+                            borderColor: "divider"
+                        }}/>
+                        <Typography variant="button">
+                            Client {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0} / {findMaxClientX()?.y ?? 0}
+                        </Typography>
+                    </Stack>
+                </Tooltip>
+                <Tooltip title={`Peak: ${new Date(findMaxMixedX()?.x).toLocaleString()}`}>
+                    <Stack direction="row" spacing={1}>
+                        <Box sx={{
+                            backgroundColor: colors[2].color,
+                            height: 24,
+                            width: 24,
+                            borderRadius: 1,
+                            border: 1,
+                            borderColor: "divider"
+                        }}/>
+                        <Typography variant="button">
+                            Mixed {mergedDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxMixedX()?.y ?? 0}
+                        </Typography>
+                    </Stack>
+                </Tooltip>
+                <Tooltip title={`Peak: ${new Date(findMaxServerX()?.x).toLocaleString()}`}>
+                    <Stack direction="row" spacing={1}>
+                        <Box sx={{
+                            backgroundColor: colors[0].color,
+                            height: 24,
+                            width: 24,
+                            borderRadius: 1,
+                            border: 1,
+                            borderColor: "divider"
+                        }}/>
+                        <Typography variant="button">
+                            Server {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxServerX()?.y ?? 0}
+                        </Typography>
+                    </Stack>
+                </Tooltip>
+            </Grid>
+            <TimelineCard projectId={projectId}/>
             <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                 <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} variant="fullWidth">
                     <Tab label="Client" disabled={clientNotExist}/>

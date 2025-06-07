@@ -1,12 +1,12 @@
 import {
+    Button,
+    ButtonGroup,
     Card,
     CardActions,
     CardContent,
-    FormControl,
-    MenuItem,
-    Select,
-    SelectChangeEvent,
-    Typography
+    Paper,
+    Typography, useMediaQuery,
+    useTheme
 } from "@mui/material";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
@@ -15,20 +15,23 @@ import {useNavigate} from "react-router-dom";
 
 import {useSettings} from "@hooks/useSettings";
 import {useLineMetricMutation} from "@services/fstats/metrics";
+import {getTimestamp} from "@utils/convertors/timestamp";
 import {decodeLineMetric} from "@utils/decoders/line";
 import {mergeData} from "@utils/merge";
 
-import {TimelineCardProps} from "./types";
+import {Mode, TimelineCardProps} from "./types";
 
 import "chartjs-adapter-date-fns";
-
-export type Mode = "week" | "month" | "quarter" | "all";
 
 export default function TimelineCard(props: TimelineCardProps) {
 
     const navigate = useNavigate()
     const {enqueueSnackbar} = useSnackbar();
     const {colors} = useSettings()
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+    const aspectRatio = isSmallScreen ? 2 : 4;
 
     const [mode, setMode] = useState<Mode>("month")
 
@@ -59,15 +62,14 @@ export default function TimelineCard(props: TimelineCardProps) {
         <Card sx={{flexGrow: 1}}>
             <CardActions sx={{paddingX: 2}}>
                 <Typography variant="h6" marginRight="auto" textAlign="center">Online</Typography>
-                <FormControl>
-                    <Select variant="standard" value={mode}
-                            onChange={(event: SelectChangeEvent<Mode>) => setMode(event.target.value as Mode)}>
-                        <MenuItem value="week">Last week</MenuItem>
-                        <MenuItem value="month">Last month</MenuItem>
-                        <MenuItem value="quarter">Last quarter</MenuItem>
-                        <MenuItem value="all">All</MenuItem>
-                    </Select>
-                </FormControl>
+                <Paper variant="outlined">
+                    <ButtonGroup size={isSmallScreen ? "small" : "medium"} onClick={(event) => setMode((event.target as HTMLButtonElement).value as Mode)}>
+                        <Button variant={mode === "week" ? "contained" : "outlined"} value="week">Week</Button>
+                        <Button variant={mode === "month" ? "contained" : "outlined"} value="month">Month</Button>
+                        <Button variant={mode === "quarter" ? "contained" : "outlined"} value="quarter">Quarter</Button>
+                        <Button variant={mode === "all" ? "contained" : "outlined"} value="all">All</Button>
+                    </ButtonGroup>
+                </Paper>
             </CardActions>
             <CardContent>
                 <Line data={{
@@ -101,20 +103,14 @@ export default function TimelineCard(props: TimelineCardProps) {
                         }
                     ],
                 }} options={{
+                    responsive: true,
+                    aspectRatio: aspectRatio,
                     interaction: {
                         mode: "nearest",
                         axis: "x",
                         intersect: false
                     },
                     plugins: {
-                        legend: {
-                            display: true,
-                            position: "bottom",
-                            labels: {
-                                usePointStyle: true,
-                                pointStyle: "circle",
-                            }
-                        },
                         decimation: {
                             enabled: true
                         },
@@ -165,23 +161,4 @@ export default function TimelineCard(props: TimelineCardProps) {
             </CardContent>
         </Card>
     )
-}
-
-const getTimestamp = (mode: Mode): number => {
-    const now = new Date();
-    now.setMinutes(now.getMinutes() < 30 ? 0 : 30, 0, 0);
-
-    switch (mode) {
-        case "week":
-            now.setDate(now.getDate() - 7);
-            return now.getTime();
-        case "month":
-            now.setMonth(now.getMonth() - 1);
-            return now.getTime();
-        case "quarter":
-            now.setMonth(now.getMonth() - 3);
-            return now.getTime();
-        case "all":
-            return 0
-    }
 }
