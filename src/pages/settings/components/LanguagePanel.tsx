@@ -5,7 +5,7 @@ import {useSettings} from "@hooks/useSettings";
 
 export function LanguagePanel() {
 
-    const {language, setLanguage} = useSettings();
+    const {language} = useSettings();
 
     return (
         <Grid container spacing={2} columns={{xs: 4, sm: 8, md: 12}}>
