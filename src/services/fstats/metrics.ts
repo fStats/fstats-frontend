@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 
-import {Mode} from "@pages/project/components/card/TimelineCard";
+import {Mode} from "@pages/project/components/card/types";
 import {getLineMetric, getPieMetric} from "@services/fstats/api/metrics";
 
 import {LineMetric, PieMetric} from "./types";
