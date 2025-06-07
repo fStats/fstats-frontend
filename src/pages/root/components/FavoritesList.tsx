@@ -3,8 +3,8 @@ import {List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheade
 import {Link} from "react-router-dom";
 
 import {useAuth} from "@hooks/useAuth";
-import {useUserFavorites} from "@services/fstats/users";
 import {DrawerCloseProps} from "@pages/root/components/types";
+import {useUserFavorites} from "@services/fstats/users";
 
 export default function FavoritesList(props: DrawerCloseProps) {
 
