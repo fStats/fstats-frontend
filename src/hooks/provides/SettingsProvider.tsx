@@ -2,6 +2,8 @@ import {useEffect, useState} from "react";
 
 import {ColorSettings, SettingsContent} from "@hooks/types";
 import {createSettingsProvider, defaultSettings} from "@hooks/useSettings";
+// eslint-disable-next-line import/no-named-as-default
+import i18n from "@init/i18n";
 
 const isColorSettingsArray = (arr: unknown): arr is ColorSettings[] => Array.isArray(arr) && arr.every(item =>
     typeof item === "object" &&
@@ -25,6 +27,10 @@ export const SettingsProvider = createSettingsProvider((): SettingsContent => {
 
     const [language, setLanguage] = useState<string>(settings.language);
     const [colors, setColors] = useState<ColorSettings[]>(settings.colors);
+
+    useEffect(() => {
+        i18n.changeLanguage(language);
+    }, [language, setLanguage]);
 
     useEffect(() => {
         localStorage.setItem("settings", JSON.stringify({language, colors}));
