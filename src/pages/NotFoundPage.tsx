@@ -1,11 +1,14 @@
 import {Typography} from "@mui/material";
+import {useEffect} from "react";
 
 import CenteredContainer from "@components/CenteredContainer";
 import {useLabel} from "@hooks/useLabel";
 
 export default function NotFoundPage() {
 
-    useLabel().setLabel("Who is here O_o ?");
+    const {setLabel} = useLabel();
+
+    useEffect(() => setLabel("Who is here O_o ?"), [setLabel]);
 
     return (
         <CenteredContainer>

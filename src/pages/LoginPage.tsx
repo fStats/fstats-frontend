@@ -1,7 +1,7 @@
 import {Button, Card, Container, Divider, Stack, Typography} from "@mui/material";
 import TextField from "@mui/material/TextField";
 import {useSnackbar} from "notistack";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
@@ -24,7 +24,9 @@ export function LoginPage() {
 
     const {data, status, error} = useLogin(user);
 
-    useLabel()?.setLabel("Authorization");
+    const {setLabel} = useLabel();
+
+    useEffect(() => setLabel("Authorization"), [setLabel]);
 
     if (status === "pending" && user) return (<Loader/>);
 

@@ -1,13 +1,16 @@
 import {Mail, Person} from "@mui/icons-material";
 import {Card, Divider, Link, Stack, Typography} from "@mui/material";
+import {useEffect} from "react";
 
 import {useLabel} from "@hooks/useLabel";
 
 
 export default function TermsPolicyPage() {
 
-    useLabel()?.setLabel("Terms & Policy");
+    const {setLabel} = useLabel();
 
+    useEffect(() => setLabel("Terms & Policy"), [setLabel]);
+    
     return (
         <Stack spacing={2}>
             <Typography variant="h4">Terms of Use</Typography>

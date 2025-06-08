@@ -13,9 +13,7 @@ export const SettingsPage = () => {
 
     const {setLabel} = useLabel();
 
-    useEffect(() => {
-        setLabel("Settings");
-    }, [setLabel]);
+    useEffect(() => setLabel("Settings"), [setLabel]);
 
     return (
         <Box>

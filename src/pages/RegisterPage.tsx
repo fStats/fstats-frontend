@@ -11,7 +11,7 @@ import {
     Typography
 } from "@mui/material";
 import {useSnackbar} from "notistack";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Link, useNavigate} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
@@ -36,7 +36,9 @@ export default function RegisterPage() {
     const {isAuthorized} = useAuth()!;
     if (isAuthorized) navigate("/profile");
 
-    useLabel()?.setLabel("Registration");
+    const {setLabel} = useLabel();
+
+    useEffect(() => setLabel("Registration"), [setLabel]);
 
     if (status === "pending" && user) return (<Loader/>);
 

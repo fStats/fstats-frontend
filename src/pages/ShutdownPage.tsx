@@ -8,13 +8,19 @@ import {
     TimelineSeparator
 } from "@mui/lab";
 import {Box, CssBaseline, Typography} from "@mui/material";
+import {useEffect} from "react";
 
 import {Loader} from "@components/Loader";
+import {useLabel} from "@hooks/useLabel";
 import {useNews} from "@services/news/news";
 
 export default function ShutdownPage() {
 
     const {data, status, error} = useNews();
+    
+    const {setLabel} = useLabel();
+    
+    useEffect(() => setLabel("Downtime"), [setLabel]);
 
     return (
         <Box padding={4}>

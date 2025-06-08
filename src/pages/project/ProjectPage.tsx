@@ -81,8 +81,9 @@ export function ProjectPage() {
         if (clientNotExist && serverNotExist) setTab(MetricTab.Mixed);
         else if (clientNotExist) setTab(MetricTab.Server);
         else if (serverNotExist) setTab(MetricTab.Client);
-        setLabel(projectData?.name ?? "");
     }, [projectId, clientNotExist, serverNotExist, setLabel, projectData?.name]);
+
+    useEffect(() => setLabel(projectData?.name ?? ""), [projectData?.name, setLabel]);
 
     useEffect(() => {
         setProjectFavorite(userFavoriteData?.some(project => project.id === projectId));
