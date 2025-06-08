@@ -1,15 +1,22 @@
 import {repoBase, supportedLanguages} from "@init/i18n";
+import {LanguageProgress} from "@utils/types";
 
 export async function getTranslationProgress() {
     const baseKeys = flattenKeys(await fetchTranslations("en"));
 
-    return await Promise.all(
-        supportedLanguages.map(async (lang) => ({
-            lang, percent: Math.round((flattenKeys(await fetchTranslations(lang)).filter((key) =>
+    const results = await Promise.all(
+        supportedLanguages.map(async (lang): Promise<LanguageProgress | undefined> => {
+            const percent = Math.round((flattenKeys(await fetchTranslations(lang)).filter((key) =>
                 baseKeys.includes(key)
-            ).length / baseKeys.length) * 100)
-        }))
+            ).length / baseKeys.length) * 100);
+
+            if (percent === 0 && lang !== "en") return undefined;
+
+            return { lang, percent };
+        })
     );
+
+    return results.filter(Boolean) as LanguageProgress[];
 }
 
 const flattenKeys = (obj: Record<string, string>, prefix = ""): string[] =>
