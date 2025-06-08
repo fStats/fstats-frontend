@@ -1,35 +1,49 @@
 import {repoBase, supportedLanguages} from "@init/i18n";
 
 export async function getTranslationProgress() {
-    const base = await fetchTranslations("en");
-    const baseKeys = flattenKeys(base);
+    const baseKeys = flattenKeys(await fetchTranslations("en"));
 
     return await Promise.all(
-        supportedLanguages.map(async (lang) => {
-            const translated = await fetchTranslations(lang);
-            const translatedKeys = flattenKeys(translated);
-
-            const filledKeys = translatedKeys.filter((key) =>
+        supportedLanguages.map(async (lang) => ({
+            lang, percent: Math.round((flattenKeys(await fetchTranslations(lang)).filter((key) =>
                 baseKeys.includes(key)
-            );
-
-            const percent = Math.round((filledKeys.length / baseKeys.length) * 100);
-
-            return {lang, percent};
-        })
+            ).length / baseKeys.length) * 100)
+        }))
     );
 }
 
-function flattenKeys(obj: Record<string, string>, prefix = ""): string[] {
-    return Object.entries(obj).flatMap(([key, value]) => {
+const flattenKeys = (obj: Record<string, string>, prefix = ""): string[] =>
+    Object.entries(obj).flatMap(([key, value]) => {
         const newKey = prefix ? `${prefix}.${key}` : key;
         return typeof value === "object" && value !== null
             ? flattenKeys(value, newKey)
             : [newKey];
     });
-}
 
-async function fetchTranslations(lang: string): Promise<Record<string, string>> {
-    const res = await fetch(`${repoBase}locales/${lang}.json`);
-    return await res.json();
-}
+const fetchTranslations = async (lang: string): Promise<Record<string, string>> => {
+    try {
+        const res = await fetch(`${repoBase}locales/${lang}.json`);
+
+        if (!res.ok) {
+            console.warn(`Translation file for "${lang}" not found (HTTP ${res.status})`);
+            return {};
+        }
+
+        try {
+            const json = JSON.parse(await res.text());
+
+            if (typeof json !== "object" || json === null) {
+                console.warn(`Translation file for "${lang}" is not valid JSON.`);
+                return {};
+            }
+
+            return json;
+        } catch (parseError) {
+            console.warn(`Failed to parse "${lang}.json" as JSON (maybe it's index.html fallback):`, parseError);
+            return {};
+        }
+    } catch (err) {
+        console.error(`Failed to fetch translation for "${lang}":`, err);
+        return {};
+    }
+};
