@@ -2,9 +2,9 @@ import {Mail, Person} from "@mui/icons-material";
 import {Card, Divider, Link, Stack, Typography} from "@mui/material";
 import { t } from "i18next";
 import {useEffect} from "react";
+import {Trans} from "react-i18next";
 
 import {useLabel} from "@hooks/useLabel";
-import {Trans} from "react-i18next";
 
 export default function TermsPolicyPage() {
 
