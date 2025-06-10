@@ -1,4 +1,5 @@
 import {Grid} from "@mui/material";
+import {t} from "i18next";
 
 import {BarCard} from "@pages/project/components/card/BarCard";
 import PieCard from "@pages/project/components/card/PieCard";
@@ -17,12 +18,12 @@ export function ChartsTab(props: ChartsTabProps) {
         <Grid container spacing={2}>
             <Grid size={{xs:12, md:6}} sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <BarCard
-                    title="FabricAPI"
+                    title={t("page.project.cards.fabricapi")}
                     clientMetric={clientPieData?.fabric_api_version ?? {}}
                     serverMetric={serverPieData?.fabric_api_version ?? {}}
                 />
                 <WorldMapCard
-                    title="Location"
+                    title={t("page.project.cards.loc")}
                     clientMetric={clientPieData?.location ?? {}}
                     serverMetric={serverPieData?.location ?? {}}
                 />
@@ -32,14 +33,14 @@ export function ChartsTab(props: ChartsTabProps) {
                 <Grid container spacing={2}>
                     <Grid size={{xs:12, sm:6}}>
                         <PieCard
-                            title="Minecraft Version"
+                            title={t("page.project.cards.mc")}
                             clientMetric={clientPieData?.minecraft_version ?? {}}
                             serverMetric={serverPieData?.minecraft_version ?? {}}
                         />
                     </Grid>
                     <Grid size={{xs:12, sm:6}}>
                         <PieCard
-                            title="Online Mode"
+                            title={t("page.project.cards.mode")}
                             clientMetric={formatOnlineMode(clientPieData?.online_mode ?? {})}
                             serverMetric={formatOnlineMode(serverPieData?.online_mode ?? {})}
                         />
@@ -49,14 +50,14 @@ export function ChartsTab(props: ChartsTabProps) {
                 <Grid container spacing={2}>
                     <Grid size={{xs:12, sm:6}}>
                         <PieCard
-                            title="Mod Version"
+                            title={t("page.project.cards.mod")}
                             clientMetric={clientPieData?.mod_version ?? {}}
                             serverMetric={serverPieData?.mod_version ?? {}}
                         />
                     </Grid>
                     <Grid size={{xs:12, sm:6}}>
                         <PieCard
-                            title="Operation System"
+                            title={t("page.project.cards.os")}
                             clientMetric={formatOperationSystem(clientPieData?.os ?? {})}
                             serverMetric={formatOperationSystem(serverPieData?.os ?? {})}
                         />

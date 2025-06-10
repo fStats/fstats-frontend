@@ -8,12 +8,14 @@ import {
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
 import {Line} from "react-chartjs-2";
 import {useNavigate} from "react-router-dom";
 
 import {useSettings} from "@hooks/useSettings";
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useLineMetricMutation} from "@services/fstats/metrics";
 import {getTimestamp} from "@utils/convertors/timestamp";
 import {decodeLineMetric} from "@utils/decoders/line";
@@ -52,8 +54,8 @@ export default function TimelineCard(props: TimelineCardProps) {
     const mergedDecodedData = mergeData(clientDecodedData, serverDecodedData);
 
     if (serverStatus === "error" || clientStatus === "error") {
-        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"});
-        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"});
+        if (serverError) enqueueSnackbar(getTranslateKey(serverError?.message), {variant: "error"});
+        if (clientError) enqueueSnackbar(getTranslateKey(clientError?.message), {variant: "error"});
         navigate("/not-found");
         return <></>;
     }
@@ -61,13 +63,15 @@ export default function TimelineCard(props: TimelineCardProps) {
     return (
         <Card sx={{flexGrow: 1}}>
             <CardActions sx={{paddingX: 2}}>
-                <Typography variant="h6" marginRight="auto" textAlign="center">Online</Typography>
+                <Typography variant="h6" marginRight="auto" textAlign="center">
+                    {t("page.project.cards.timeline")}
+                </Typography>
                 <Paper variant="outlined">
                     <ButtonGroup size={isSmallScreen ? "small" : "medium"} onClick={(event) => setMode((event.target as HTMLButtonElement).value as Mode)}>
-                        <Button variant={mode === "week" ? "contained" : "outlined"} value="week">Week</Button>
-                        <Button variant={mode === "month" ? "contained" : "outlined"} value="month">Month</Button>
-                        <Button variant={mode === "quarter" ? "contained" : "outlined"} value="quarter">Quarter</Button>
-                        <Button variant={mode === "all" ? "contained" : "outlined"} value="all">All</Button>
+                        <Button variant={mode === "week" ? "contained" : "outlined"} value="week">{t("page.project.time.week")}</Button>
+                        <Button variant={mode === "month" ? "contained" : "outlined"} value="month">{t("page.project.time.month")}</Button>
+                        <Button variant={mode === "quarter" ? "contained" : "outlined"} value="quarter">{t("page.project.time.quarter")}</Button>
+                        <Button variant={mode === "all" ? "contained" : "outlined"} value="all">{t("page.project.time.all")}</Button>
                     </ButtonGroup>
                 </Paper>
             </CardActions>
@@ -76,7 +80,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                     datasets: [
                         {
                             data: serverDecodedData,
-                            label: "Server",
+                            label: t("chart.server"),
                             borderColor: colors[0].color,
                             backgroundColor: colors[0].color,
                             pointStyle: false,
@@ -85,7 +89,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                         },
                         {
                             data: clientDecodedData,
-                            label: "Client",
+                            label: t("chart.client"),
                             borderColor: colors[1].color,
                             backgroundColor: colors[1].color,
                             pointStyle: false,
@@ -94,7 +98,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                         },
                         {
                             data: mergedDecodedData,
-                            label: "Mixed",
+                            label: t("chart.mixed"),
                             borderColor: colors[2].color,
                             backgroundColor: colors[2].color,
                             pointStyle: false,

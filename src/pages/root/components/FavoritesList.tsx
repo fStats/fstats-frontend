@@ -1,5 +1,6 @@
 import {Star} from "@mui/icons-material";
 import {List, ListItem, ListItemButton, ListItemIcon, ListItemText, ListSubheader, Typography} from "@mui/material";
+import {t} from "i18next";
 import {Link} from "react-router-dom";
 
 import {useAuth} from "@hooks/useAuth";
@@ -17,7 +18,9 @@ export default function FavoritesList(props: DrawerCloseProps) {
     const {data: favorites = []} = useUserFavorites(userId, token);
 
     return (
-        isAuthorized && favorites && favorites.length > 0 && <List subheader={<ListSubheader>Favorites</ListSubheader>}>
+        isAuthorized && favorites && favorites.length > 0 && <List subheader={
+            <ListSubheader>{t("page.root.drawer.favorites")}</ListSubheader>
+        }>
             {favorites.map(project =>
                 <ListItem disablePadding key={project.id}>
                     <ListItemButton component={Link} to={`projects/${project.id}`} onClick={props.handleDrawerClose}>

@@ -1,5 +1,6 @@
 import {Add, Delete} from "@mui/icons-material";
 import {Box, ClickAwayListener, Divider, Grid, IconButton, Paper, Popper, Stack, TextField, useTheme} from "@mui/material";
+import {t} from "i18next";
 import {MouseEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
 import {HexAlphaColorPicker} from "react-colorful";
 
@@ -100,7 +101,7 @@ export function ChartPanel() {
                                     />
                                 </Box>
                                 <TextField
-                                    label="Color Code"
+                                    label={t("page.settings.colorcode")}
                                     value={color.color}
                                     onChange={(e) => handleColorChange(color.index, e.target.value)}
                                     fullWidth

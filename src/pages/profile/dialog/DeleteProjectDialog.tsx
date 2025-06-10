@@ -1,7 +1,9 @@
 import {Button, CircularProgress, Dialog, DialogActions, DialogTitle} from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {Dispatch} from "react";
 
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useDeleteProject} from "@services/fstats/projects";
 
 export default function DeleteProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
@@ -13,21 +15,23 @@ export default function DeleteProjectDialog(props: { projectId: number, open: bo
     const handleClose = () => props.setOpen(false);
 
     if (deleteProjectMutation.isError) {
-        enqueueSnackbar(deleteProjectMutation.error?.message, {variant: "error"});
+        enqueueSnackbar(getTranslateKey(deleteProjectMutation.error?.message), {variant: "error"});
     }
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
             {deleteProjectMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
-                <DialogTitle>Are you sure you want to delete the project?</DialogTitle>
+                <DialogTitle>{t("page.profile.dialog.delete.title")}</DialogTitle>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>{t("page.profile.dialog.cancel")}</Button>
                     <Button variant="contained" color="error" onClick={() => {
                         deleteProjectMutation.mutate((props.projectId), {
-                            onSuccess: () => enqueueSnackbar("Project deleted", {variant: "success"}),
+                            onSuccess: () => enqueueSnackbar(t("page.profile.dialog.delete.deleted"), {variant: "success"}),
                             onSettled: () => handleClose()
                         });
-                    }} autoFocus>Delete</Button>
+                    }} autoFocus>
+                        {t("page.profile.dialog.delete.delete")}
+                    </Button>
                 </DialogActions>
             </>}
         </Dialog>

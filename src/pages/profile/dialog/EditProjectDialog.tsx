@@ -8,9 +8,12 @@ import {
     DialogTitle,
     TextField
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
+import {Trans} from "react-i18next";
 
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useEditProject} from "@services/fstats/projects";
 
 export default function EditProjectDialog(props: { projectId: number, open: boolean, setOpen: Dispatch<boolean> }) {
@@ -24,34 +27,42 @@ export default function EditProjectDialog(props: { projectId: number, open: bool
     const handleClose = () => props.setOpen(false);
 
     if (editProjectMutation.isError) {
-        enqueueSnackbar(editProjectMutation.error?.message, {variant: "error"});
+        enqueueSnackbar(getTranslateKey(editProjectMutation.error?.message), {variant: "error"});
     }
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
             {editProjectMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
-                <DialogTitle>Edit project</DialogTitle>
+                <DialogTitle>
+                    {t("page.profile.dialog.edit.title")}
+                </DialogTitle>
                 <DialogContent>
-                    <TextField sx={{width: "100%"}} inputMode="text" placeholder="New project name" onChange={
+                    <TextField sx={{width: "100%"}} inputMode="text" placeholder={t("page.profile.dialog.edit.field")} onChange={
                         (event) => setName(event.target.value)
                     }/>
                     <Alert sx={{marginTop: 1}} variant="outlined" severity="warning">
-                        This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!
+                        <Trans i18nKey="page.profile.dialog.edit.alert" components={{
+                            b: <b/>
+                        }}/>
                     </Alert>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>
+                        {t("page.profile.dialog.cancel")}
+                    </Button>
                     <Button disabled={name.trim().length <= 0} variant="contained" onClick={() => {
                         if (name.trim().length <= 0) {
-                            enqueueSnackbar("Project name can't be blank", {variant: "warning"});
+                            enqueueSnackbar(t("page.profile.dialog.edit.blank"), {variant: "warning"});
                             return;
                         }
 
-                        editProjectMutation.mutate({name: name,}, {
-                            onSuccess: () => enqueueSnackbar("Project created", {variant: "success"}),
+                        editProjectMutation.mutate({name: name}, {
+                            onSuccess: () => enqueueSnackbar(t("page.profile.dialog.edit.updated"), {variant: "success"}),
                             onSettled: () => handleClose()
                         });
-                    }} autoFocus>Rename</Button>
+                    }} autoFocus>
+                        {t("page.profile.dialog.edit.rename")}
+                    </Button>
                 </DialogActions>
             </>}
         </Dialog>

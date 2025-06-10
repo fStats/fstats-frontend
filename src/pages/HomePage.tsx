@@ -1,71 +1,53 @@
-import {ArrowForward} from "@mui/icons-material";
-import {Button, Card, CardActionArea, CardContent, Grid, Typography} from "@mui/material";
+import {ArrowForward, Launch} from "@mui/icons-material";
+import {Button, Card, CardActionArea, CardContent, Grid, Stack, Typography} from "@mui/material";
+import {t} from "i18next";
+import {useEffect} from "react";
+import {Trans} from "react-i18next";
 import {Link} from "react-router-dom";
 
 import {useLabel} from "@hooks/useLabel";
 
 export default function HomePage() {
 
-    useLabel()?.setLabel("Home");
+    const {setLabel} = useLabel();
+
+    useEffect(() => setLabel(t("page.home.label")), [setLabel]);
 
     const cards = [
         {
-            title: "Fabric Metrics",
-            description: (
-                <>
-                    fStats allows you to <b>collect usage data</b> of your mods.
-                </>
-            ),
+            title: t("page.home.card.about.title"),
+            description: <Trans i18nKey="page.home.card.about.description" components={{b: <b/>}}/>,
             to: "project/1",
         },
         {
-            title: "Open Source",
-            description: (
-                <>
-                    fStats is <b>completely open source</b>! Feel free to check out our GitHub.
-                </>
-            ),
+            title: t("page.home.card.opensource.title"),
+            description: <Trans i18nKey="page.home.card.opensource.description" components={{b: <b/>}}/>,
             to: "https://github.com/fStats",
         },
         {
-            title: "Plug and Play",
-            description: (
-                <>
-                    <b>Simple</b> to implement <b>into already done</b> project. Just embed it to mod and{" "}
-                    <b>add 1 row into fabric.mod.json</b>.
-                </>
-            ),
+            title: t("page.home.card.plugandplay.title"),
+            description: <Trans i18nKey="page.home.card.plugandplay.description" components={{b: <b/>}}/>,
             to: "getting-started",
         },
         {
-            title: "OpenAPI",
-            description: (
-                <>
-                    The <b>REST-Api</b> of fStats is very simple. It's meant to allow you to{" "}
-                    <b>make your own service</b> based on fStats data.
-                </>
-            ),
+            title: t("page.home.card.openapi.title"),
+            description: <Trans i18nKey="page.home.card.openapi.description" components={{b: <b/>}}/>,
             to: "https://api.fstats.dev/swagger",
         },
         {
-            title: "Join our Discord",
-            description: (
-                <>
-                    Keep <b>up-to-date</b> with the development of fStats, <b>get support</b> or{" "}
-                    <b>just chat</b>.
-                </>
-            ),
+            title: t("page.home.card.discord.title"),
+            description: <Trans i18nKey="page.home.card.discord.description" components={{b: <b/>}}/>,
             to: "https://discord.gg/pbwnMwnUD6",
         },
     ];
 
     return (
-        <Grid container spacing={8} paddingTop={8} paddingX={{ xs: 2, md: 16 }} direction="column">
+        <Grid container spacing={8} paddingTop={8} paddingX={{xs: 2, md: 16}} direction="column">
             <Grid>
                 <Grid container direction="column" spacing={4} alignItems="center">
                     <Grid>
                         <Typography variant="h3" textAlign="center">
-                            fStats - Fabric mods metric system
+                            {t("page.home.title")}
                         </Typography>
                     </Grid>
                     <Grid>
@@ -74,9 +56,9 @@ export default function HomePage() {
                             variant="contained"
                             component={Link}
                             to="getting-started"
-                            endIcon={<ArrowForward />}
+                            endIcon={<ArrowForward/>}
                         >
-                            Getting started
+                            {t("page.home.start")}
                         </Button>
                     </Grid>
                 </Grid>
@@ -85,13 +67,19 @@ export default function HomePage() {
             <Grid>
                 <Grid container spacing={2} justifyContent="center">
                     {cards.map(card => (
-                        <Grid size={{xs:12, sm:6, md:4}} key={card.title}>
-                            <Card sx={{ height: "100%" }}>
-                                <CardActionArea component={Link} to={card.to} sx={{ height: "100%" }}>
+                        <Grid size={{xs: 12, sm: 6, md: 4}} key={card.title}>
+                            <Card sx={{height: "100%"}}>
+                                <CardActionArea component={Link} to={card.to} sx={{height: "100%"}}>
                                     <CardContent>
-                                        <Typography variant="h5" textAlign="center" pb={1}>
-                                            {card.title}
-                                        </Typography>
+                                        <Stack direction="row" justifyContent="center">
+                                            <Typography variant="h5" textAlign="center" pb={1}>
+                                                {card.title}
+                                            </Typography>
+                                            {card.to.startsWith("http") && <>
+                                                &nbsp;
+                                                <Launch fontSize="inherit"/>
+                                            </>}
+                                        </Stack>
                                         <Typography variant="body1">
                                             {card.description}
                                         </Typography>

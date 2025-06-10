@@ -8,10 +8,12 @@ import {
     Stack,
     TextField
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
 
 import {useAuth} from "@hooks/useAuth";
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useUserPatch} from "@services/fstats/users";
 
 export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
@@ -31,27 +33,29 @@ export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch
     };
 
     if (patchUserMutation.isError) {
-        enqueueSnackbar(patchUserMutation.error?.message, {variant: "error"});
+        enqueueSnackbar(getTranslateKey(patchUserMutation.error?.message), {variant: "error"});
     }
 
     return (
         <Dialog open={props.open} onClose={handleClose}>
             {patchUserMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
-                <DialogTitle>Edit user</DialogTitle>
+                <DialogTitle>
+                    {t("page.profile.dialog.user.edit.title")}
+                </DialogTitle>
                 <DialogContent>
                     <Stack spacing={2} paddingY={1}>
-                        <TextField variant="outlined" label="Username" value={username}
+                        <TextField variant="outlined" label={t("page.profile.dialog.user.edit.username")} value={username}
                                    onChange={(event) => setUsername(event.target.value)}></TextField>
-                        <TextField variant="outlined" label="Password" value={password}
+                        <TextField variant="outlined" label={t("page.profile.dialog.user.edit.password")} value={password}
                                    onChange={(event) => setPassword(event.target.value)} type="password"></TextField>
                     </Stack>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>{t("page.profile.dialog.cancel")}</Button>
                     <Button variant="contained" disabled={username.trim().length <= 0 && password.trim().length <= 0}
                             onClick={() => {
                                 if (username.trim().length <= 0 && password.trim().length <= 0) {
-                                    enqueueSnackbar("At least one field should be filled", {variant: "warning"});
+                                    enqueueSnackbar(t("page.profile.dialog.user.edit.empty"), {variant: "warning"});
                                     return;
                                 }
                                 patchUserMutation.mutate({
@@ -61,11 +65,13 @@ export default function EditUserDialog(props: { open: boolean, setOpen: Dispatch
                                     onSuccess: () => {
                                         setToken("");
                                         localStorage.removeItem("token");
-                                        return enqueueSnackbar("User data updated, please re-login", {variant: "success"});
+                                        return enqueueSnackbar(t("page.profile.dialog.user.edit.alert"), {variant: "success"});
                                     },
                                     onSettled: () => handleClose()
                                 });
-                            }} autoFocus>Edit</Button>
+                            }} autoFocus>
+                        {t("page.profile.dialog.user.edit.edit")}
+                    </Button>
                 </DialogActions>
             </>}
         </Dialog>

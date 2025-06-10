@@ -1,4 +1,5 @@
 import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
+import { t } from "i18next";
 import {Link} from "react-router-dom";
 
 import {navigationRoutes} from "@pages/root/components/navigation";
@@ -13,7 +14,7 @@ export default function NavigationList(props: DrawerCloseProps) {
                         <ListItemIcon>
                             {item.icon}
                         </ListItemIcon>
-                        <ListItemText primary={item.label}/>
+                        <ListItemText primary={t(item.label)}/>
                     </ListItemButton>
                 </ListItem>
             )}

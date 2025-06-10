@@ -1,5 +1,6 @@
 import { Menu } from "@mui/icons-material";
 import {AppBar, Button, IconButton, Toolbar, Typography} from "@mui/material";
+import {t} from "i18next";
 import {Link} from "react-router-dom";
 
 import {useAuth} from "@hooks/useAuth";
@@ -36,7 +37,7 @@ export default function RootAppBar(props: DrawerStateProps) {
                     <Menu />
                 </IconButton>
                 <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>{label}</Typography>
-                {isAuthorized ? <UserMenu/> : <Button color="inherit" component={Link} to="login">Login</Button>}
+                {isAuthorized ? <UserMenu/> : <Button color="inherit" component={Link} to="login">{t("page.root.menu.login")}</Button>}
             </Toolbar>
         </AppBar>
     );

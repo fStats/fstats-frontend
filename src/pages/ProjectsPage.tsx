@@ -10,12 +10,14 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate, useSearchParams} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
 import {useLabel} from "@hooks/useLabel";
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useProjects} from "@services/fstats/projects";
 
 export default function ProjectsPage() {
@@ -30,7 +32,7 @@ export default function ProjectsPage() {
 
     const page = Number.parseInt(searchParams.get("page") || "0") || 0;
 
-    useEffect(() => setLabel("Projects catalogue"), [setLabel]);
+    useEffect(() => setLabel(t("page.projects.label")), [setLabel]);
 
     const filteredData = useMemo(() => data ? (searchFilter.length > 0
         ? data.filter((value) => !value.is_hidden && value.name.toLowerCase().includes(searchFilter.toLowerCase()))
@@ -43,7 +45,7 @@ export default function ProjectsPage() {
     if (status === "pending") return <Loader/>;
 
     if (status === "error") {
-        enqueueSnackbar(error?.message, {variant: "error"});
+        enqueueSnackbar(getTranslateKey(error?.message), {variant: "error"});
         navigate("/not-found");
         return <></>;
     }
@@ -53,7 +55,7 @@ export default function ProjectsPage() {
     return (
         <>
             <TextField sx={{flexGrow: 1, paddingBottom: 2}} fullWidth variant="outlined"
-                       placeholder="Enter project name"
+                       placeholder={t("page.projects.field")}
                        value={searchFilter}
                        onChange={event => {
                            setSearchFilter(event.target.value);
@@ -65,8 +67,8 @@ export default function ProjectsPage() {
                         <Table stickyHeader aria-label="sticky table">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>Project name</TableCell>
-                                    <TableCell>Project owner</TableCell>
+                                    <TableCell>{t("page.projects.table.project")}</TableCell>
+                                    <TableCell>{t("page.projects.table.owner")}</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -93,7 +95,7 @@ export default function ProjectsPage() {
                         onPageChange={(_, newPage) => setSearchParams({page: newPage.toString()})}
                         rowsPerPageOptions={[]}
                     />
-                </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
+                </Paper> : <Typography variant="h4" textAlign="center">{t("page.projects.empty")}</Typography>}
         </>
     );
 }

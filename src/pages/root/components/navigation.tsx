@@ -4,27 +4,27 @@ import {NavItem} from "@pages/root/components/types";
 
 export const navigationRoutes: NavItem[] = [
     {
-        label: "Home",
+        label: "page.root.drawer.home",
         route: "/",
         icon: <Home/>
     },
     {
-        label: "Getting started",
+        label: "page.root.drawer.getting",
         route: "/getting-started",
         icon: <MenuBook/>
     },
     {
-        label: "Projects catalogue",
+        label: "page.root.drawer.projects",
         route: "/projects",
         icon: <FormatListBulleted/>
     },
     {
-        label: "FAQ",
+        label: "page.root.drawer.faq",
         route: "/faq",
         icon: <QuestionAnswer/>
     },
     {
-        label: "Terms & Policy",
+        label: "page.root.drawer.terms",
         route: "/terms-policy",
         icon: <Gavel/>
     },

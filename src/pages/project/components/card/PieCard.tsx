@@ -1,4 +1,5 @@
 import {Card, CardContent, Typography} from "@mui/material";
+import {t} from "i18next";
 import {Pie} from "react-chartjs-2";
 
 import {useSettings} from "@hooks/useSettings";
@@ -17,7 +18,7 @@ export default function PieCard(props: CardProps) {
                 <Typography variant="h6" textAlign="center">{props.title}</Typography>
                 <Pie data={{
                     datasets: [{
-                        label: "Count",
+                        label: t("chart.count"),
                         data: Object.values(metric) as number[],
                         borderWidth: 1,
                         backgroundColor: colors.map(({color}) => color),

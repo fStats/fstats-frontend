@@ -10,14 +10,17 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useState} from "react";
+import {Trans} from "react-i18next";
 import {Link, useNavigate} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
 import {useRegistration} from "@services/fstats/auth";
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {User} from "@services/fstats/types";
 
 export default function RegisterPage() {
@@ -38,20 +41,20 @@ export default function RegisterPage() {
 
     const {setLabel} = useLabel();
 
-    useEffect(() => setLabel("Registration"), [setLabel]);
+    useEffect(() => setLabel(t("page.register.label")), [setLabel]);
 
     if (status === "pending" && user) return (<Loader/>);
 
     if (status === "error" && user) {
-        enqueueSnackbar(error?.message, {variant: "error"});
+        enqueueSnackbar(getTranslateKey(error?.message), {variant: "error"});
         setUser(undefined);
     }
 
     if (status === "success" && user) {
         if (data.code !== 201) {
-            enqueueSnackbar(data.message, {variant: "warning"});
+            enqueueSnackbar(getTranslateKey(data.message), {variant: "warning"});
         } else {
-            enqueueSnackbar(data.message, {variant: "success"});
+            enqueueSnackbar(getTranslateKey(data.message), {variant: "success"});
             navigate("/login", {state: {username: username}});
         }
         setUser(undefined);
@@ -59,12 +62,12 @@ export default function RegisterPage() {
 
     function registerUser(username: string, password: string, passwordRepeat: string) {
         if (username.trim() === "" || password.trim() === "") {
-            enqueueSnackbar("Some fields is empty", {variant: "warning"});
+            enqueueSnackbar(t("page.register.field.empty"), {variant: "warning"});
             return;
         }
 
         if (password !== passwordRepeat) {
-            enqueueSnackbar("Password doesn't match", {variant: "warning"});
+            enqueueSnackbar(t("page.register.field.mismatch"), {variant: "warning"});
             return;
         }
 
@@ -78,24 +81,30 @@ export default function RegisterPage() {
         <Container maxWidth="xs">
             <Card>
                 <Stack padding={2} spacing={2}>
-                    <Typography variant="h4" align="center">Register</Typography>
-                    <TextField label="Username" variant="outlined" type="text"
+                    <Typography variant="h4" align="center">
+                        {t("page.register.header")}
+                    </Typography>
+                    <TextField label={t("page.register.field.username")} variant="outlined" type="text"
                                onChange={event => setUsername(event.target.value)}/>
-                    <TextField label="Password" variant="outlined" type="password"
+                    <TextField label={t("page.register.field.password")} variant="outlined" type="password"
                                onChange={event => setPassword(event.target.value)}/>
-                    <TextField label="Password repeat" variant="outlined" type="password"
+                    <TextField label={t("page.register.field.passwordrepeat")} variant="outlined" type="password"
                                onChange={event => setPasswordRepeat(event.target.value)}/>
                     <FormControlLabel control={
                         <Checkbox checked={acceptTermsAndPolicy}
                                   onChange={event => setAcceptTermsAndPolicy(event.target.checked)}/>
-                    } label={<>
-                        Accept <MuiLink href="/terms-policy" underline="none" target="_blank">Terms & Policy</MuiLink>
-                    </>}/>
+                    } label={<Trans i18nKey="page.register.button.terms" components={{
+                        redirect: <MuiLink href="/terms-policy" underline="none" target="_blank"/>
+                    }}/>}/>
                     <Stack direction="row" divider={<Divider orientation="vertical" flexItem/>} spacing={2}>
                         <Button disabled={!acceptTermsAndPolicy} color="inherit" variant="contained" sx={{flexGrow: 9}}
-                                onClick={() => registerUser(username, password, passwordRepeat)}>Register</Button>
+                                onClick={() => registerUser(username, password, passwordRepeat)}>
+                            {t("page.register.button.register")}
+                        </Button>
                         <Button color="inherit" variant="outlined" sx={{flexGrow: 1}} component={Link}
-                                to="/login">Login</Button>
+                                to="/login">
+                            {t("page.register.button.login")}
+                        </Button>
                     </Stack>
                 </Stack>
             </Card>

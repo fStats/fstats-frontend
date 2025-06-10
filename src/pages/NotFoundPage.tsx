@@ -1,4 +1,5 @@
 import {Typography} from "@mui/material";
+import {t} from "i18next";
 import {useEffect} from "react";
 
 import CenteredContainer from "@components/CenteredContainer";
@@ -8,12 +9,16 @@ export default function NotFoundPage() {
 
     const {setLabel} = useLabel();
 
-    useEffect(() => setLabel("Who is here O_o ?"), [setLabel]);
+    useEffect(() => setLabel(t("page.notfound.label")), [setLabel]);
 
     return (
         <CenteredContainer>
-            <Typography variant="h1" paddingBottom={2}>🦆</Typography>
-            <Typography variant="h2">NOT FOUND</Typography>
+            <Typography variant="h1" paddingBottom={2}>
+                {t("page.notfound.emoji")}
+            </Typography>
+            <Typography variant="h2">
+                {t("page.notfound.message")}
+            </Typography>
         </CenteredContainer>
     );
 }

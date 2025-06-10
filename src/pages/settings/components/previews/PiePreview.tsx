@@ -1,3 +1,4 @@
+import {t} from "i18next";
 import {Pie} from "react-chartjs-2";
 
 import {useSettings} from "@hooks/useSettings";
@@ -12,7 +13,7 @@ export function PiePreview({previewData}: PreviewProps) {
         <Pie
             data={{
                 datasets: [{
-                    label: "Count",
+                    label: t("page.chart.count"),
                     data: Object.values(previewData) as number[],
                     borderWidth: 1,
                     backgroundColor: colors.map(({color}) => color),

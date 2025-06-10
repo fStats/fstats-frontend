@@ -1,11 +1,7 @@
-import {DataValue} from "@services/fstats/types";
-import {KeyValue} from "@utils/convertors/types";
+import {t} from "i18next";
 
-const onlineModeMap: KeyValue = {
-    "true": "Online",
-    "false": "Offline",
-};
+import {DataValue} from "@services/fstats/types";
 
 export const formatOnlineMode = (data: DataValue): DataValue => Object.fromEntries(
-    Object.entries(data).map(([key, count]) => [onlineModeMap[key] ?? key, count])
+    Object.entries(data).map(([key, count]) => [t(`page.project.mode.${key}`) ?? key, count])
 );

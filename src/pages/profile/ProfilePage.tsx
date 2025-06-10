@@ -17,6 +17,7 @@ import {
     Typography
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -24,6 +25,7 @@ import {useNavigate} from "react-router-dom";
 import {Loader} from "@components/Loader";
 import {useAuth} from "@hooks/useAuth";
 import {useLabel} from "@hooks/useLabel";
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {Project, User} from "@services/fstats/types";
 import {useUserProjects} from "@services/fstats/users";
 import {getUserFromJWT} from "@utils/decoders/jwt";
@@ -68,12 +70,12 @@ export default function ProfilePage() {
 
     useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => project.is_hidden).length), [sortedProjects]);
 
-    useEffect(() => setLabel("Profile"), [setLabel]);
+    useEffect(() => setLabel(t("page.profile.label")), [setLabel]);
 
     if (status === "pending") return <Loader/>;
 
     if (status === "error") {
-        enqueueSnackbar(error?.message, {variant: "error"});
+        enqueueSnackbar(getTranslateKey(error?.message), {variant: "error"});
         navigate("/not-found");
         return <></>;
     }
@@ -95,19 +97,23 @@ export default function ProfilePage() {
                                 <Stack spacing={2} direction="row">
                                     <Stack>
                                         <Typography variant="h6"><b>{user.username}</b></Typography>
-                                        <Typography><b>{projects.length}</b> projects</Typography>
+                                        <Typography><b>{projects.length}</b> {t("page.profile.projects")}</Typography>
                                         {hidedProjectsCount > 0 && <Typography color="#ffb74d">
-                                            <b>{hidedProjectsCount}</b> hided projects
+                                            <b>{hidedProjectsCount}</b> {t("page.profile.hidden")}
                                         </Typography>}
                                     </Stack>
                                     <Stack spacing={2} direction="row">
                                         <Button variant="contained" startIcon={<Edit/>}
                                                 onClick={() => setEditUserOpen(true)}>
-                                            <Typography>Edit</Typography>
+                                            <Typography>
+                                                {t("page.profile.button.edit")}
+                                            </Typography>
                                         </Button>
                                         <Button variant="contained" color="error" startIcon={<Delete/>}
                                                 onClick={() => setRemoveUserOpen(true)}>
-                                            <Typography>Delete</Typography>
+                                            <Typography>
+                                                {t("page.profile.button.delete")}
+                                            </Typography>
                                         </Button>
                                     </Stack>
                                 </Stack>
@@ -121,10 +127,10 @@ export default function ProfilePage() {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>ID</TableCell>
-                                        <TableCell>Project name</TableCell>
-                                        <TableCell>Project owner</TableCell>
-                                        <TableCell align="center">Visible</TableCell>
+                                        <TableCell>{t("page.profile.table.id")}</TableCell>
+                                        <TableCell>{t("page.profile.table.name")}</TableCell>
+                                        <TableCell>{t("page.profile.table.owner")}</TableCell>
+                                        <TableCell align="center">{t("page.profile.table.visible")}</TableCell>
                                         <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -133,7 +139,7 @@ export default function ProfilePage() {
                                         <TableRow hover tabIndex={-1} key={row.id}>
                                             <TableCell onClick={() => {
                                                 navigator.clipboard.writeText(row.id!.toString()).then(() =>
-                                                    enqueueSnackbar("Project ID copied to clipboard", {variant: "info"})
+                                                    enqueueSnackbar(t("page.profile.clipboard"), {variant: "info"})
                                                 );
                                             }}>
                                                 {row.id}
@@ -180,7 +186,9 @@ export default function ProfilePage() {
                             onPageChange={(_, newPage) => setPage(newPage)}
                             rowsPerPageOptions={[]}
                         />
-                    </Paper> : <Typography variant="h4" textAlign="center">No project available</Typography>}
+                    </Paper> : <Typography variant="h4" textAlign="center">
+                        {t("page.profile.empty")}
+                    </Typography>}
             </Stack>
             <Fab color="primary" sx={{position: "fixed", bottom: 16, right: 16}} onClick={() => setCreateOpen(true)}>
                 <Add/>

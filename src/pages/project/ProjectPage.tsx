@@ -11,6 +11,7 @@ import {
     Tooltip,
     Typography
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
@@ -21,6 +22,7 @@ import {useLabel} from "@hooks/useLabel";
 import {useSettings} from "@hooks/useSettings";
 import TimelineCard from "@pages/project/components/card/TimelineCard";
 import {ChartsTab} from "@pages/project/components/ChartsTab";
+import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useLineMetricMutation, usePieMetric} from "@services/fstats/metrics";
 import {useAddProjectToFavorite, useProject, useRemoveProjectFromFavorite} from "@services/fstats/projects";
 import {User} from "@services/fstats/types";
@@ -94,10 +96,10 @@ export function ProjectPage() {
         return (<Loader/>);
 
     if (serverStatus === "error" || clientStatus === "error" || serverPieStatus === "error" || clientPieStatus === "error") {
-        if (serverError) enqueueSnackbar(serverError?.message, {variant: "error"});
-        if (clientError) enqueueSnackbar(clientError?.message, {variant: "error"});
-        if (serverPieError) enqueueSnackbar(serverPieError?.message, {variant: "error"});
-        if (clientPieError) enqueueSnackbar(clientPieError?.message, {variant: "error"});
+        if (serverError) enqueueSnackbar(getTranslateKey(serverError?.message), {variant: "error"});
+        if (clientError) enqueueSnackbar(getTranslateKey(clientError?.message), {variant: "error"});
+        if (serverPieError) enqueueSnackbar(getTranslateKey(serverPieError?.message), {variant: "error"});
+        if (clientPieError) enqueueSnackbar(getTranslateKey(clientPieError?.message), {variant: "error"});
         navigate("/not-found");
         return <></>;
     }
@@ -122,7 +124,7 @@ export function ProjectPage() {
                 {projectData.hiding_reason}
             </Alert>}
             <Grid container spacing={2} direction="row" justifyContent="space-evenly">
-                <Tooltip title={`Peak: ${new Date(findMaxClientX()?.x).toLocaleString()}`}>
+                <Tooltip title={t("page.project.peek") + `: ${new Date(findMaxClientX()?.x).toLocaleString()}`}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{
                             backgroundColor: colors[1].color,
@@ -133,11 +135,11 @@ export function ProjectPage() {
                             borderColor: "divider"
                         }}/>
                         <Typography variant="button">
-                            Client {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0} / {findMaxClientX()?.y ?? 0}
+                            {t("chart.client")} {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0} / {findMaxClientX()?.y ?? 0}
                         </Typography>
                     </Stack>
                 </Tooltip>
-                <Tooltip title={`Peak: ${new Date(findMaxMixedX()?.x).toLocaleString()}`}>
+                <Tooltip title={t("page.project.peek") + `: ${new Date(findMaxMixedX()?.x).toLocaleString()}`}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{
                             backgroundColor: colors[2].color,
@@ -148,11 +150,11 @@ export function ProjectPage() {
                             borderColor: "divider"
                         }}/>
                         <Typography variant="button">
-                            Mixed {mergedDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxMixedX()?.y ?? 0}
+                            {t("chart.mixed")} {mergedDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxMixedX()?.y ?? 0}
                         </Typography>
                     </Stack>
                 </Tooltip>
-                <Tooltip title={`Peak: ${new Date(findMaxServerX()?.x).toLocaleString()}`}>
+                <Tooltip title={t("page.project.peek") + `: ${new Date(findMaxServerX()?.x).toLocaleString()}`}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{
                             backgroundColor: colors[0].color,
@@ -163,7 +165,7 @@ export function ProjectPage() {
                             borderColor: "divider"
                         }}/>
                         <Typography variant="button">
-                            Server {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxServerX()?.y ?? 0}
+                            {t("chart.server")} {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxServerX()?.y ?? 0}
                         </Typography>
                     </Stack>
                 </Tooltip>
@@ -171,19 +173,19 @@ export function ProjectPage() {
             <TimelineCard projectId={projectId}/>
             <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                 <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} variant="fullWidth">
-                    <Tab label="Client" disabled={clientNotExist}/>
-                    <Tab label="Mixed"/>
-                    <Tab label="Server" disabled={serverNotExist}/>
+                    <Tab label={t("chart.client")} disabled={clientNotExist}/>
+                    <Tab label={t("chart.mixed")}/>
+                    <Tab label={t("chart.server")} disabled={serverNotExist}/>
                 </Tabs>
             </Box>
             <ChartsTab value={tab} clientPieData={clientPieData} serverPieData={serverPieData}/>
             {isAuthorized && <Fab color="primary" sx={{position: "fixed", bottom: 16, right: 16}} onClick={() =>
                 isProjectFavorite ? removeProjectFromFavorite.mutate((projectId), {
                     onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)),
-                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                    onError: (error) => enqueueSnackbar(getTranslateKey(error.message), {variant: "error"})
                 }) : addProjectToFavorite.mutate((projectId), {
                     onSuccess: () => setProjectFavorite(userFavoriteData?.some(project => project.id === projectId)),
-                    onError: (error) => enqueueSnackbar(error.message, {variant: "error"})
+                    onError: (error) => enqueueSnackbar(getTranslateKey(error.message), {variant: "error"})
                 })}>
                 {(addProjectToFavorite.isPending || removeProjectFromFavorite.isPending) ?
                     <CircularProgress color="inherit"/> : isProjectFavorite ? <Remove/> : <Favorite/>}

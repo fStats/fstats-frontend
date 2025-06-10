@@ -8,6 +8,7 @@ import {
     TimelineSeparator
 } from "@mui/lab";
 import {Box, CssBaseline, Typography} from "@mui/material";
+import {t} from "i18next";
 import {useEffect} from "react";
 
 import {Loader} from "@components/Loader";
@@ -20,14 +21,18 @@ export default function ShutdownPage() {
     
     const {setLabel} = useLabel();
     
-    useEffect(() => setLabel("Downtime"), [setLabel]);
+    useEffect(() => setLabel(t("page.shutdown.label")), [setLabel]);
 
     return (
         <Box padding={4}>
             <CssBaseline/>
             <Box flexGrow={1} padding={2} textAlign="center">
-                <Typography variant="h2">Service temporary shutdown</Typography>
-                <Typography variant="h4" paddingTop={2}>News / Updates</Typography>
+                <Typography variant="h2">
+                    {t("page.shutdown.status")}
+                </Typography>
+                <Typography variant="h4" paddingTop={2}>
+                    {t("page.shutdown.news")}
+                </Typography>
             </Box>
             {status === "pending" && <Loader/>}
             {error && <Typography variant="body2" paddingTop={2}>{error.message}</Typography>}

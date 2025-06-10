@@ -1,5 +1,6 @@
 import {AccountCircle} from "@mui/icons-material";
 import {IconButton, Menu, MenuItem} from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -20,7 +21,7 @@ export default function UserMenu() {
         handleClose();
         setToken("");
         localStorage.removeItem("token");
-        enqueueSnackbar("Have a nice day :)", { variant: "info" });
+        enqueueSnackbar(t("page.root.backalert"), { variant: "info" });
     };
 
     return (
@@ -43,16 +44,16 @@ export default function UserMenu() {
                     handleClose();
                     navigate("/profile");
                 }}>
-                    Profile
+                    {t("page.root.menu.profile")}
                 </MenuItem>
                 <MenuItem onClick={() => {
                     handleClose();
                     navigate("/settings");
                 }}>
-                    Settings
+                    {t("page.root.menu.settings")}
                 </MenuItem>
                 <MenuItem onClick={logout}>
-                    Logout
+                    {t("page.root.menu.logout")}
                 </MenuItem>
             </Menu>
         </>

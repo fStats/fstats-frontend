@@ -1,13 +1,7 @@
-import {DataValue} from "@services/fstats/types";
-import {KeyValue} from "@utils/convertors/types";
+import {t} from "i18next";
 
-const osMap: KeyValue = {
-    "l": "Linux",
-    "m": "MacOS",
-    "w": "Windows",
-    "o": "Other",
-};
+import {DataValue} from "@services/fstats/types";
 
 export const formatOperationSystem = (data: DataValue) => Object.fromEntries(
-    Object.entries(data).map(([value, count]) => [osMap[value] ?? value, count])
+    Object.entries(data).map(([value, count]) => [t(`page.project.os.${value}`) ?? value, count])
 ) as DataValue;

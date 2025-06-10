@@ -9,6 +9,7 @@ import {
     TextField,
     Typography
 } from "@mui/material";
+import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
 
@@ -40,33 +41,40 @@ export default function DeleteUserDialog(props: { open: boolean, setOpen: Dispat
     return (
         <Dialog open={props.open}>
             {deleteUserMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
-                <DialogTitle>Are you sure you want to delete the project?</DialogTitle>
+                <DialogTitle>
+                    {t("page.profile.dialog.user.delete.title")}
+                </DialogTitle>
                 <DialogContent>
                     <Stack spacing={2} paddingY={1}>
                         <Typography>
-                            Verify account and projects deletion by typing current username!
+                            {t("page.profile.dialog.user.delete.description")}
                         </Typography>
-                        <TextField required variant="outlined" label="Username" value={username}
+                        <TextField required variant="outlined" label={t("page.profile.dialog.user.delete.field")}
+                                   value={username}
                                    onChange={(event) => setUsername(event.target.value)}></TextField>
                     </Stack>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
+                    <Button onClick={handleClose}>
+                        {t("page.profile.dialog.cancel")}
+                    </Button>
                     <Button disabled={username !== user.username} variant="contained"
                             onClick={() => {
                                 if (username.trim().length <= 0) {
-                                    enqueueSnackbar("Both field required", {variant: "warning"});
+                                    enqueueSnackbar(t("page.profile.dialog.user.delete.both"), {variant: "warning"});
                                     return;
                                 }
                                 deleteUserMutation.mutate(undefined, {
                                     onSuccess: () => {
                                         setToken("");
                                         localStorage.removeItem("token");
-                                        return enqueueSnackbar("User and projects deleted. Thanks for using fStats", {variant: "success"});
+                                        return enqueueSnackbar(t("page.profile.dialog.user.delete.alert"), {variant: "success"});
                                     },
                                     onSettled: () => handleClose()
                                 });
-                            }} autoFocus>Delete user and projects</Button>
+                            }} autoFocus>
+                        {t("page.profile.dialog.user.delete.delete")}
+                    </Button>
                 </DialogActions>
             </>}
         </Dialog>

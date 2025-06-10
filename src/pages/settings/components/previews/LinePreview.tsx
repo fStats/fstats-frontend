@@ -1,3 +1,4 @@
+import {t} from "i18next";
 import { Line } from "react-chartjs-2";
 
 import {useSettings} from "@hooks/useSettings";
@@ -18,7 +19,7 @@ export function LinePreview() {
                 datasets: [
                     {
                         data: clientPreviewData,
-                        label: "Server",
+                        label: t("page.chart.server"),
                         borderColor: colors[0].color,
                         backgroundColor: colors[0].color,
                         pointStyle: false,
@@ -27,7 +28,7 @@ export function LinePreview() {
                     },
                     {
                         data: serverPreviewData,
-                        label: "Client",
+                        label: t("page.chart.client"),
                         borderColor: colors[1].color,
                         backgroundColor: colors[1].color,
                         pointStyle: false,
@@ -36,7 +37,7 @@ export function LinePreview() {
                     },
                     {
                         data: mergedPreviewData,
-                        label: "Mixed",
+                        label: t("page.chart.mixed"),
                         borderColor: colors[2].color,
                         backgroundColor: colors[2].color,
                         pointStyle: false,
