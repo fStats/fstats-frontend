@@ -63,9 +63,6 @@
       "field": {
         "username": "Username",
         "password": "Password"
-      },
-      "server": {
-        "incorrect": "Incorrect username or password"
       }
     },
     "register": {
@@ -82,11 +79,6 @@
         "passwordrepeat": "Password repeat",
         "empty": "Some fields is empty",
         "mismatch": "Password doesn't match"
-      },
-      "server": {
-        "notmatchrequirements": "Username or password not match requirements",
-        "created": "User created",
-        "exist": "Username already exist"
       }
     },
     "notfound": {
@@ -157,20 +149,12 @@
           "alert": "This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!",
           "blank": "Project name can't be blank",
           "created": "Project created",
-          "create": "Create",
-          "server": {
-            "empty": "Project name can't be empty",
-            "notmatch": "Project name doesn't match requirements"
-          }
+          "create": "Create"
         },
         "delete": {
           "title": "Are you sure you want to delete the project?",
           "deleted": "Project deleted",
-          "delete": "Delete",
-          "server": {
-            "incorrect": "Incorrect project ID",
-            "notfound": "Project not found"
-          }
+          "delete": "Delete"
         },
         "edit": {
           "title": "Edit project",
@@ -178,11 +162,7 @@
           "alert": "This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!",
           "updated": "Project data updated",
           "rename": "Rename",
-          "blank": "Project name can't be blank",
-          "server": {
-            "nodata": "No data provided for update",
-            "requirements": "Project name not match requirements"
-          }
+          "blank": "Project name can't be blank"
         },
         "user": {
           "edit": {
@@ -193,11 +173,7 @@
             },
             "alert": "User data updated, please re-login",
             "empty": "At least one field should be filled",
-            "edit": "Edit",
-            "server": {
-              "userrequirements": "Username not match requirements",
-              "passrequirements": "Password not match requirements"
-            }
+            "edit": "Edit"
           },
           "delete": {
             "title": "Are you sure you want to delete the project?",
@@ -208,10 +184,6 @@
             "delete": "Delete user and projects"
           }
         }
-      },
-      "server": {
-        "incorrectid": "Project ID must be number",
-        "usernotfound": "User not found"
       }
     },
     "projects": {
@@ -278,6 +250,20 @@
     }
   },
   "server": {
+    "incorrect": "Incorrect username or password",
+    "notmatchrequirements": "Username or password not match requirements",
+    "created": "User created",
+    "exist": "Username already exist",
+    "empty": "Project name can't be empty",
+    "notmatch": "Project name doesn't match requirements",
+    "incorrectprojectid": "Incorrect project ID",
+    "notfound": "Project not found",
+    "nodata": "No data provided for update",
+    "requirements": "Project name not match requirements",
+    "userrequirements": "Username not match requirements",
+    "passrequirements": "Password not match requirements",
+    "incorrectid": "Project ID must be number",
+    "usernotfound": "User not found",
     "something": "Something went wrong"
   },
   "chart": {
