@@ -1,4 +1,4 @@
-import * as i18nBase from "i18next";
+import i18n from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import HttpBackend from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
@@ -6,7 +6,7 @@ import { initReactI18next } from "react-i18next";
 export const repoBase = import.meta.env.BASE_URL || "/";
 export const supportedLanguages = ["en", "fi"];
 
-const initPromise = i18nBase
+export const initPromise = i18n
     .use(HttpBackend)
     .use(LanguageDetector)
     .use(initReactI18next)
@@ -23,4 +23,4 @@ const initPromise = i18nBase
         },
     });
 
-export const i18n = Object.assign(i18nBase, { initPromise });
+export default i18n;

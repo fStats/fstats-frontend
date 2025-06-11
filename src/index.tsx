@@ -8,7 +8,7 @@ import {RouterProvider} from "react-router-dom";
 import {AuthProvider} from "@hooks/provides/AuthProvider";
 import {LabelProvider} from "@hooks/provides/LabelProvider";
 import {SettingsProvider} from "@hooks/provides/SettingsProvider";
-import {i18n} from "@init/i18n";
+import {initPromise} from "@init/i18n";
 import {theme} from "@init/muitheme";
 import {queryClient} from "@init/reactquary";
 import {routes} from "@init/routes";
@@ -16,7 +16,7 @@ import {routes} from "@init/routes";
 import "@init/chartjs";
 import "@init/syntaxhighlighter";
 
-i18n.initPromise.then(() => {
+initPromise.then(() => {
     createRoot(document.getElementById("root")!).render(
         <StrictMode>
             <SettingsProvider>
