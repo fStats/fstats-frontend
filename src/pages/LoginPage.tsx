@@ -2,6 +2,7 @@ import {Button, Card, Container, Divider, Stack, Typography} from "@mui/material
 import TextField from "@mui/material/TextField";
 import {useSnackbar} from "notistack";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
@@ -10,7 +11,6 @@ import {useLabel} from "@hooks/useLabel";
 import {useLogin} from "@services/fstats/auth";
 import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {User} from "@services/fstats/types";
-import {useTranslation} from "react-i18next";
 
 export function LoginPage() {
     const navigate = useNavigate();
