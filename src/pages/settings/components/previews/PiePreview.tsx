@@ -13,7 +13,7 @@ export function PiePreview({previewData}: PreviewProps) {
         <Pie
             data={{
                 datasets: [{
-                    label: t("page.chart.count"),
+                    label: t("chart.count"),
                     data: Object.values(previewData) as number[],
                     borderWidth: 1,
                     backgroundColor: colors.map(({color}) => color),

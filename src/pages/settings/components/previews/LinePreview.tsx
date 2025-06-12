@@ -19,7 +19,7 @@ export function LinePreview() {
                 datasets: [
                     {
                         data: clientPreviewData,
-                        label: t("page.chart.server"),
+                        label: t("chart.server"),
                         borderColor: colors[0].color,
                         backgroundColor: colors[0].color,
                         pointStyle: false,
@@ -28,7 +28,7 @@ export function LinePreview() {
                     },
                     {
                         data: serverPreviewData,
-                        label: t("page.chart.client"),
+                        label: t("chart.client"),
                         borderColor: colors[1].color,
                         backgroundColor: colors[1].color,
                         pointStyle: false,
@@ -37,7 +37,7 @@ export function LinePreview() {
                     },
                     {
                         data: mergedPreviewData,
-                        label: t("page.chart.mixed"),
+                        label: t("chart.mixed"),
                         borderColor: colors[2].color,
                         backgroundColor: colors[2].color,
                         pointStyle: false,

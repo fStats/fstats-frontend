@@ -8,6 +8,7 @@ import {
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
+import { t as tc } from "i18next";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
 import {Line} from "react-chartjs-2";
@@ -82,7 +83,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                     datasets: [
                         {
                             data: serverDecodedData,
-                            label: t("chart.server"),
+                            label: tc("chart.server"),
                             borderColor: colors[0].color,
                             backgroundColor: colors[0].color,
                             pointStyle: false,
@@ -91,7 +92,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                         },
                         {
                             data: clientDecodedData,
-                            label: t("chart.client"),
+                            label: tc("chart.client"),
                             borderColor: colors[1].color,
                             backgroundColor: colors[1].color,
                             pointStyle: false,
@@ -100,7 +101,7 @@ export default function TimelineCard(props: TimelineCardProps) {
                         },
                         {
                             data: mergedDecodedData,
-                            label: t("chart.mixed"),
+                            label: tc("chart.mixed"),
                             borderColor: colors[2].color,
                             backgroundColor: colors[2].color,
                             pointStyle: false,

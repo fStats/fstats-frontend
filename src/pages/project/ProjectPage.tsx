@@ -11,6 +11,7 @@ import {
     Tooltip,
     Typography
 } from "@mui/material";
+import { t as tc} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
 import {useTranslation} from "react-i18next";
@@ -137,7 +138,7 @@ export function ProjectPage() {
                             borderColor: "divider"
                         }}/>
                         <Typography variant="button">
-                            {t("chart.client")} {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0} / {findMaxClientX()?.y ?? 0}
+                            {tc("chart.client")} {clientDecodedData[clientDecodedData.length - 1]?.y ?? 0} / {findMaxClientX()?.y ?? 0}
                         </Typography>
                     </Stack>
                 </Tooltip>
@@ -152,7 +153,7 @@ export function ProjectPage() {
                             borderColor: "divider"
                         }}/>
                         <Typography variant="button">
-                            {t("chart.mixed")} {mergedDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxMixedX()?.y ?? 0}
+                            {tc("chart.mixed")} {mergedDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxMixedX()?.y ?? 0}
                         </Typography>
                     </Stack>
                 </Tooltip>
@@ -167,7 +168,7 @@ export function ProjectPage() {
                             borderColor: "divider"
                         }}/>
                         <Typography variant="button">
-                            {t("chart.server")} {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxServerX()?.y ?? 0}
+                            {tc("chart.server")} {serverDecodedData[serverDecodedData.length - 1]?.y ?? 0} / {findMaxServerX()?.y ?? 0}
                         </Typography>
                     </Stack>
                 </Tooltip>
@@ -175,9 +176,9 @@ export function ProjectPage() {
             <TimelineCard projectId={projectId}/>
             <Box sx={{borderBottom: 1, borderColor: "divider"}}>
                 <Tabs value={tab} onChange={(_, newValue) => setTab(newValue)} variant="fullWidth">
-                    <Tab label={t("chart.client")} disabled={clientNotExist}/>
-                    <Tab label={t("chart.mixed")}/>
-                    <Tab label={t("chart.server")} disabled={serverNotExist}/>
+                    <Tab label={tc("chart.client")} disabled={clientNotExist}/>
+                    <Tab label={tc("chart.mixed")}/>
+                    <Tab label={tc("chart.server")} disabled={serverNotExist}/>
                 </Tabs>
             </Box>
             <ChartsTab value={tab} clientPieData={clientPieData} serverPieData={serverPieData}/>
