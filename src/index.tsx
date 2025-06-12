@@ -1,10 +1,11 @@
 import {ThemeProvider} from "@mui/material";
 import {QueryClientProvider} from "@tanstack/react-query";
 import {SnackbarProvider} from "notistack";
-import {StrictMode} from "react";
+import {StrictMode, Suspense} from "react";
 import {createRoot} from "react-dom/client";
 import {RouterProvider} from "react-router-dom";
 
+import {Loader} from "@components/Loader";
 import {AuthProvider} from "@hooks/provides/AuthProvider";
 import {LabelProvider} from "@hooks/provides/LabelProvider";
 import {SettingsProvider} from "@hooks/provides/SettingsProvider";
@@ -25,7 +26,9 @@ initPromise.then(() => {
                         <SnackbarProvider maxSnack={3}>
                             <AuthProvider>
                                 <LabelProvider>
-                                    <RouterProvider router={routes}/>
+                                    <Suspense fallback={<Loader />}>
+                                        <RouterProvider router={routes}/>
+                                    </Suspense>
                                 </LabelProvider>
                             </AuthProvider>
                         </SnackbarProvider>
