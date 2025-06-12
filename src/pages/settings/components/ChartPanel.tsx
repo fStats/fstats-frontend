@@ -1,7 +1,7 @@
 import {Add, Delete} from "@mui/icons-material";
 import {Box, ClickAwayListener, Divider, Grid, IconButton, Paper, Popper, Stack, TextField, useTheme} from "@mui/material";
 import {t} from "i18next";
-import {MouseEvent, useCallback, useEffect, useMemo, useRef, useState} from "react";
+import {MouseEvent, useCallback, useMemo, useState} from "react";
 import {HexAlphaColorPicker} from "react-colorful";
 
 import {useSettings} from "@hooks/useSettings";
@@ -9,30 +9,9 @@ import {BarPreview} from "@pages/settings/components/previews/BarPreview";
 import {LinePreview} from "@pages/settings/components/previews/LinePreview";
 import {PiePreview} from "@pages/settings/components/previews/PiePreview";
 import {WorldMapPreview} from "@pages/settings/components/previews/WorldMapPreview";
+import {useGridItemHeight} from "@pages/settings/components/useGridItemHeight";
 import {piePreviewData} from "@utils/dummyData";
 import {getRandomHexRGBA} from "@utils/random";
-
-const useGridItemHeight = () => {
-    const [itemHeight, setItemHeight] = useState(0);
-    const firstItemRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const updateHeight = () => {
-            if (firstItemRef.current) {
-                setItemHeight(firstItemRef.current.offsetHeight);
-            }
-        };
-
-        updateHeight();
-
-        const resizeObserver = new ResizeObserver(updateHeight);
-        if (firstItemRef.current) resizeObserver.observe(firstItemRef.current);
-
-        return () => resizeObserver.disconnect();
-    }, []);
-
-    return {firstItemRef, itemHeight};
-};
 
 export function ChartPanel() {
 
