@@ -1,8 +1,8 @@
 import {Add, Delete} from "@mui/icons-material";
 import {Box, ClickAwayListener, Divider, Grid, IconButton, Paper, Popper, Stack, TextField, useTheme} from "@mui/material";
-import {t} from "i18next";
 import {MouseEvent, useCallback, useMemo, useState} from "react";
 import {HexAlphaColorPicker} from "react-colorful";
+import { useTranslation } from "react-i18next";
 
 import {useSettings} from "@hooks/useSettings";
 import {BarPreview} from "@pages/settings/components/previews/BarPreview";
@@ -15,6 +15,8 @@ import {getRandomHexRGBA} from "@utils/random";
 
 export function ChartPanel() {
 
+    const {t} = useTranslation("settings");
+    
     const theme = useTheme();
     const {colors, setColors} = useSettings();
 
@@ -80,7 +82,7 @@ export function ChartPanel() {
                                     />
                                 </Box>
                                 <TextField
-                                    label={t("page.settings.colorcode")}
+                                    label={t("colorcode")}
                                     value={color.color}
                                     onChange={(e) => handleColorChange(color.index, e.target.value)}
                                     fullWidth

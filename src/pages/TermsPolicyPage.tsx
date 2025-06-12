@@ -1,31 +1,31 @@
 import {Mail, Person} from "@mui/icons-material";
 import {Card, Divider, Link, Stack, Typography} from "@mui/material";
-import { t } from "i18next";
 import {useEffect} from "react";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 import {useLabel} from "@hooks/useLabel";
 
 export default function TermsPolicyPage() {
 
     const {setLabel} = useLabel();
+    const {t} = useTranslation("terms");
 
-    useEffect(() => setLabel(t("page.terms.label")), [setLabel]);
+    useEffect(() => setLabel(t("label")), [setLabel, t]);
     
     return (
         <Stack spacing={2}>
             <Typography variant="h4">
-                {t("page.terms.terms.title")}
+                {t("terms.title")}
             </Typography>
             <Divider/>
             <Card>
                 <Stack spacing={2} padding={2}>
                     <Typography variant="h5">
-                        {t("page.terms.terms.1.title")}
+                        {t("terms.1.title")}
                     </Typography>
                     <Divider/>
                     <Typography variant="body1">
-                        <Trans i18nKey="page.terms.terms.1.description" components={{
+                        <Trans i18nKey="terms.1.description" ns="terms" components={{
                             br: <><br/><br/></>
                         }}/>
                     </Typography>
@@ -34,11 +34,11 @@ export default function TermsPolicyPage() {
             <Card>
                 <Stack spacing={2} padding={2}>
                     <Typography variant="h5">
-                        {t("page.terms.terms.2.title")}
+                        {t("terms.2.title")}
                     </Typography>
                     <Divider/>
                     <Typography variant="body1">
-                        <Trans i18nKey="page.terms.terms.2.description" components={{
+                        <Trans i18nKey="terms.2.description" ns="terms" components={{
                             br: <><br/><br/></>
                         }}/>
                     </Typography>
@@ -47,11 +47,11 @@ export default function TermsPolicyPage() {
             <Card>
                 <Stack spacing={2} padding={2}>
                     <Typography variant="h5">
-                        {t("page.terms.terms.3.title")}
+                        {t("terms.3.title")}
                     </Typography>
                     <Divider/>
                     <Typography variant="body1">
-                        <Trans i18nKey="page.terms.terms.3.description" components={{
+                        <Trans i18nKey="terms.3.description" ns="terms" components={{
                             br: <><br/><br/></>
                         }}/>
                     </Typography>
@@ -60,28 +60,28 @@ export default function TermsPolicyPage() {
             <Card>
                 <Stack spacing={2} padding={2}>
                     <Typography variant="h5">
-                        {t("page.terms.terms.4.title")}
+                        {t("terms.4.title")}
                     </Typography>
                     <Divider/>
                     <Typography variant="body1">
-                        <Trans i18nKey="page.terms.terms.4.description" components={{
+                        <Trans i18nKey="terms.4.description" ns="terms" components={{
                             br: <><br/><br/></>
                         }}/>
                     </Typography>
                 </Stack>
             </Card>
             <Typography variant="h4">
-                {t("page.terms.policy.title")}
+                {t("policy.title")}
             </Typography>
             <Divider/>
             <Card>
                 <Stack spacing={2} padding={2}>
                     <Typography variant="h5">
-                        {t("page.terms.policy.1.title")}
+                        {t("policy.1.title")}
                     </Typography>
                     <Divider/>
                     <Typography variant="body1">
-                        <Trans i18nKey="page.terms.policy.1.description" components={{
+                        <Trans i18nKey="policy.1.description" ns="terms" components={{
                             list: <ul></ul>,
                             item: <li></li>,
                             gray: <i style={{color: "gray"}}></i>
@@ -92,16 +92,16 @@ export default function TermsPolicyPage() {
             <Card>
                 <Stack spacing={2} padding={2}>
                     <Typography variant="h5">
-                        {t("page.terms.policy.2.title")}
+                        {t("policy.2.title")}
                     </Typography>
                     <Divider/>
                     <Typography variant="body1">
-                        {t("page.terms.policy.2.description")}
+                        {t("policy.2.description")}
                     </Typography>
                 </Stack>
             </Card>
             <Typography variant="h4">
-                {t("page.terms.contact")}
+                {t("contact")}
             </Typography>
             <Divider/>
             <Card>

@@ -1,0 +1,10 @@
+{
+  "label": "Getting started",
+  "steps": {
+    "1": "<redirect>Register account</redirect>",
+    "2": "<redirect>Create project</redirect>",
+    "3": "Add library to your project gradle",
+    "4": "Added mod as dependency and projectId to your fabric.mod.json",
+    "5": "When data come you can see it on your project page"
+  }
+}

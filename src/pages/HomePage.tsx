@@ -1,8 +1,7 @@
 import {ArrowForward, Launch} from "@mui/icons-material";
 import {Button, Card, CardActionArea, CardContent, Grid, Stack, Typography} from "@mui/material";
-import {t} from "i18next";
 import {useEffect} from "react";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
 import {useLabel} from "@hooks/useLabel";
@@ -10,33 +9,34 @@ import {useLabel} from "@hooks/useLabel";
 export default function HomePage() {
 
     const {setLabel} = useLabel();
+    const {t} = useTranslation("home");
 
-    useEffect(() => setLabel(t("page.home.label")), [setLabel]);
+    useEffect(() => setLabel(t("label")), [setLabel, t]);
 
     const cards = [
         {
-            title: t("page.home.card.about.title"),
-            description: <Trans i18nKey="page.home.card.about.description" components={{b: <b/>}}/>,
+            title: t("card.about.title"),
+            description: <Trans i18nKey="card.about.description" ns="home" components={{b: <b/>}}/>,
             to: "project/1",
         },
         {
-            title: t("page.home.card.opensource.title"),
-            description: <Trans i18nKey="page.home.card.opensource.description" components={{b: <b/>}}/>,
+            title: t("card.opensource.title"),
+            description: <Trans i18nKey="card.opensource.description" ns="home" components={{b: <b/>}}/>,
             to: "https://github.com/fStats",
         },
         {
-            title: t("page.home.card.plugandplay.title"),
-            description: <Trans i18nKey="page.home.card.plugandplay.description" components={{b: <b/>}}/>,
+            title: t("card.plugandplay.title"),
+            description: <Trans i18nKey="card.plugandplay.description" ns="home" components={{b: <b/>}}/>,
             to: "getting-started",
         },
         {
-            title: t("page.home.card.openapi.title"),
-            description: <Trans i18nKey="page.home.card.openapi.description" components={{b: <b/>}}/>,
+            title: t("card.openapi.title"),
+            description: <Trans i18nKey="card.openapi.description" ns="home" components={{b: <b/>}}/>,
             to: "https://api.fstats.dev/swagger",
         },
         {
-            title: t("page.home.card.discord.title"),
-            description: <Trans i18nKey="page.home.card.discord.description" components={{b: <b/>}}/>,
+            title: t("card.discord.title"),
+            description: <Trans i18nKey="card.discord.description" ns="home" components={{b: <b/>}}/>,
             to: "https://discord.gg/pbwnMwnUD6",
         },
     ];
@@ -47,7 +47,7 @@ export default function HomePage() {
                 <Grid container direction="column" spacing={4} alignItems="center">
                     <Grid>
                         <Typography variant="h3" textAlign="center">
-                            {t("page.home.title")}
+                            {t("title")}
                         </Typography>
                     </Grid>
                     <Grid>
@@ -58,7 +58,7 @@ export default function HomePage() {
                             to="getting-started"
                             endIcon={<ArrowForward/>}
                         >
-                            {t("page.home.start")}
+                            {t("start")}
                         </Button>
                     </Grid>
                 </Grid>

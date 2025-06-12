@@ -11,9 +11,9 @@ import {
     Tooltip,
     Typography
 } from "@mui/material";
-import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {useNavigate, useParams} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
@@ -34,6 +34,8 @@ import {mergeData} from "@utils/merge";
 import {MetricTab, TimelineData} from "./components/types";
 
 export function ProjectPage() {
+
+    const {t} = useTranslation("project");
 
     const navigate = useNavigate();
     const id = useParams().id!;
@@ -124,7 +126,7 @@ export function ProjectPage() {
                 {projectData.hiding_reason}
             </Alert>}
             <Grid container spacing={2} direction="row" justifyContent="space-evenly">
-                <Tooltip title={t("page.project.peek") + `: ${new Date(findMaxClientX()?.x).toLocaleString()}`}>
+                <Tooltip title={t("peek") + `: ${new Date(findMaxClientX()?.x).toLocaleString()}`}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{
                             backgroundColor: colors[1].color,
@@ -139,7 +141,7 @@ export function ProjectPage() {
                         </Typography>
                     </Stack>
                 </Tooltip>
-                <Tooltip title={t("page.project.peek") + `: ${new Date(findMaxMixedX()?.x).toLocaleString()}`}>
+                <Tooltip title={t("peek") + `: ${new Date(findMaxMixedX()?.x).toLocaleString()}`}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{
                             backgroundColor: colors[2].color,
@@ -154,7 +156,7 @@ export function ProjectPage() {
                         </Typography>
                     </Stack>
                 </Tooltip>
-                <Tooltip title={t("page.project.peek") + `: ${new Date(findMaxServerX()?.x).toLocaleString()}`}>
+                <Tooltip title={t("peek") + `: ${new Date(findMaxServerX()?.x).toLocaleString()}`}>
                     <Stack direction="row" spacing={1}>
                         <Box sx={{
                             backgroundColor: colors[0].color,

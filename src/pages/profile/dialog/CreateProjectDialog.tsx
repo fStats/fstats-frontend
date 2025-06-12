@@ -8,15 +8,16 @@ import {
     DialogTitle,
     TextField
 } from "@mui/material";
-import { t } from "i18next";
 import {useSnackbar} from "notistack";
 import {Dispatch, useState} from "react";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 
 import {getTranslateKey} from "@services/fstats/i18n/serverMessages";
 import {useCreateProject} from "@services/fstats/projects";
 
 export default function CreateProjectDialog(props: { open: boolean, setOpen: Dispatch<boolean> }) {
+
+    const {t} = useTranslation("profile");
 
     const createProjectMutation = useCreateProject();
 
@@ -34,32 +35,32 @@ export default function CreateProjectDialog(props: { open: boolean, setOpen: Dis
         <Dialog open={props.open} onClose={handleClose}>
             {createProjectMutation.isPending ? <CircularProgress sx={{margin: 8}}/> : <>
                 <DialogTitle>
-                    {t("page.profile.dialog.create.title")}
+                    {t("dialog.create.title")}
                 </DialogTitle>
                 <DialogContent>
-                    <TextField sx={{width: "100%"}} inputMode="text" placeholder={t("page.profile.dialog.create.field")} onChange={
+                    <TextField sx={{width: "100%"}} inputMode="text" placeholder={t("dialog.create.field")} onChange={
                         (event) => setName(event.target.value)
                     }/>
                     <Alert sx={{marginTop: 1}} variant="outlined" severity="warning">
-                        <Trans i18nKey="page.profile.dialog.create.alert" components={{
+                        <Trans i18nKey="dialog.create.alert" ns="profile" components={{
                             b: <b/>
                         }}/>
                     </Alert>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose}>{t("page.profile.dialog.cancel")}</Button>
+                    <Button onClick={handleClose}>{t("dialog.cancel")}</Button>
                     <Button variant="contained" onClick={() => {
                         if (name.trim().length <= 0) {
-                            enqueueSnackbar(t("page.profile.dialog.create.blank"), {variant: "warning"});
+                            enqueueSnackbar(t("dialog.create.blank"), {variant: "warning"});
                             return;
                         }
 
                         createProjectMutation.mutate({name: name,}, {
-                            onSuccess: () => enqueueSnackbar(t("page.profile.dialog.create.created"), {variant: "success"}),
+                            onSuccess: () => enqueueSnackbar(t("dialog.create.created"), {variant: "success"}),
                             onSettled: () => handleClose()
                         });
                     }} autoFocus>
-                        {t("page.profile.dialog.create.create")}
+                        {t("dialog.create.create")}
                     </Button>
                 </DialogActions>
             </>}

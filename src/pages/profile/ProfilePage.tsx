@@ -17,9 +17,9 @@ import {
     Typography
 } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useEffect, useMemo, useState} from "react";
+import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 
 import {Loader} from "@components/Loader";
@@ -43,6 +43,7 @@ export default function ProfilePage() {
     const user: User = getUserFromJWT(token);
 
     const {setLabel} = useLabel();
+    const {t} = useTranslation("profile");
 
     const {data: projects, status, error} = useUserProjects(user.id || NaN);
 
@@ -70,7 +71,7 @@ export default function ProfilePage() {
 
     useEffect(() => sortedProjects && setHidedProjectsCount(sortedProjects.filter(project => project.is_hidden).length), [sortedProjects]);
 
-    useEffect(() => setLabel(t("page.profile.label")), [setLabel]);
+    useEffect(() => setLabel(t("label")), [setLabel, t]);
 
     if (status === "pending") return <Loader/>;
 
@@ -97,22 +98,22 @@ export default function ProfilePage() {
                                 <Stack spacing={2} direction="row">
                                     <Stack>
                                         <Typography variant="h6"><b>{user.username}</b></Typography>
-                                        <Typography><b>{projects.length}</b> {t("page.profile.projects")}</Typography>
+                                        <Typography><b>{projects.length}</b> {t("projects")}</Typography>
                                         {hidedProjectsCount > 0 && <Typography color="#ffb74d">
-                                            <b>{hidedProjectsCount}</b> {t("page.profile.hidden")}
+                                            <b>{hidedProjectsCount}</b> {t("hidden")}
                                         </Typography>}
                                     </Stack>
                                     <Stack spacing={2} direction="row">
                                         <Button variant="contained" startIcon={<Edit/>}
                                                 onClick={() => setEditUserOpen(true)}>
                                             <Typography>
-                                                {t("page.profile.button.edit")}
+                                                {t("button.edit")}
                                             </Typography>
                                         </Button>
                                         <Button variant="contained" color="error" startIcon={<Delete/>}
                                                 onClick={() => setRemoveUserOpen(true)}>
                                             <Typography>
-                                                {t("page.profile.button.delete")}
+                                                {t("button.delete")}
                                             </Typography>
                                         </Button>
                                     </Stack>
@@ -127,10 +128,10 @@ export default function ProfilePage() {
                             <Table stickyHeader aria-label="sticky table">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>{t("page.profile.table.id")}</TableCell>
-                                        <TableCell>{t("page.profile.table.name")}</TableCell>
-                                        <TableCell>{t("page.profile.table.owner")}</TableCell>
-                                        <TableCell align="center">{t("page.profile.table.visible")}</TableCell>
+                                        <TableCell>{t("table.id")}</TableCell>
+                                        <TableCell>{t("table.name")}</TableCell>
+                                        <TableCell>{t("table.owner")}</TableCell>
+                                        <TableCell align="center">{t("table.visible")}</TableCell>
                                         <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -139,7 +140,7 @@ export default function ProfilePage() {
                                         <TableRow hover tabIndex={-1} key={row.id}>
                                             <TableCell onClick={() => {
                                                 navigator.clipboard.writeText(row.id!.toString()).then(() =>
-                                                    enqueueSnackbar(t("page.profile.clipboard"), {variant: "info"})
+                                                    enqueueSnackbar(t("clipboard"), {variant: "info"})
                                                 );
                                             }}>
                                                 {row.id}
@@ -187,7 +188,7 @@ export default function ProfilePage() {
                             rowsPerPageOptions={[]}
                         />
                     </Paper> : <Typography variant="h4" textAlign="center">
-                        {t("page.profile.empty")}
+                        {t("empty")}
                     </Typography>}
             </Stack>
             <Fab color="primary" sx={{position: "fixed", bottom: 16, right: 16}} onClick={() => setCreateOpen(true)}>

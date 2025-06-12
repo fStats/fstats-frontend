@@ -1,0 +1,16 @@
+{
+  "label": "Registration",
+  "header": "Register",
+  "button": {
+    "login": "Sign In",
+    "register": "Register",
+    "terms": "Accept <redirect>Terms & Policy</redirect>"
+  },
+  "field": {
+    "username": "Username",
+    "password": "Password",
+    "passwordrepeat": "Password repeat",
+    "empty": "Some fields is empty",
+    "mismatch": "Password doesn't match"
+  }
+}

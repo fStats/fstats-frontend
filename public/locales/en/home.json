@@ -1,0 +1,27 @@
+{
+  "label": "Home",
+  "title": "fStats - Fabric mods metric system",
+  "start": "Getting started",
+  "card": {
+    "about": {
+      "title": "Fabric Metrics",
+      "description": "fStats allows you to <b>collect usage data</b> of your mods."
+    },
+    "opensource": {
+      "title": "Open Source",
+      "description": "fStats is <b>completely open source</b>! Feel free to check out our GitHub."
+    },
+    "plugandplay": {
+      "title": "Plug and Play",
+      "description": "<b>Simple</b> to implement <b>into already done</b> project. Just embed it to mod and <b>add 1 row into fabric.mod.json</b>."
+    },
+    "openapi": {
+      "title": "OpenAPI",
+      "description": "The <b>REST-Api</b> of fStats is very simple. It's meant to allow you to <b>make your own service</b> based on fStats data."
+    },
+    "discord": {
+      "title": "Join our Discord",
+      "description": "Keep <b>up-to-date</b> with the development of fStats, <b>get support</b> or <b>just chat</b>."
+    }
+  }
+}

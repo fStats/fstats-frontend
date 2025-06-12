@@ -1,0 +1,34 @@
+{
+  "label": "Terms & Policy",
+  "terms": {
+    "title": "Terms of Use",
+    "1": {
+      "title": "Acceptance of the Terms of Use",
+      "description": "These terms of use are entered into by and between You and fStats Dev. (\"Team\", \"we\" or \"us\"). The following terms and conditions, together with any documents they expressly incorporate by reference (collectively, these \"Terms of Use\"), govern your access to and use of www.fstats.dev, api.fstats.dev, or the fStats App, including any content, functionality and services offered on or through www.fstats.dev, api.fstats.dev, or the fStats App (the \"Service\"), whether as a guest or a registered user.<br/>Please read the Terms of Use carefully before you start to use the Service. By accessing or using the Service, you accept and agree to be bound and abide by these Terms of Use, our Privacy Policy. If you do not want to agree to these terms and policies, you must not access or use the Service.<br/>The Service is offered and available to users who are 13 years of age or older. By using the Service, you represent and warrant that you are of legal age to form a binding contract with the Company and meet all of the foregoing eligibility requirements. If you do not meet all of these requirements, you must not access or use the Service."
+    },
+    "2": {
+      "title": "Changes to the Terms of Use",
+      "description": "We may revise and update these Terms of Use from time to time in our sole discretion. All changes are effective immediately when we post them, and apply to all access to and use of the Service thereafter.<br/>Your continued use of the Service following the posting of revised Terms of Use means that you accept and agree to the changes. You are expected to check this page each time you access the Service so you are aware of any changes, as they are binding on you."
+    },
+    "3": {
+      "title": "Accessing the Service and Account Security",
+      "description": "We reserve the right to withdraw or amend the Service, and any service or material we provide through the Service, in our sole discretion without notice. We will not be liable if for any reason all or any part of the Service is unavailable at any time or for any period. From time to time, we may restrict access to some parts of the Service, or the entire Service, to users, including registered users.<br/>You are responsible for making all arrangements necessary for you to have access to the Service, and ensuring that all persons who access the Service through your internet connection are aware of these Terms of Use and comply with them."
+    },
+    "4": {
+      "title": "Changes to the Service",
+      "description": "We may update the content on the Service from time to time, but its content is not necessarily complete or up-to-date. Any of the material on the Service may be out of date at any given time, and we are under no obligation to update such material."
+    }
+  },
+  "policy": {
+    "title": "Privacy Policy",
+    "1": {
+      "title": "What data do we collect?",
+      "description": "1. When you create an account, we collect:<list><item>Your username</item></list>This data is used to identify you. It will be linked to your projects. 2. When you send data via the mod, we collect the following anonymous metrics:<list><item>Country name <gray>(If allowed)</gray></item><item>Fabric API version <gray>(If installed)</gray></item><item>Minecraft version</item><item>Mod version</item><item>Operating System <gray>(First letter only)</gray></item><item>Server online mode</item><item>Data source <gray>(server or client)</gray></item></list>All collected data is anonymous and non-personally identifiable. It is used solely for statistical purposes to improve mod performance and usage insights. Data collection is enabled by default. You can disable it at any time by editing the configuration file located in the mod's configuration directory."
+    },
+    "2": {
+      "title": "Online Privacy Policy Only",
+      "description": "This Privacy Policy applies only to our online activities and is valid for visitors to our website with regards to the information that they shared and/or collect in fStats. This policy is not applicable to any information collected offline or via channels other than this website."
+    }
+  },
+  "contact": "Contact"
+}

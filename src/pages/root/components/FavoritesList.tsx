@@ -19,7 +19,7 @@ export default function FavoritesList(props: DrawerCloseProps) {
 
     return (
         isAuthorized && favorites && favorites.length > 0 && <List subheader={
-            <ListSubheader>{t("page.root.drawer.favorites")}</ListSubheader>
+            <ListSubheader>{t("root.drawer.favorites")}</ListSubheader>
         }>
             {favorites.map(project =>
                 <ListItem disablePadding key={project.id}>

@@ -1,0 +1,8 @@
+{
+  "label": "Settings",
+  "tab": {
+    "chart": "Chart Colors",
+    "language": "Language"
+  },
+  "colorcode": "Color Code"
+}

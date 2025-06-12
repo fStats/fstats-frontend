@@ -1,0 +1,61 @@
+{
+  "label": "Profile",
+  "projects": "projects",
+  "hidden": " hidden projects",
+  "button": {
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "table": {
+    "id": "ID",
+    "name": "Name",
+    "owner": "Owner",
+    "visible": "Hide reason"
+  },
+  "clipboard": "Project ID copied to clipboard",
+  "empty": "No project available",
+  "dialog": {
+    "cancel": "Cancel",
+    "create": {
+      "title": "Create new project",
+      "field": "New project name",
+      "alert": "This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!",
+      "blank": "Project name can't be blank",
+      "created": "Project created",
+      "create": "Create"
+    },
+    "delete": {
+      "title": "Are you sure you want to delete the project?",
+      "deleted": "Project deleted",
+      "delete": "Delete"
+    },
+    "edit": {
+      "title": "Edit project",
+      "field": "New project name",
+      "alert": "This project is for <b>mod developers</b>, <b>not</b> for <b>server owners</b>!!!",
+      "updated": "Project data updated",
+      "rename": "Rename",
+      "blank": "Project name can't be blank"
+    },
+    "user": {
+      "edit": {
+        "title": "Edit user",
+        "field": {
+          "username": "Username",
+          "password": "Password"
+        },
+        "alert": "User data updated, please re-login",
+        "empty": "At least one field should be filled",
+        "edit": "Edit"
+      },
+      "delete": {
+        "title": "Are you sure you want to delete the project?",
+        "description": "Verify account and projects deletion by typing current username!",
+        "field": "Username",
+        "both": "Both field required",
+        "alert": "User and projects deleted. Thanks for using fStats",
+        "delete": "Delete user and projects"
+      }
+    }
+  }
+}

@@ -8,10 +8,10 @@ import {
     Typography, useMediaQuery,
     useTheme
 } from "@mui/material";
-import {t} from "i18next";
 import {useSnackbar} from "notistack";
 import {useState} from "react";
 import {Line} from "react-chartjs-2";
+import {useTranslation} from "react-i18next";
 import {useNavigate} from "react-router-dom";
 
 import {useSettings} from "@hooks/useSettings";
@@ -27,6 +27,8 @@ import "chartjs-adapter-date-fns";
 
 export default function TimelineCard(props: TimelineCardProps) {
 
+    const {t} = useTranslation("project");
+    
     const navigate = useNavigate();
     const {enqueueSnackbar} = useSnackbar();
     const {colors} = useSettings();
@@ -64,14 +66,14 @@ export default function TimelineCard(props: TimelineCardProps) {
         <Card sx={{flexGrow: 1}}>
             <CardActions sx={{paddingX: 2}}>
                 <Typography variant="h6" marginRight="auto" textAlign="center">
-                    {t("page.project.cards.timeline")}
+                    {t("cards.timeline")}
                 </Typography>
                 <Paper variant="outlined">
                     <ButtonGroup size={isSmallScreen ? "small" : "medium"} onClick={(event) => setMode((event.target as HTMLButtonElement).value as Mode)}>
-                        <Button variant={mode === "week" ? "contained" : "outlined"} value="week">{t("page.project.time.week")}</Button>
-                        <Button variant={mode === "month" ? "contained" : "outlined"} value="month">{t("page.project.time.month")}</Button>
-                        <Button variant={mode === "quarter" ? "contained" : "outlined"} value="quarter">{t("page.project.time.quarter")}</Button>
-                        <Button variant={mode === "all" ? "contained" : "outlined"} value="all">{t("page.project.time.all")}</Button>
+                        <Button variant={mode === "week" ? "contained" : "outlined"} value="week">{t("time.week")}</Button>
+                        <Button variant={mode === "month" ? "contained" : "outlined"} value="month">{t("time.month")}</Button>
+                        <Button variant={mode === "quarter" ? "contained" : "outlined"} value="quarter">{t("time.quarter")}</Button>
+                        <Button variant={mode === "all" ? "contained" : "outlined"} value="all">{t("time.all")}</Button>
                     </ButtonGroup>
                 </Paper>
             </CardActions>

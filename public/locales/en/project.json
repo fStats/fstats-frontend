@@ -1,0 +1,28 @@
+{
+  "peek": "Peek",
+  "cards": {
+    "timeline": "Online",
+    "fabricapi": "Fabric API",
+    "loc": "Location",
+    "mc": "Minecraft Version",
+    "mode": "Online Mode",
+    "mod": "Mod Version",
+    "os": "Operating System"
+  },
+  "mode": {
+    "true": "Online",
+    "false": "Offline"
+  },
+  "os": {
+    "w": "Windows",
+    "m": "MacOS",
+    "l": "Linux",
+    "o": "Other"
+  },
+  "time": {
+    "week": "Week",
+    "month": "Month",
+    "quarter": "Quarter",
+    "all": "All"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "title": "fStats",
+  "root": {
+    "backalert": "Have a nice day :)",
+    "menu": {
+      "profile": "Profile",
+      "settings": "Settings",
+      "login": "Login",
+      "logout": "Logout"
+    },
+    "drawer": {
+      "home": "Home",
+      "getting": "Getting started",
+      "projects": "Projects catalogue",
+      "faq": "FAQ",
+      "terms": "Terms & Policy",
+      "favorites": "Favorites"
+    }
+  },
+  "server": {
+    "incorrect": "Incorrect username or password",
+    "notmatchrequirements": "Username or password not match requirements",
+    "created": "User created",
+    "exist": "Username already exist",
+    "empty": "Project name can't be empty",
+    "notmatch": "Project name doesn't match requirements",
+    "incorrectprojectid": "Incorrect project ID",
+    "notfound": "Project not found",
+    "nodata": "No data provided for update",
+    "requirements": "Project name not match requirements",
+    "userrequirements": "Username not match requirements",
+    "passrequirements": "Password not match requirements",
+    "incorrectid": "Project ID must be number",
+    "usernotfound": "User not found",
+    "something": "Something went wrong"
+  },
+  "chart": {
+    "client": "Client",
+    "server": "Server",
+    "mixed": "Mixed",
+    "count": "Count"
+  }
+}

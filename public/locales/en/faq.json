@@ -1,0 +1,17 @@
+{
+  "label": "Frequently asked questions",
+  "faq": {
+    "1": {
+      "question": "What data is collected from the user?",
+      "answer": "See our <redirect>Terms & Policy</redirect>."
+    },
+    "2": {
+      "question": "How to change or reset password?",
+      "answer": "There's no automatic option for that currently. Please contact us, so we can reset your password."
+    },
+    "3": {
+      "question": "Where can I find SVG or PNG?",
+      "answer": "Image can be generated using the <redirect>microservice</redirect>. <note>(Currently supports only timeline chart)</note>"
+    }
+  }
+}

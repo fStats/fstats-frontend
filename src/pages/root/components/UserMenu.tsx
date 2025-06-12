@@ -44,16 +44,16 @@ export default function UserMenu() {
                     handleClose();
                     navigate("/profile");
                 }}>
-                    {t("page.root.menu.profile")}
+                    {t("root.menu.profile")}
                 </MenuItem>
                 <MenuItem onClick={() => {
                     handleClose();
                     navigate("/settings");
                 }}>
-                    {t("page.root.menu.settings")}
+                    {t("root.menu.settings")}
                 </MenuItem>
                 <MenuItem onClick={logout}>
-                    {t("page.root.menu.logout")}
+                    {t("root.menu.logout")}
                 </MenuItem>
             </Menu>
         </>

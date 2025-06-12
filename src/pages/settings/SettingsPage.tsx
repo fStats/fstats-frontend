@@ -1,7 +1,7 @@
 import {Language, Palette} from "@mui/icons-material";
 import {Box, Card, CardContent, Tab, Tabs} from "@mui/material";
-import {t} from "i18next";
 import {useEffect, useState} from "react";
+import {useTranslation} from "react-i18next";
 
 import {useLabel} from "@hooks/useLabel";
 import {ChartPanel} from "@pages/settings/components/ChartPanel";
@@ -9,12 +9,14 @@ import {LanguagePanel} from "@pages/settings/components/LanguagePanel";
 import {TabPanel} from "@pages/settings/components/TabPanel";
 
 export const SettingsPage = () => {
+    
+    const {t} = useTranslation("settings");
 
     const [activeTab, setActiveTab] = useState(0);
 
     const {setLabel} = useLabel();
 
-    useEffect(() => setLabel(t("page.settings.label")), [setLabel]);
+    useEffect(() => setLabel(t("label")), [setLabel, t]);
 
     return (
         <Box>
@@ -27,12 +29,12 @@ export const SettingsPage = () => {
                     >
                         <Tab
                             icon={<Palette/>}
-                            label={t("page.settings.tab.chart")}
+                            label={t("tab.chart")}
                             iconPosition="start"
                         />
                         <Tab
                             icon={<Language/>}
-                            label={t("page.settings.tab.language")}
+                            label={t("tab.language")}
                             iconPosition="start"
                         />
                     </Tabs>

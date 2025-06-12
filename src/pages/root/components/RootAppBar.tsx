@@ -37,7 +37,7 @@ export default function RootAppBar(props: DrawerStateProps) {
                     <Menu />
                 </IconButton>
                 <Typography variant="h6" noWrap component="div" sx={{flexGrow: 1}}>{label}</Typography>
-                {isAuthorized ? <UserMenu/> : <Button color="inherit" component={Link} to="login">{t("page.root.menu.login")}</Button>}
+                {isAuthorized ? <UserMenu/> : <Button color="inherit" component={Link} to="login">{t("root.menu.login")}</Button>}
             </Toolbar>
         </AppBar>
     );

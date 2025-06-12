@@ -1,8 +1,7 @@
 import {ExpandMore, Forum} from "@mui/icons-material";
 import {Accordion, AccordionDetails, AccordionSummary, Card, Link as MUILink, Stack, Typography} from "@mui/material";
-import {t} from "i18next";
 import {useEffect} from "react";
-import {Trans} from "react-i18next";
+import {Trans, useTranslation} from "react-i18next";
 import {Link} from "react-router-dom";
 
 import {ExternalLink} from "@components/ExternalLink";
@@ -11,23 +10,24 @@ import {useLabel} from "@hooks/useLabel";
 export default function FaqPage() {
 
     const {setLabel} = useLabel();
+    const {t} = useTranslation("faq");
 
-    useEffect(() => setLabel(t("page.faq.label")), [setLabel]);
+    useEffect(() => setLabel(t("label")), [setLabel, t]);
 
     const faq = [
         {
-            question: "page.faq.1.question",
-            answer: <Trans i18nKey="page.faq.1.answer" components={{
+            question: "faq.1.question",
+            answer: <Trans i18nKey="faq.1.answer" ns="faq" components={{
                 redirect: <MUILink underline="none" component={Link} to="/terms-policy"/>
             }}/>,
         },
         {
-            question: "page.faq.2.question",
-            answer: <Trans i18nKey="page.faq.2.answer"/>
+            question: "faq.2.question",
+            answer: <Trans i18nKey="faq.2.answer" ns="faq"/>
         },
         {
-            question: "page.faq.3.question",
-            answer: <Trans i18nKey="page.faq.3.answer" components={{
+            question: "faq.3.question",
+            answer: <Trans i18nKey="faq.3.answer" ns="faq" components={{
                 redirect: <ExternalLink
                     underline="none"
                     href="https://fstats.github.io/fstats-image-generator-editor/"

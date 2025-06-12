@@ -1,0 +1,14 @@
+{
+  "label": "Authorization",
+  "welcomeback": "Welcome back {{username}}",
+  "emptyfield": "Some fields is empty",
+  "header": "Sign In",
+  "button": {
+    "login": "Sign In",
+    "register": "Register"
+  },
+  "field": {
+    "username": "Username",
+    "password": "Password"
+  }
+}

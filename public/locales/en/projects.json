@@ -1,0 +1,9 @@
+{
+  "label": "Projects catalogue",
+  "field": "Enter project name",
+  "empty": "No project available",
+  "table": {
+    "project": "Project name",
+    "owner": "Project owner"
+  }
+}
