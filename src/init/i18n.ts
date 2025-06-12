@@ -4,7 +4,18 @@ import HttpBackend from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
 
 export const repoBase = import.meta.env.BASE_URL || "/";
-export const supportedLanguages = ["en", "fi"];
+export const supportedLanguages = ["en"];
+export const namespaces = [
+    "common",
+    "gettingStarted",
+    "home",
+    "login",
+    "register",
+    "profile",
+    "faq",
+    "terms",
+    "settings",
+];
 
 export const initPromise = i18n
     .use(HttpBackend)
@@ -16,21 +27,7 @@ export const initPromise = i18n
         backend: {
             loadPath: `${repoBase}locales/{{lng}}/{{ns}}.json`,
         },
-        ns: [
-            "common",
-            "faq",
-            "gettingStarted",
-            "home",
-            "login",
-            "notfound",
-            "profile",
-            "project",
-            "projects",
-            "register",
-            "settings",
-            "shutdown",
-            "terms",
-        ],
+        ns: namespaces,
         defaultNS: "common",
         interpolation: {
             escapeValue: false,
