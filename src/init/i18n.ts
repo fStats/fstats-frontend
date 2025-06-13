@@ -7,14 +7,18 @@ export const repoBase = import.meta.env.BASE_URL || "/";
 export const supportedLanguages = ["en"];
 export const namespaces = [
     "common",
+    "faq",
     "gettingStarted",
     "home",
     "login",
-    "register",
+    "notfound",
     "profile",
-    "faq",
-    "terms",
+    "project",
+    "projects",
+    "register",
     "settings",
+    "shutdown",
+    "terms",
 ];
 
 export const initPromise = i18n
