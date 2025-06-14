@@ -20,7 +20,7 @@ jobs:
       - name: Find new language codes
         id: find_langs
         run: |
-          echo "## 📖 Checking for new languages..." >> $GITHUB_STEP_SUMMARY
+          echo "## Checking for new languages..." >> $GITHUB_STEP_SUMMARY
 
           existing_langs=$(git show origin/main:src/init/i18n.ts | grep 'supportedLanguages' | grep -oE '".*?"' | tr -d '"' | tr '\n' ' ')
           echo "Existing langs: $existing_langs"
@@ -68,7 +68,7 @@ jobs:
               reg_check="[x]"
             fi
 
-            body+="### 🌍 Language: \`$lang_code\`\n"
+            body+="### Language: \`$lang_code\`\n"
             body+="- $folder_check Created folder: \`public/locales/$lang_code/\`\n"
             body+="- $file_check Added \`common.json\`\n"
             body+="- $reg_check Registered in \`supportedLanguages\` in \`src/init/i18n.ts\`\n"
