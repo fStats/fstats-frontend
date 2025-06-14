@@ -1,0 +1,71 @@
+name: i18n Validation
+
+on:
+  pull_request:
+    paths:
+      - 'public/locales/**'
+      - 'src/init/i18n.ts'
+
+jobs:
+  i18n-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout PR branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect added language folders
+        id: detect
+        run: |
+          # Find added folders in locales
+          added_langs=$(git diff --name-status origin/${{ github.base_ref }}...HEAD |
+            awk '/^A/ && $2 ~ /^public\/locales\/[^/]+\/$/ {print $2}' |
+            cut -d'/' -f3 | sort -u)
+
+          echo "Detected languages:"
+          echo "$added_langs"
+
+          # Save to GitHub outputs
+          echo "langs=$added_langs" >> $GITHUB_OUTPUT
+
+      - name: Check for common.json in new folders
+        id: json_check
+        run: |
+          missing=""
+          for lang in ${{ steps.detect.outputs.langs }}; do
+            if [ ! -f "public/locales/$lang/common.json" ]; then
+              missing="$missing $lang"
+            fi
+          done
+
+          echo "Missing common.json in: $missing"
+          echo "missing_common=$missing" >> $GITHUB_OUTPUT
+
+      - name: Check if languages are registered in i18n.ts
+        id: registration_check
+        run: |
+          registered=$(grep -oP 'supportedLanguages\s*=\s*\[\K[^\]]+' src/init/i18n.ts | tr -d '" ' | tr ',' '\n')
+          missing=""
+          for lang in ${{ steps.detect.outputs.langs }}; do
+            echo "$registered" | grep -qx "$lang" || missing="$missing $lang"
+          done
+
+          echo "Not registered in i18n.ts: $missing"
+          echo "missing_registration=$missing" >> $GITHUB_OUTPUT
+
+      - name: Comment on PR with results
+        uses: peter-evans/create-or-update-comment@v4
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            **i18n Language Folder Validation Report**
+
+            Detected new language folders: `${{ steps.detect.outputs.langs }}`
+
+            - **Missing `common.json`**: `${{ steps.json_check.outputs.missing_common || 'None' }}`
+            - **Missing in `supportedLanguages`**: `${{ steps.registration_check.outputs.missing_registration || 'None' }}`
+
+            Please make the necessary updates to proceed with the translation PR.  
+            _Thank you for contributing to fStats!_
