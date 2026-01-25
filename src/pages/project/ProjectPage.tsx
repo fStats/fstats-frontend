@@ -79,7 +79,7 @@ export function ProjectPage() {
     const {colors} = useSettings();
 
     useEffect(() => {
-        if (projectId <= 0) return navigate("projects");
+        if (projectId <= 0) navigate("projects");
     }, [navigate, projectId]);
 
     useEffect(() => {
